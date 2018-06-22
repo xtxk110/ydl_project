@@ -1,0 +1,30 @@
+/*右侧悬浮导航*/
+.rightnav{width:58px;height:295px;position:fixed;overflow:hidden;z-index:100;}/*left50%确保页面中间，左边距515大于页面内容的一半，确保在内容整体右侧外*/
+.rightnav a{display:block;text-indent:-9999px;overflow:hidden;height:59px; background:url(/Content/imgs/WebSite/right_nav.png) no-repeat;-webkit-transition:background 0.2s ease}
+.rightnav .an_1:hover{background-position:-58px 0}
+.rightnav .an_2{background-position:-116px 0}
+.rightnav .an_2:hover{background-position:-174px 0}
+.rightnav .an_3{background-position:-232px 0}
+.rightnav .an_3:hover{background-position:-290px 0}
+.rightnav .an_4{background-position:-348px 0}
+.rightnav .an_4:hover{background-position:-406px 0}
+.rightnav .an_5{background-position:-464px 0}
+.rightnav .an_5:hover{background-position:-522px 0}
+
+/*鼠标移上的DIV样式*/
+#navDiv
+{
+    display:none;
+    position:fixed;
+    z-index:100;
+    font-weight:bold;
+    color:#2b2d47;
+}
+#navDiv .title
+{
+    font-size:14px;
+}
+#navDiv .content
+{
+    font-size:18px;
+}

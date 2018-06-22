@@ -1,0 +1,187 @@
+﻿@using YDL.Model;
+@using YDL.Web;
+@using YDL.Utility;
+@model GameOrder
+
+@{
+    ViewBag.Title = "比赛轮次";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+    <style type="text/css">
+        .inputSize{
+            width:350px;
+            padding-top:5px;
+        }
+
+        .groupBlock {
+            margin-bottom:15px;
+            width:130px;
+            height:40px;
+            background:#7cd2f8;
+            line-height:40px;
+            text-align:center;
+            border:1px solid #808080;
+        }
+
+        .groupBlock .badge {
+            color: #337ab7;
+            background-color: #fff;
+        }
+    </style>
+}
+
+@section Body{
+@if (ViewBag.GameStateId == GameState.PREPARE.Id && ViewBag.IsCreator)
+{ 
+<div style="width:500px;margin:0 auto;">
+    <div style="float:left;">
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanGroupCount">&#12288;小组数</span>
+            <select name="txGroupCount" id="txGroupCount" class="selectpicker form-control" value="@Model.GroupCount">
+                <option value="2">2个组</option>
+                <option value="4">4个组</option>
+                <option value="8">8个组</option>
+                @*<option value="16">16个组</option>
+                <option value="32">32个组</option>
+                <option value="64">64个组</option>*@
+            </select>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanRankNum">晋级名次</span>
+            <select name="txRankNum" id="txRankNum" class="selectpicker form-control" value="@Model.KnockoutCount">
+                <option value="2">前2名</option>
+                <option value="4">前4名</option>
+            </select>
+        </div>
+    </div>
+    <div style="float:left;">
+        <div class="btn-group" role="group" style="padding:44px 0 0 5px;">
+            <button type="button" class="btn btn-default" id="btnCreateOrder">生成轮次图</button>
+        </div>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+}
+<div id="dvMain" style="height:570px;overflow:auto;margin-top:20px;">
+    <div id="divGroup" style="float:left;margin-left:30px;">
+    @if (Model.GroupCount > 0)
+    {
+        var winStr = "";
+        if (Model.IsTeam && Model.WinTeam > 0)
+        {
+            winStr += "团队胜" + Model.WinTeam + "场,";
+        }
+        if (Model.WinGame > 0)
+        {
+            winStr += "每场胜" + Model.WinGame + "局";
+        }
+        
+        <div style="font-size:12px;">
+            <span>@Model.Name</span>
+            @if (ViewBag.GameStateId == GameState.PREPARE.Id && ViewBag.IsCreator)
+            {
+                <a href="javascript:void(0);" onclick="takeOut()">抽签</a>
+                <a href="javascript:void(0);" onclick="orderWin('@(Model.Id)','@(Model.Name)')">设置胜场</a>
+            }
+            @if (!string.IsNullOrEmpty(winStr))
+            { 
+                <p style="font-size:10px;color:#ccc;">@winStr</p>
+            }
+        </div>
+        foreach (var g in Model.GroupList)
+        {
+            var memberNames = "";
+            foreach (var m in g.MemberList)
+            {
+                if (memberNames == "")
+                {
+                    memberNames += m.TeamId.GetLinkName();
+                }
+                else
+                {
+                    memberNames += "\r" + m.TeamId.GetLinkName();
+                }
+            }
+            <div class="groupBlock">@g.Name<span class="badge" title="@memberNames">@(g.MemberList.Count == 0 ? "" : g.MemberList.Count.ToString())</span></div>
+        }
+    }
+    </div>
+    <div style="float:left;margin-left:30px;">
+        <iframe id="topPic" scrolling="auto" style="width:1100px;height:560px;" frameborder="no" cachesrc="@ViewHelper.BuildPath("~/Game/GameOrderTopology/?gameId=" + Model.GameId + "&firstCount=")"></iframe>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+}
+
+@section Script{
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        @if(!string.IsNullOrEmpty(Model.Id))
+        {
+            <text>
+            $('#txGroupCount').val($('#txGroupCount').attr('value'));
+            $('#txRankNum').val($('#txRankNum').attr('value'));
+            </text>
+        }
+
+        @if(Model.KnockoutCount>0)
+        {
+            if (ViewBag.KnockoutId == KnockoutOption.ROUND_KNOCKOUT.Id)//小组后循环
+            {
+                @:$('#topPic').attr('src',$('#topPic').attr('cachesrc')+@(Model.GroupCount*Model.KnockoutCount/2));
+            }
+            else if (ViewBag.KnockoutId == KnockoutOption.KNOCKOUT.Id)//淘汰赛
+            {
+                @:$('#topPic').attr('src',$('#topPic').attr('cachesrc')+@(Model.GroupCount));
+            }
+        }
+    })
+    .click(function (e) {
+        var id = e.target.id;
+        if (id == 'btnCreateOrder') {
+            var data = { gameId: '@Model.GameId', knockoutId: '@Model.KnockoutOption', groupCount: $('#txGroupCount').val(), knockoutCount: $('#txRankNum').val() };
+            @if (Model.KnockoutOption == KnockoutOption.ROUND_KNOCKOUT.Id)
+            {
+                @:data.knockoutId = '@KnockoutOption.ROUND.Id';
+            }
+
+            $.post(convertUrl('~/Game/GameOrderCreate/'), data, function (res) {
+
+                if (!res.IsSuccess) {
+                    top.errorBox(res.Message);
+                } else {
+                    top.successBox('生成成功！');
+                    location.reload(); 
+                }
+
+            }, 'JSON');
+        }
+    })
+
+    function takeOut(){
+        top.openDialog({
+            title: '抽签',
+            url: convertUrl('~/Game/GameOrderTakeout/?gameId=@Model.GameId'),
+            width: 1200,
+            height: 700,
+            callback: null
+        });
+    }
+
+    function orderWin(orderId,ordername){
+        top.openDialog({
+            title: ordername + '胜场设置',
+            url: convertUrl('~/Game/GameOrderWinSettings/?orderId=') + orderId + '&isTeam=@(Model.IsTeam.ToString().ToLower())',
+            width: 350,
+            height: 170,
+            callback: function(){
+                location.reload();
+            }
+        });
+    }
+</script> 
+}
+

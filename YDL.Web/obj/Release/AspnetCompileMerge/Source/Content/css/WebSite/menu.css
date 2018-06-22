@@ -1,0 +1,18 @@
+﻿#nav li{list-style-type: none;float: left; font-size:18px;height: 60px;line-height:60px;vertical-align: middle;} 
+#nav li a{color:#808080;display: block; width: 83px; text-align:center} 
+#nav li a:link {color:#808080;text-decoration:none} 
+#nav li a:visited {color:#808080;text-decoration:none} 
+#nav li a:hover{ background:#f0f1f1;color:#209eff;text-decoration:none;} 
+        
+#nav li ul{float: left; line-height: 39px;  list-style-type: none;text-align:left;left: -999em; width: 140px; position: absolute;
+            padding-top:9px;background: url("/Content/imgs/WebSite/menu2top.png") no-repeat 30px 1px;z-index:100;} 
+#nav li ul li{width: 140px;background:#1d1e1f;font-size:14px;border-bottom:1px solid #c9c9c9;} 
+ 
+ 
+#nav li ul a{color:#fff;display: block; width: 115px;text-align:left;padding-left:24px; overflow:hidden} 
+#nav li ul a:link {color:#fff;text-decoration:none} 
+#nav li ul a:visited {color:#fff;text-decoration:none} 
+#nav li ul a:hover {color:#209eff;text-decoration:none;font-weight:normal;background:#1d1e1f;} 
+ 
+#nav li:hover ul{left: auto} 
+#nav li.sfhover ul{left: auto}

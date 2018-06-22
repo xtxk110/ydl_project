@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>首页</title>
+    <link type="text/css" rel="stylesheet" href="/Content/css/index.css" />
+    <link type="text/css" rel="stylesheet" href="/Content/css/swiper.min.css" />
+    <script type="text/javascript" src="/Scripts/js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="/Scripts/js/swiper.min.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="banner_bg">
+            @Html.Partial("public_nav")
+        </div>
+
+        <div class="down">
+            <div class="fl">
+                <span class="ft18">关注最新消息</span>    
+                <h1 class="ft26">下载移动端</h1>
+            </div>
+            <ul class="fl">
+                <li>
+                    <a href="#"><img src="/Content/images/App-Store.png" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="/Content/images/Android.png" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="/Content/images/QR-Code.png" alt="" /></a>
+                    <div>
+                        <img src="/Content/images/APP_Download.png" alt="Alternate Text" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="banner">
+            <div class="banner fl">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="/Content/images/pic_a.png" alt="Alternate Text" /></div>
+                        <div class="swiper-slide"><img src="/Content/images/pic_b.png" alt="" /></div>
+                        <div class="swiper-slide"><img src="/Content/images/pic_a.png" alt="" /></div>
+                        <div class="swiper-slide"><img src="/Content/images/pic_b.png" alt="" /></div>
+                        <div class="swiper-slide"><img src="/Content/images/pic_a.png" alt="" /></div>
+                        <div class="swiper-slide"><img src="/Content/images/pic_b.png" alt="" /></div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="more fl">
+                <h1 class="ft20">民心教练</h1>
+                <p class="ft16">悦动力乒乓教学平台</p>
+                <p class="ft16">互联网式创新选择 时间你定，地点你选  可视化教学，教练上门服务</p>
+                <p class="ft16">孩子成长轨迹，家长点滴可见</p>
+                <a href="" class="ft16">查看更多</a>
+            </div>
+        </div>
+
+        <div class="match">
+            <div class="match_box">
+                <h1 class="ft28">2018年“一带一路”春天印象</br>成都国际乒乓球业余公开赛</h1>
+                <img src="/Content/images/rule.png" alt="" />
+                <p class="ft20">2018年3月23至25日，2018年“一带一路”春天印象成都国际乒乓球公开赛（乐山站）在四川省乐山市乐山职工乒乓球活动中心举行。该赛由中国乒乓球协会，四川省体育局，成都市人民政府主办，成都体育局，四川省乒乓球协会，乐山市旅游和体育发展委员会承办。</p>
+                <p class="ft20">24日上午9点，比赛举行开幕仪式，四川乒乓球协会副主席兼秘书长，四川省乒乓球项目负责人，成都市乒乓球协会主席代天云，乐山市总工会党......</p>
+                <a href="" class="ft16">查看更多</a>
+            </div>
+        </div>
+
+        <div class="sports">
+            <div class="sports_box">
+                <h1 class="ft30">您的运动管家</h1>
+                <p class="ft18">公司秉承“唤起运动激情、享受健康快乐”的理念， 力争做领先的新时代运动管理服务商。</p>
+                <div>
+                    <img src="/Content/images/download.png" alt="" class="download" />
+                    <img src="/Content/images/APP_Download.png" alt="Alternate Text" class="xianshi"/>
+                </div>
+            </div>
+        </div>
+
+        @Html.Partial("public")
+    </div>
+
+    <script type="text/javascript">
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            slidesPerView: 2,
+            paginationClickable: true,
+            spaceBetween: 30,
+            autoplay: 3000
+        });
+    </script>
+</body>
+</html>

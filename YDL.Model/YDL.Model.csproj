@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AAFA5885-DBBB-402C-9C2A-B5AA7C4D5F09}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YDL.Model</RootNamespace>
+    <AssemblyName>YDL.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\YDL.Model.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity\Activity.cs" />
+    <Compile Include="BaseData\LiveDic.cs" />
+    <Compile Include="BaseData\FileType.cs" />
+    <Compile Include="BaseData\BusinessType.cs" />
+    <Compile Include="BaseData\GuessDic.cs" />
+    <Compile Include="BaseData\QRCodeActionType.cs" />
+    <Compile Include="BaseData\CoachDic.cs" />
+    <Compile Include="BaseData\SystemDic.cs" />
+    <Compile Include="BaseData\TeamScoreMode.cs" />
+    <Compile Include="Coacher\CoachBootcampStudent.cs" />
+    <Compile Include="Coacher\CoachLeave.cs" />
+    <Compile Include="Coacher\CoachApply.cs" />
+    <Compile Include="Coacher\Coach.cs" />
+    <Compile Include="Coacher\CoachCourseExtend.cs" />
+    <Compile Include="Coacher\CoachCoursePersonInfo.cs" />
+    <Compile Include="Coacher\CoachCommentStudent.cs" />
+    <Compile Include="Coacher\CoachTrainingPlan.cs" />
+    <Compile Include="Coacher\CoachFrequentStudent.cs" />
+    <Compile Include="Coacher\CoachStudentBalance.cs" />
+    <Compile Include="Coacher\CoachStudentRemark.cs" />
+    <Compile Include="Coacher\CoachCourse.cs" />
+    <Compile Include="Coacher\CourseTime.cs" />
+    <Compile Include="Coacher\Syllabus.cs" />
+    <Compile Include="Coacher\CoachPrice.cs" />
+    <Compile Include="Coacher\CoachBigCourseInfo.cs" />
+    <Compile Include="Coacher\CoachBootcampSyllabus.cs" />
+    <Compile Include="Coacher\CoachBootcampCourse.cs" />
+    <Compile Include="Coacher\CoachBootcamp.cs" />
+    <Compile Include="Coacher\CoachBootcampCourseJoin.cs" />
+    <Compile Include="Coacher\TrainActivity.cs" />
+    <Compile Include="Filter\GetClubRelatedFilter.cs" />
+    <Compile Include="Filter\GetGuessRelatedFilter.cs" />
+    <Compile Include="Filter\GetTVRelatedFilter.cs" />
+    <Compile Include="Filter\GetUserRelatedFilter.cs" />
+    <Compile Include="Filter\Venue\GetVenueRelatedFilter.cs" />
+    <Compile Include="Game\GameLoopOrderNo.cs" />
+    <Compile Include="Game\GamePersonaRank.cs" />
+    <Compile Include="Game\GameRankFilter.cs" />
+    <Compile Include="Game\LoopTemplet\GameLoopMapNew.cs" />
+    <Compile Include="Game\LoopTemplet\GameTeamLoopTemplet.cs" />
+    <Compile Include="Game\LoopTemplet\GameTeamLoopTempletDetail.cs" />
+    <Compile Include="Game\LoopTemplet\GameTeamLoopTempletFilter.cs" />
+    <Compile Include="Game\LoopTemplet\GameTeamLoopTempletMap.cs" />
+    <Compile Include="Guess\GuessBet.cs" />
+    <Compile Include="Guess\GuessVS.cs" />
+    <Compile Include="Guess\GuessScore.cs" />
+    <Compile Include="Guess\Guess.cs" />
+    <Compile Include="IM\CustomInfo.cs" />
+    <Compile Include="IM\IMGroupMember.cs" />
+    <Compile Include="IM\IMGroup.cs" />
+    <Compile Include="IM\AccountImport.cs" />
+    <Compile Include="IM\IMMessageResult.cs" />
+    <Compile Include="IM\IMToken.cs" />
+    <Compile Include="IM\MessageBody.cs" />
+    <Compile Include="IM\MessageContent.cs" />
+    <Compile Include="IM\DataInfo.cs" />
+    <Compile Include="IM\MessageInfo.cs" />
+    <Compile Include="IM\MessageResultBase.cs" />
+    <Compile Include="IM\SystemMessageType.cs" />
+    <Compile Include="IM\MessageType.cs" />
+    <Compile Include="IM\PeopleInfo.cs" />
+    <Compile Include="IM\PeopleSetInfo.cs" />
+    <Compile Include="Guess\YueDouRank.cs" />
+    <Compile Include="Guess\YueDouFlow.cs" />
+    <Compile Include="Guess\YueDou.cs" />
+    <Compile Include="Limit\EnumDescription.cs" />
+    <Compile Include="Limit\Limit.cs" />
+    <Compile Include="Limit\LimitBaseData.cs" />
+    <Compile Include="Limit\LimitDetail.cs" />
+    <Compile Include="Limit\LimitFilter.cs" />
+    <Compile Include="Limit\LimitModelFilter.cs" />
+    <Compile Include="Limit\LimitName.cs" />
+    <Compile Include="Limit\LimitRole.cs" />
+    <Compile Include="Limit\LimitRoleUserMap.cs" />
+    <Compile Include="Limit\RightModuleViewType.cs" />
+    <Compile Include="Limit\RightModuleSpecialType.cs" />
+    <Compile Include="Limit\RightModuleOpType.cs" />
+    <Compile Include="Limit\OperationRightType.cs" />
+    <Compile Include="Live\LiveState.cs" />
+    <Compile Include="Live\LiveRoom.cs" />
+    <Compile Include="Filter\GetLiveRelatedFilter.cs" />
+    <Compile Include="Organization\Organization.cs" />
+    <Compile Include="Organization\OrganizationFilter.cs" />
+    <Compile Include="Organization\OrganizationUser.cs" />
+    <Compile Include="System\WeiXinUserInfo.cs" />
+    <Compile Include="TV\NationalFlag.cs" />
+    <Compile Include="TV\TVInfo.cs" />
+    <Compile Include="TV\TVConfig.cs" />
+    <Compile Include="User\ScoreGrade.cs" />
+    <Compile Include="User\ScoreHistory.cs" />
+    <Compile Include="User\UserContactList.cs" />
+    <Compile Include="Coacher\CoacherTeachingPointCoaches.cs" />
+    <Compile Include="Coacher\CoachOrganization.cs" />
+    <Compile Include="Coacher\CoachIncome.cs" />
+    <Compile Include="Coacher\CoachOrderTrialCourse.cs" />
+    <Compile Include="Coacher\TeachingPoint.cs" />
+    <Compile Include="Coacher\CoacherApply.cs" />
+    <Compile Include="Coacher\CoacherComment.cs" />
+    <Compile Include="Coacher\CoacherCourseJoin.cs" />
+    <Compile Include="Coacher\CoacherCourseTime.cs" />
+    <Compile Include="Coacher\CoachStudent.cs" />
+    <Compile Include="Coacher\BalanceCourse.cs" />
+    <Compile Include="Coacher\CoachStudentMoneyNotPay.cs" />
+    <Compile Include="Coacher\CoachStudentMoney.cs" />
+    <Compile Include="Coacher\CoacherPrice.cs" />
+    <Compile Include="Coacher\Coacher.cs" />
+    <Compile Include="Filter\Coacher\GetSystemManageRelatedFilter.cs" />
+    <Compile Include="Filter\Coacher\GetCoachRelatedFilter.cs" />
+    <Compile Include="Filter\GeActivityUserListFilter.cs" />
+    <Compile Include="BaseData\ActivityRateType.cs" />
+    <Compile Include="BaseData\ActivityState.cs" />
+    <Compile Include="BaseData\ActivityType.cs" />
+    <Compile Include="Activity\ActivityUser.cs" />
+    <Compile Include="BaseData\BillType.cs" />
+    <Compile Include="BaseData\CostType.cs" />
+    <Compile Include="BaseData\ErrorCode.cs" />
+    <Compile Include="BaseData\GameLoopState.cs" />
+    <Compile Include="BaseData\GameOrderState.cs" />
+    <Compile Include="BaseData\GameState.cs" />
+    <Compile Include="BaseData\GameTeamState.cs" />
+    <Compile Include="BaseData\KnockOutAB.cs" />
+    <Compile Include="BaseData\NameOption.cs" />
+    <Compile Include="BaseData\PayOption.cs" />
+    <Compile Include="BaseData\PayState.cs" />
+    <Compile Include="BaseData\SerialNoType.cs" />
+    <Compile Include="BaseData\TeamMode.cs" />
+    <Compile Include="BaseData\VipBillState.cs" />
+    <Compile Include="Filter\Game\GetGameGroupLoopListFilter.cs" />
+    <Compile Include="Filter\IM\GetIMRelatedFilter.cs" />
+    <Compile Include="Filter\Game\GetGameLoopListFilter.cs" />
+    <Compile Include="Filter\Game\GetGameTableListFilter.cs" />
+    <Compile Include="Filter\GetUserScoreHistoryListFilter.cs" />
+    <Compile Include="Filter\Venue\GetVenueCoachStatisticsFilter.cs" />
+    <Compile Include="Filter\Venue\GetVenueTimetablesListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipRelatedFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipDayBookFilter.cs" />
+    <Compile Include="Filter\QueryBillReportFilter.cs" />
+    <Compile Include="Filter\QueryRechargeReportFilter.cs" />
+    <Compile Include="Game\GameTable.cs" />
+    <Compile Include="Note\NoteCreatorHide.cs" />
+    <Compile Include="Note\NoteHide.cs" />
+    <Compile Include="Pay\WeixinPayReq.cs" />
+    <Compile Include="System\RequestAppStore.cs" />
+    <Compile Include="System\QRCode.cs" />
+    <Compile Include="System\SysDic.cs" />
+    <Compile Include="System\WhistleBlowing.cs" />
+    <Compile Include="System\CompanyVenues.cs" />
+    <Compile Include="System\ContactCategory.cs" />
+    <Compile Include="Coacher\CoachUserFavorite.cs" />
+    <Compile Include="User\UserMyPagePermission.cs" />
+    <Compile Include="User\UserRole.cs" />
+    <Compile Include="Venue\VenueIncome.cs" />
+    <Compile Include="Venue\VenueSignInOut.cs" />
+    <Compile Include="Venue\VenueDiscount.cs" />
+    <Compile Include="User\UserScoreHistory.cs" />
+    <Compile Include="Vip\BillReport.cs" />
+    <Compile Include="Vip\RechargeReport.cs" />
+    <Compile Include="Vip\VipBill.cs" />
+    <Compile Include="Vip\VipBillDetail.cs" />
+    <Compile Include="Vip\VipPayInfo.cs" />
+    <Compile Include="Vip\VipCostScale.cs" />
+    <Compile Include="BaseData\VipRefoundState.cs" />
+    <Compile Include="Club\ClubAddress.cs" />
+    <Compile Include="Filter\CreateVipVenueBillFilter.cs" />
+    <Compile Include="Filter\GetActivityListFilter.cs" />
+    <Compile Include="Filter\GetCityListFilter.cs" />
+    <Compile Include="Filter\GetClubListFilter.cs" />
+    <Compile Include="Filter\GetClubUserListFilter.cs" />
+    <Compile Include="Filter\GetCompanyListFilter.cs" />
+    <Compile Include="Filter\GetDynamicVenueBillFilter.cs" />
+    <Compile Include="Filter\Game\GetGameJudgeLoopListFilter.cs" />
+    <Compile Include="Filter\GetMsgListFilter.cs" />
+    <Compile Include="BaseData\KnockoutOption.cs" />
+    <Compile Include="BaseData\MasterType.cs" />
+    <Compile Include="BaseData\UserType.cs" />
+    <Compile Include="BaseData\TTBattleStyle.cs" />
+    <Compile Include="BaseData\AuditState.cs" />
+    <Compile Include="BaseData\VipCardType.cs" />
+    <Compile Include="BaseData\WaiverOption.cs" />
+    <Compile Include="Club\ClubRequest.cs" />
+    <Compile Include="BaseData\ClubRequestState.cs" />
+    <Compile Include="Common\Exception\CustomExceptionType.cs" />
+    <Compile Include="Common\Exception\YdlCustomException.cs" />
+    <Compile Include="Core\EntityPair.cs" />
+    <Compile Include="Core\FilterBase.cs" />
+    <Compile Include="Core\HeadBase.cs" />
+    <Compile Include="Filter\Game\GetGameGroupListFilter.cs" />
+    <Compile Include="Filter\Game\GetGameListFilter.cs" />
+    <Compile Include="Filter\Game\GetGameLoopDetailListFilter.cs" />
+    <Compile Include="Filter\Game\GetGameOrderLoopListFilter.cs" />
+    <Compile Include="Filter\Game\GetGameTeamListFilter.cs" />
+    <Compile Include="Filter\GetNoteListFilter.cs" />
+    <Compile Include="Filter\GetNoteReplyListFilter.cs" />
+    <Compile Include="Filter\GetUserLimitListFilter.cs" />
+    <Compile Include="Filter\GetUserListFilter.cs" />
+    <Compile Include="Filter\GetUserSignListFilter.cs" />
+    <Compile Include="Filter\Venue\GetVenueListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipAccountListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipBuyListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipDiscountListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipInnerDiscountListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipRefundListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipUseListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipVenueBillDetailListFilter.cs" />
+    <Compile Include="Filter\Vip\GetVipVenueBillListFilter.cs" />
+    <Compile Include="Game\GameJudge.cs" />
+    <Compile Include="Game\GameOrder.cs" />
+    <Compile Include="Game\GameLoopMap.cs" />
+    <Compile Include="Game\GamePosition.cs" />
+    <Compile Include="Game\GameProgress.cs" />
+    <Compile Include="Game\GameSign.cs" />
+    <Compile Include="Msg\Msg.cs" />
+    <Compile Include="Msg\MsgReg.cs" />
+    <Compile Include="Pay\PayInfo.cs" />
+    <Compile Include="System\AppVersion.cs" />
+    <Compile Include="Club\Club.cs" />
+    <Compile Include="Club\ClubHonor.cs" />
+    <Compile Include="Club\ClubUser.cs" />
+    <Compile Include="BaseData\BaseData.cs" />
+    <Compile Include="System\Config.cs" />
+    <Compile Include="BaseData\DeviceType.cs" />
+    <Compile Include="System\FileInfo.cs" />
+    <Compile Include="Core\IdNamePair.cs" />
+    <Compile Include="System\InnerInfo.cs" />
+    <Compile Include="System\Company.cs" />
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\GameGroup.cs" />
+    <Compile Include="Game\GameLoop.cs" />
+    <Compile Include="Game\GameLoopDetail.cs" />
+    <Compile Include="Game\GameGroupMember.cs" />
+    <Compile Include="Game\GameTeam.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\City.cs" />
+    <Compile Include="Note\Note.cs" />
+    <Compile Include="Note\NoteReply.cs" />
+    <Compile Include="Note\NoteSupport.cs" />
+    <Compile Include="System\OnlineUser.cs" />
+    <Compile Include="System\SportType.cs" />
+    <Compile Include="BaseData\GripOption.cs" />
+    <Compile Include="BaseData\ProType.cs" />
+    <Compile Include="System\SysLog.cs" />
+    <Compile Include="System\Transfer.cs" />
+    <Compile Include="System\MobileValCode.cs" />
+    <Compile Include="System\ValidationResult.cs" />
+    <Compile Include="System\UserSign.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="User\UserFriend.cs" />
+    <Compile Include="User\UserLimit.cs" />
+    <Compile Include="User\UserLimitRequst.cs" />
+    <Compile Include="User\UserSport.cs" />
+    <Compile Include="Venue\Venue.cs" />
+    <Compile Include="Vip\VipDayBook.cs" />
+    <Compile Include="Vip\VipRechargeScale.cs" />
+    <Compile Include="Vip\VipUse.cs" />
+    <Compile Include="Vip\VipAccount.cs" />
+    <Compile Include="Vip\VipBuy.cs" />
+    <Compile Include="Vip\VipRefund.cs" />
+    <Compile Include="WebSite\BannerInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YDL.Core\YDL.Core.csproj">
+      <Project>{0e7e1ccf-b007-4646-83f8-0d6f861338e9}</Project>
+      <Name>YDL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YDL.Utility\YDL.Utility.csproj">
+      <Project>{0cfbd64b-756e-4ce4-91fc-b4abf817d18b}</Project>
+      <Name>YDL.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ServiceList.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

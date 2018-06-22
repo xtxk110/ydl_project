@@ -1,0 +1,6 @@
+E:\开发项目\vscode\qcloudsms_csharp\bin\Release\qcloudsms_csharp.dll
+E:\开发项目\vscode\qcloudsms_csharp\bin\Release\qcloudsms_csharp.pdb
+E:\开发项目\vscode\qcloudsms_csharp\bin\Release\Newtonsoft.Json.dll
+E:\开发项目\vscode\qcloudsms_csharp\obj\Release\qcloudsms_csharp.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\qcloudsms_csharp\obj\Release\qcloudsms_csharp.dll
+E:\开发项目\vscode\qcloudsms_csharp\obj\Release\qcloudsms_csharp.pdb

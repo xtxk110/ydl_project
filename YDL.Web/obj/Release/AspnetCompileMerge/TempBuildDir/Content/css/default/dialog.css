@@ -1,0 +1,91 @@
+﻿.ui-widget-dialog
+{
+    position:fixed;
+    top:1px;
+    left:1px;    
+    border:solid 1px #cacacb;
+    background-color:#fff;
+    overflow:hidden;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    border-radius: 3px;
+    
+}
+.ui-widget-dialog-title
+{
+    height:35px;
+    line-height:35px;
+    font-weight:bold;
+    padding-left:10px;
+    color:#323232;    
+    background-color:#f5f5f5;
+    border-bottom:solid 1px #cacacb;
+    position:relative;
+}
+.ui-widget-dialog-titlebtns
+{
+    width:30px;
+    height:30px;
+    line-height:20px;
+    position:absolute;
+    right:5px;
+    top:3px;
+}
+.ui-widget-dialog-titlebtns .button
+{
+    border:none;
+    background-color:Transparent;
+}
+.mark
+{
+    width:100%;
+    height:100%;
+    position:fixed;
+    top:0px;
+    left:0px;
+    background-color:#000;
+    filter:alpha(opacity=10);
+    opacity:0.1;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    
+    
+}
+.ui-widget-dialog-msg
+{
+    color:#323232; 
+    margin-bottom:10px;
+    line-height:25px;
+    padding:5px;
+}
+.ui-widget-dialog-btnbar
+{
+    text-align:center;
+    padding:5px 0px 5px 0px;
+}
+.ui-widget-dialog_btn
+{
+    width:60px;
+    height:25px;
+    font-size:14px;
+    background-color:#7CC82B;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    text-align:center;
+}
+.waitbox
+{
+    background-color:#fff;
+    height:25px;
+    line-height:25px;
+    position:absolute;
+    color:#999;
+    padding:0px 10px 0px 10px;
+    font-size:14px;
+    top:45%;
+    left:45%;
+    
+}

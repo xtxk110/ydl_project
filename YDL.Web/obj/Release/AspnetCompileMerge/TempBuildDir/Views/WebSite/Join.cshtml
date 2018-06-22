@@ -1,0 +1,82 @@
+﻿@using YDL.Web;
+@using YDL.Model;
+@model MenuInfo
+
+@{
+    ViewBag.Title = "加入我们";
+    Layout = "~/Views/Shared/_LayoutWebsite.cshtml";
+}
+
+@section Keywords
+{
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+}
+@section Style{
+    <style type="text/css">
+        #divJob a{color:#3d3d3d;text-decoration:none;}
+        #divJob a:link{color:#3d3d3d;} 
+        #divJob a:visited{color:#3d3d3d;} 
+        #divJob a:hover{ color:#209eff;}
+    </style>
+}
+@section featured {
+    <!-- banner -->
+    <div class="bannerImg2" style="background: url('/Content/imgs/WebSite/banner/banner_product.jpg') no-repeat center;"></div>
+    <div>
+        <div style="width:1200px;margin:0 auto;">
+            <div style="margin-top:64px;font-size:24px;">
+                <span style="color:#333;margin-right:114px">
+                    公司简介
+                </span>
+                <span style="color:#333;margin-right:114px">
+                    新闻动态
+                </span>
+                <span style="color:#209eff;">
+                    加入我们
+                </span>
+            </div>
+            <div style="margin-top:10px;height:4px;background: url('/Content/imgs/WebSite/about/line.png');"></div>
+            <div style="margin-top:66px;font-size:24px;color:#333;background: url('/Content/imgs/WebSite/about/company.png') no-repeat 0 center;text-indent:34px;">
+                加入我们
+            </div>
+            <div style="margin-top:28px;margin-bottom:30px;text-indent:34px;font-size:18px;color:#848484;">
+                <span>诚聘英才</span>
+                <span style="margin-left:54px;">电话：028-67175717</span>
+                <span style="margin-left:54px;">邮箱：cdydl.6-9@gotopsports.com</span>
+            </div>
+            <div style="height:72px;line-height:72px;background: url('/Content/imgs/WebSite/about/line.png');color:#fff;font-size:18px;">
+                <span style="margin-left:26px;">招聘职位</span>
+                <span style="margin-left:240px;">招聘详情</span>
+            </div>
+            <div style="margin-bottom:88px;">
+                <div id="divJob" class="float-left" style="height:470px;width:240px;background-color:#f4f3f3;line-height:60px;font-size:18px;text-indent:26px;">
+                    <p><a href="javascript:void(0);">Android开发工程师</a></p>
+                    <p><a href="javascript:void(0);">软件测试工程师</a></p>
+                    <p><a href="javascript:void(0);">.net开发工程师</a></p>
+                    <p><a href="javascript:void(0);">市场部经理</a></p>
+                    <p><a href="javascript:void(0);">客服专员</a></p>
+                </div>
+                <div class="float-right" style="height:470px;width:954px;background-color:#f4f3f3;">
+                    <div style="margin-top:62px;margin-left:88px;height:400px;width:730px;font-size:14px;color:#848484;line-height:32px;">
+                        <p>职位描述：</p>
+                        <div style="text-indent:12px;">
+                            <p>1、深刻理解客户需求</p>
+                        </div>
+                        <p style="margin-top:30px;">职位要求：</p>
+                        <div style="text-indent:12px;">
+                            <p>1、本科以上学历，</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+    </script>
+}

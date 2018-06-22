@@ -1,0 +1,8 @@
+E:\开发项目\vscode\cn.jpush.api\bin\Debug\jpush-api.dll
+E:\开发项目\vscode\cn.jpush.api\bin\Debug\jpush-api.pdb
+E:\开发项目\vscode\cn.jpush.api\bin\Debug\Newtonsoft.Json.dll
+E:\开发项目\vscode\cn.jpush.api\bin\Debug\Newtonsoft.Json.pdb
+E:\开发项目\vscode\cn.jpush.api\bin\Debug\Newtonsoft.Json.xml
+E:\开发项目\vscode\cn.jpush.api\obj\Debug\cn.jpush.api.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\cn.jpush.api\obj\Debug\jpush-api.dll
+E:\开发项目\vscode\cn.jpush.api\obj\Debug\jpush-api.pdb

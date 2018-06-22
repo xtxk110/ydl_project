@@ -1,0 +1,17 @@
+INSERT INTO [Limit] ([Id], [RoleId], [LimitName], [LimitDetail],[Type], [CreateDate]) VALUES 
+(NEWID(), '000002', 'GameOper', 291,1, GETDATE()),
+(NEWID(), '000002', 'ActivityOper', 4387,1, GETDATE()),
+(NEWID(), '000002', 'ClubOper', 1, 1,GETDATE()),
+(NEWID(), '000002', 'VenueOper', 1059, 1,GETDATE()),
+(NEWID(), '000002', 'GuessAdd', 1, 3,GETDATE()),
+(NEWID(), '000001', 'GameOper', 871,1, GETDATE()),
+		(NEWID(), '000001', 'ActivityOper', 13159,1, GETDATE()),
+		(NEWID(), '000001', 'ClubOper', 1, 1,GETDATE()),
+		(NEWID(), '000001', 'VenueOper', 3303,1, GETDATE()),
+		(NEWID(), '000001', 'GuessAdd', 1,3, GETDATE()),
+		(NEWID(), '000001', 'LiveAdd', 1, 3,GETDATE())
+
+
+
+		--(NEWID(), "000001", "VenueStatistics", 1,3, GETDATE()),
+		---(NEWID(), "000001", "VenueGetMoney", 1,3, GETDATE()),

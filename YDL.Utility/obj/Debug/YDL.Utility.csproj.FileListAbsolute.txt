@@ -1,0 +1,11 @@
+E:\开发项目\vscode\YDL.Utility\bin\Debug\YDL.Utility.dll
+E:\开发项目\vscode\YDL.Utility\bin\Debug\YDL.Utility.pdb
+E:\开发项目\vscode\YDL.Utility\bin\Debug\Newtonsoft.Json.dll
+E:\开发项目\vscode\YDL.Utility\bin\Debug\NLog.dll
+E:\开发项目\vscode\YDL.Utility\bin\Debug\Newtonsoft.Json.pdb
+E:\开发项目\vscode\YDL.Utility\bin\Debug\Newtonsoft.Json.xml
+E:\开发项目\vscode\YDL.Utility\bin\Debug\NLog.xml
+E:\开发项目\vscode\YDL.Utility\obj\Debug\YDL.Utility.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\YDL.Utility\obj\Debug\YDL.Utility.dll
+E:\开发项目\vscode\YDL.Utility\obj\Debug\YDL.Utility.pdb
+E:\开发项目\vscode\YDL.Utility\obj\Debug\YDL.Utility.csprojResolveAssemblyReference.cache

@@ -1,0 +1,231 @@
+﻿@using YDL.Model;
+@using YDL.Core;
+@using YDL.Utility;
+@model List<EntityBase>
+
+@{
+    ViewBag.Title = "GameOrderTopology";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int tdWidth = 160, tdHeight = 40;
+    //淘汰赛第一轮比赛场数
+    double firstGames = ViewBag.FirstCount;
+
+    List<GameOrder> orderLst = (List<GameOrder>)ViewBag.GameOrderLst;
+}
+
+@section Style{
+    <style type="text/css">
+        td {
+            width:@(tdWidth)px;
+            height:@(tdHeight)px;
+        }
+        .block {
+            background-color:#7cd2f8;
+            font-weight:bold;
+            text-align:center;
+        }
+
+
+        .horLine{
+            height:1px;
+            border-top:1px solid #000;
+        }
+        .verLine{
+            width:@(tdWidth/2)px;
+            height:100%;
+            border-right:1px solid #000;
+        }
+
+
+        .fold {
+            width:@(tdWidth/2)px;
+            border-right:1px solid #000;
+        }
+        .foldDown {
+            height:@(tdHeight/2 + 1)px;
+            border-top:1px solid #000;
+        }
+        .foldUp {
+            height:@(tdHeight/2)px;
+            border-bottom:1px solid #000;
+        }
+    </style>
+}
+
+@section Body{
+    <table>
+    @{
+        bool flag;
+        bool isFaceDown;//拓扑图折线方向
+        int curBlockCol;
+        List<int> vLineColIndexLst = new List<int>();//需要画竖线的列
+        Dictionary<int,List<GameLoop>> orderLoopDic = new Dictionary<int,List<GameLoop>>();//每个轮次的对阵信息
+        string team1Name,team2Name,team1Score,team2Score;
+        GameLoop gameloop;
+        
+        for (var i = -1; i < firstGames * 2 - 1; i++)//i初始值-1，因为第一排显示轮次标题
+        {
+            flag = false;
+            curBlockCol = -100;
+            isFaceDown = true;
+            <tr>
+                @for (var j = 0; j < Math.Log(firstGames * 2, 2) * 2 - 1; j++)
+                {
+                    //轮次标题
+                    if (i == -1)
+                    {
+                        if (j % 2 == 0)
+                        {
+                            var orderLoopLst = new List<GameLoop>();
+                            foreach(GameLoop gl in Model)
+                            {
+                                if(gl.OrderId==orderLst[j / 2].Id)
+                                {
+                                    orderLoopLst.Add(gl);
+                                }
+                            }
+                            orderLoopDic.Add(j, orderLoopLst);
+                                
+                            <td style="font-size:12px;">
+                                <span>@orderLst[j / 2].Name</span>
+                                <a href="javascript:void(0);" onclick="orderWin('@(orderLst[j / 2].Id)','@(orderLst[j / 2].Name)')">设置胜场</a>
+                                @{
+                                var winStr = "";
+                                if (orderLst[j / 2].IsTeam && orderLst[j / 2].WinTeam > 0)
+                                {
+                                    winStr += "团队胜" + orderLst[j / 2].WinTeam + "场,";
+                                }
+                                if (orderLst[j / 2].WinGame > 0)
+                                {
+                                    winStr += "每场胜" + orderLst[j / 2].WinGame + "局";
+                                }
+                                }
+                                @if (!string.IsNullOrEmpty(winStr))
+                                {
+                                    <p style="font-size:10px;color:#ccc;">@winStr</p>
+                                }
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                    else
+                    {
+                        if (j % 2 == 0)
+                        {
+                            int n = j / 2;
+                            double m = 0;
+                            for (int k = 0; k < n; k++)
+                            {
+                                m += Math.Pow(2, k);
+                            }
+
+
+                            if (i >= m && (i - m) % Math.Pow(2, n + 1) == 0)
+                            {
+                                if (!flag)
+                                {
+                                    curBlockCol = j;
+                                    isFaceDown = ((i - m) / Math.Pow(2, n + 1)) % 2 == 0;
+
+                                    gameloop = orderLoopDic[j][0];
+                                    team1Name = string.IsNullOrEmpty(gameloop.Team1Id) ? "__" : gameloop.Team1Id.GetLinkName();
+                                    team2Name = string.IsNullOrEmpty(gameloop.Team2Id) ? "__" : gameloop.Team2Id.GetLinkName();
+                                    if (gameloop.State.GetLinkId() == GameLoopState.NOTSTART.Id)//未开始
+                                    {
+                                        team1Score = team2Score = "--";
+                                    }
+                                    else
+                                    {
+                                        if (gameloop.IsTeam)
+                                        {
+                                            team1Score = gameloop.Team1.ToString();
+                                            team2Score = gameloop.Team2.ToString();
+                                        }
+                                        else
+                                        {
+                                            team1Score = gameloop.Game1.ToString();
+                                            team2Score = gameloop.Game2.ToString();
+                                        }
+                                    }
+                                    <td class="block"><a href="javascript:void(0);" onclick="">@team1Name&#12288;@team1Score&nbsp;:&nbsp;@team2Score&#12288;@team2Name</a></td>
+                                    
+                                    orderLoopDic[j].RemoveAt(0);
+                                }
+
+                                flag = true;
+                            }
+                            else if (j == curBlockCol + 2)//折线
+                            {
+                                if (isFaceDown)
+                                {
+                                    <td valign="bottom">
+                                        <div class="fold foldDown"></div>
+                                    </td>
+                                    vLineColIndexLst.Add(j);
+                                }
+                                else
+                                {
+                                    <td valign="top">
+                                        <div class="fold foldUp"></div>
+                                    </td>
+                                    vLineColIndexLst.Remove(j);
+                                }
+                            }
+                            else if (vLineColIndexLst.Contains(j))//画竖线
+                            {
+                                <td>
+                                    <div class="verLine"></div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                        else
+                        {
+                            if (j == curBlockCol + 1)//横线
+                            {
+                                <td>
+                                    <div class="horLine"></div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                        }
+                    }
+                }
+            </tr>
+        }
+    }
+    </table>
+
+}
+
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+
+        })
+
+        function showLoopDetail(id) {
+            top.openDialog({
+                title: '详情',
+                url: convertUrl('~/Game/GameLoopDetail/?loopId=') + id,
+                width: 400,
+                height: 600,
+                callback: null
+            });
+        }
+
+        function orderWin(orderId, ordername) {
+            parent.orderWin(orderId, ordername);
+        }
+    </script>
+}

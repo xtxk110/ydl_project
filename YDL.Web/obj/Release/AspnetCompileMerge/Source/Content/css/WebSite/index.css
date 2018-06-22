@@ -1,0 +1,444 @@
+﻿/* CSS Document */
+div, dl, dt, dd, form, h1, h2, h3, h4, h5, h6, img, ol, ul, li, table, th, td, p, span, a {
+    border: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div, tr {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    width: 100%;
+    font-family: "Microsoft YaHei",微软雅黑;
+    color: #333;
+}
+
+img, input {
+    border: none;
+    vertical-align: middle;
+}
+
+ul, ol {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+    display: inline-block;
+}
+
+a {
+    outline: none;
+    /*star: expression(this.onFocus=this.blur());*/
+}
+
+i {
+    display: inline-block;
+}
+
+input, select {
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clear {
+    clear: both;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+}
+
+.ft16 {
+    font-size: 16px;
+}
+
+.ft18 {
+    font-size: 18px;
+}
+
+.ft30 {
+    font-size: 30px;
+}
+
+.ft52 {
+    font-size: 52px;
+}
+
+.ft24 {
+    font-size: 24px;
+}
+
+.color_l {
+    color: #555972;
+}
+
+.color_b {
+    color: #fff;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+}
+
+/*index*/
+.main {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.content {
+    width: 100%;
+    width: expression(document.body.clientWidth <= 1200? "1200px": "auto");
+    min-width: 1200px;
+}
+/*nva*/
+.nav {
+    background-color: #03092e;
+    height: 90px;
+}
+
+.nav_box > img {
+    margin-top: 16px;
+}
+
+.nav_box ul {
+    margin-left: 60px;
+    margin-top: 34.5px;
+}
+
+    .nav_box ul li {
+        margin-right: 35px;
+        float: left;
+        position: relative;
+    }
+
+        .nav_box ul li a {
+            color: #323755;
+            font-size: 16px;
+            text-align: center;
+            display: block;
+        }
+
+        .nav_box ul li img {
+            display: none;
+            position: absolute;
+            top: 40px;
+        }
+
+            .nav_box ul li img.one {
+                left: -20px;
+            }
+
+            .nav_box ul li img.two {
+                left: -35px;
+            }
+
+        .nav_box ul li a:hover {
+            color: #fff;
+            transform: scale(1.2);
+            -ms-transform: scale(1.2); /* IE 9 */
+            -moz-transform: scale(1.2); /* Firefox */
+            -webkit-transform: scale(1.2); /* Safari 和 Chrome */
+            -o-transform: scale(1.5);
+        }
+
+        .nav_box ul li:hover img {
+            display: block;
+        }
+
+.search_box {
+    margin-left: 60px;
+    width: 256px;
+    background-color: #292e4d;
+    height: 42px;
+    margin-top: 24px;
+    padding: 0 20px;
+    border-radius: 50px;
+}
+
+    .search_box input {
+        color: #545871;
+        height: 30px;
+        margin-top: 6px;
+        background-color: #292e4d;
+        outline: none;
+    }
+
+    .search_box img {
+        cursor: pointer;
+        margin-top: 8px;
+    }
+
+a.login {
+    color: #353a58;
+    margin-top: 33px;
+}
+
+.big_box {
+    background-color: #191919;
+    position: relative;
+}
+
+.h1_box {
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    top: 37.5%;
+}
+
+    .h1_box h1 {
+        color: #fff;
+        width: 780px;
+        font-size: 77px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+.content_all {
+    width: 100%;
+    height: 100%;
+}
+/*Morale coach*/
+.title {
+    text-align: center;
+    margin-top: 60px;
+    overflow: hidden;
+}
+
+    .title h1 {
+        background-image: url(../../imgs/WebSite/indexImg/bg.png);
+        background-size: 622px 1px;
+        background-repeat: no-repeat;
+        background-position: 280px 33px;
+    }
+
+.list_bg {
+    background-image: url(../../imgs/WebSite/indexImg/background.png);
+    height: 532px;
+    margin-top: 60px;
+}
+
+    .list_bg ul li {
+        width: 20%;
+        padding: 0 8px;
+        box-sizing: border-box;
+        float: left;
+    }
+
+        .list_bg ul li > img {
+            width: 100%;
+            height: 224px;
+        }
+
+.message {
+    border: 1px solid #1f2d8e;
+    text-align: center;
+    color: #fff;
+    padding: 20px 0 30px 0;
+    background-color: #1d2242;
+}
+
+    .message span {
+        display: block;
+    }
+
+        .message span.bg_icon {
+            background-image: url(../../imgs/WebSite/indexImg/icon.png);
+            background-size: 108px 4px;
+            background-repeat: no-repeat;
+            background-position: 55px 16px;
+        }
+
+        .message span.mtop10 {
+            margin-top: 10px;
+        }
+
+    .message img {
+        margin-top: 30px;
+    }
+/*Please move the event */
+.banner_div {
+    background-color: #f5f5f5;
+    padding: 45px 0;
+    margin-top: 65px;
+    box-sizing: border-box;
+}
+/*news*/
+.news {
+    background-color: #03092d;
+    overflow: hidden;
+    padding: 70px 0px;
+    margin-top: 60px;
+}
+
+    .news ul li {
+        width: 33.3%;
+        float: left;
+        height: 197px;
+        margin: 10px 0px;
+        color: #fff;
+        text-align: center;
+    }
+
+.news_a {
+    background-image: url(../../imgs/WebSite/indexImg/bg_a.png);
+}
+
+.news_b {
+    background-image: url(../../imgs/WebSite/indexImg/bg_b.png);
+}
+
+.news_c {
+    background-image: url(../../imgs/WebSite/indexImg/bg_c.png);
+}
+
+.news_d {
+    background-image: url(../../imgs/WebSite/indexImg/bg_d.png);
+}
+
+.news_e {
+    background-image: url(../../imgs/WebSite/indexImg/bg_e.png);
+}
+
+.news_f {
+    background-image: url(../../imgs/WebSite/indexImg/bg_f.png);
+}
+
+.news ul li span {
+    margin-top: 60px;
+    display: block;
+}
+
+.news ul li p {
+    margin-top: 8px;
+}
+/*Student mien*/
+.student_div {
+    background-color: #f5f5f5;
+    padding: 45px;
+    overflow: hidden;
+    margin-top: 65px;
+}
+
+    .student_div ul li {
+        width: 49%;
+        height: 298px;
+        position: relative;
+    }
+
+        .student_div ul li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .student_div ul li:nth-child(2) {
+            margin-top: 80px;
+        }
+
+        .student_div ul li:hover .list_cover {
+            display: block;
+        }
+
+.list_cover {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../imgs/WebSite/indexImg/cover.png);
+    z-index: 99;
+    text-align: center;
+    color: #fff;
+    display: none;
+}
+
+    .list_cover span {
+        margin-top: 20%;
+        display: block;
+    }
+/*introduce*/
+.introduce {
+    background-color: #03092d;
+    margin-top: 60px;
+    height: 529px;
+}
+
+img.introduceImg {
+    width: 100%;
+    margin-top: 130px;
+}
+/*footer*/
+.footer {
+    margin-top: 270px;
+    height: 413px;
+    background-image: url(../../imgs/WebSite/indexImg/bg_button.png);
+    overflow: hidden;
+}
+
+    .footer ul {
+        margin-top: 130px;
+    }
+
+        .footer ul li {
+            width: 50%;
+            float: left;
+            box-sizing: border-box;
+        }
+
+            .footer ul li:nth-child(1) {
+                padding-right: 110px;
+                box-sizing: border-box;
+            }
+
+            .footer ul li div {
+                margin-top: 50px;
+                overflow: hidden;
+            }
+
+            .footer ul li span {
+                width: 33.3%;
+                float: left;
+                display: inline-block;
+            }
+
+            .footer ul li div p {
+                margin-top: 30px;
+            }
+
+            .footer ul li:nth-child(2) {
+                padding-left: 145px;
+                box-sizing: border-box;
+                border-left: 1px solid #fff;
+            }
+
+            .footer ul li div a {
+                display: block;
+            }

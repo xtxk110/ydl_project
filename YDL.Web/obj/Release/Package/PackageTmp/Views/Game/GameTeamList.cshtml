@@ -1,0 +1,269 @@
+﻿@using YDL.Web;
+@using YDL.Model;
+
+@{
+    ViewBag.Title = "参赛队信息";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+<link href="@ViewHelper.BuildStaticPath("~/Content/css/default/dialog.css")" rel="stylesheet" type="text/css" />
+<link href="@ViewHelper.BuildStaticPath("~/Content/css/default/select/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    </style>
+}
+
+@section Body{
+    <form id="form1" onsubmit="return false;">
+        <input type="hidden" id="gameId" name="gameId" value="@ViewBag.GameId" />
+
+        <div class="input-group" style="width:300px;margin:5px;">
+            <span class="input-group-addon">报名状态</span>
+            <select name="state" id="state" class="selectpicker form-control" value="">
+                @foreach (BaseData tsItem in GameTeamState.GetItems(true))
+                {
+                    <option value="@tsItem.Id">@tsItem.Name</option>
+                }
+            </select>
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="btnSearch">查询</button>
+            </span>
+        </div>
+
+    </form>
+    <div id="divGroups" style="width:1020px;height:520px;overflow:auto;">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:50px;">序号</th>
+                    <th>参赛队</th>
+                    <th style="width:110px;">手机号</th>
+                    <th style="width:110px;">状态</th>
+                    <th style="width:180px;">种子信息</th>
+                    @if (ViewBag.CanOper)
+                    {
+                        <th style="width:180px;">操作</th>
+                    }
+                </tr>
+            </thead>
+            <tbody id="tbMain">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="9" align="center" id="tdPager">
+                        
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+}
+
+@section Script{
+    <script src="@ViewHelper.BuildStaticPath("~/Scripts/dialog.js")" type="text/javascript"></script>
+    <script src="@ViewHelper.BuildStaticPath("~/Scripts/bootstrap-select.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+    var curPageIndex=1;
+    var pageCount = 1;
+
+    $(function () {
+
+        dataLoad(1);
+        $('#state').selectpicker('val', $('#state').attr('value'));
+
+        $(document.body).click(function (e) {
+            var id = e.target.id;
+            if (id === 'btnSearch')
+            {
+                dataLoad(1);
+            }
+            else if (e.target.hasAttribute('pagerval'))
+            {
+                dataLoad(e.target.attributes['pagerval'].value);
+            }
+            else if (id === 'btnPagerGo')
+            {
+                try{
+                    var gopageindex = parseInt($('#txPageIndex').val());
+                    if(gopageindex<1||gopageindex>parseInt($('#lbMaxpage').val()))
+                    {
+                        top.errorBox('输入页码超出范围！');
+                        return;
+                    }
+
+                    dataLoad(gopageindex);
+                }
+                catch(e)
+                {
+                    top.errorBox('请输入整数');
+                    return;
+                }
+            }
+
+            //种子设置
+            if(e.target.type == "checkbox")
+            {
+                var teamid = id.replace("chk","");
+                $('#seednum'+teamid).prop('disabled',!e.target.checked);
+            }
+        })
+    })
+
+    function dataLoad(pageIndex) {
+        curPageIndex = pageIndex;
+        var model = $.formSerialize('form1', 'o');
+        model.pageIndex = pageIndex;
+
+        $.post(convertUrl('~/Game/GameTeamListData/'), model, function (res) {
+
+            if (!res.IsSuccess) {
+                top.errorBox(res.Message);
+            } else {
+                if(pageIndex == 1)
+                    pageCount = res.RowCount;
+
+                $('#tbMain').html('');
+                var html = [];
+                $.foreach_array(function (item, i) {
+                    html.push('<tr>');
+                    html.push('<td>', (i+1), '</td>');
+                    html.push('<td>', item.TeamName);
+                    if(item.IsTeam)
+                    {
+                        html.push('<p style="color:#ccc;">成员：' ,item.TeamUserName , '</p>');
+                    }
+                    if(!$.isEmpty(item.CorpTeamName,false))
+                    {
+                        html.push('<p style="color:#ccc;">同单位队：' ,item.CorpTeamName , '</p>');
+                    }
+                    html.push('</td>');
+
+                    html.push('<td>', item.MobilePhone, '</td>');
+
+                    html.push('<td>', $.getLinkName(item.State));
+                    @if(ViewBag.CanOper)
+                    {
+                        <text>
+                        if ($.getLinkId(item.State) == '@(GameTeamState.PROCESSING.Id)')
+                        {
+                            html.push('&nbsp;<a href="javascript:showCheck(\'',item.Id,'\');">审核</a>');
+                        }
+                        else if ($.getLinkId(item.State) == '@(GameTeamState.PASS.Id)')
+                        {
+                            html.push('&nbsp;<a href="javascript:reCheck(\'',item.Id,'\',\'', item.TeamName, '\');">反审核</a>');
+                        }
+                        </text>
+                    }
+                    html.push('</td>');
+
+                    html.push('<td>');
+                    html.push('<label id="lb',item.Id,'"></label>');
+                    @if (ViewBag.CanOper)
+                    {
+                        <text>
+                        html.push('&#12288;<input type="checkbox" id="chk',item.Id,'" />');
+                        html.push('<select id="seednum',item.Id,'" disabled>');
+                        html.push('<option value="0">种子编号</option>');
+                        for(var i=1;i<=60;i++)
+                        {
+                            html.push('<option value="',i,'">',i,'号</option>');
+                        }
+                        html.push('</select>');
+                        </text>
+                    }
+                    //<input type="checkbox" />&#12288;');
+                    html.push('</td>');
+
+                    @if(ViewBag.CanOper)
+                    {
+                        <text>
+                        html.push('<td><a href="javascript:edit(\'', item.Id, '\');">修改</a>'
+                            + '&nbsp;<a href="javascript:setSameunit(\'', item.Id, '\',\'', item.TeamName, '\');">设置相同单位</a>'
+                            + '&nbsp;<a href="javascript:del(\'', item.Id, '\',\'', item.TeamName, '\');">删除</a></td>');
+                        </text>
+                    }
+                    html.push('</tr>');
+
+                }, res.Entities);
+
+                $('#tbMain').html(html.join(''));
+
+                //加载分页按钮
+                var pager = new Object();
+                pager.TotalCount = pageCount;
+                pager.PageIndex = pageIndex;
+                pager.PageSize = @ViewHelper.PageSize;
+
+                $.post(convertUrl('~/Common/PagerButton/'), pager, function (htmlStr) {
+                    $('#tdPager').html(htmlStr);
+                },'html');
+            }
+
+
+        }, 'JSON');
+    }
+
+    function showCheck(id) {
+        top.openDialog({
+            title: '审核',
+            url: convertUrl('~/Game/GameTeamCheck/?Id=') + id,
+            width: 400,
+            height: 600,
+            callback: function () {
+                dataLoad(curPageIndex);
+            }
+        });
+    }
+
+    function setSameunit(id,name) {
+        top.openDialog({
+            title: '设置相同单位',
+            url: convertUrl('~/Game/SameunitSet/?gameId=@(ViewBag.GameId)&teamId=') + id + '&teamName=' + name,
+            width: 400,
+            height: 600,
+            callback: function () {
+                dataLoad(curPageIndex);
+            }
+        });
+    }
+
+    function reCheck(id,name) {
+        top.confirmBox("确定反审核【"+name+"】吗?", function () {
+            $.post(convertUrl('~/Game/GameTeamReCheck/'), { 'id': id,'name':name }, function (res) {
+                if (!res.IsSuccess) {
+                    top.errorBox(res.Message);
+                } else {
+                    dataLoad(curPageIndex);
+                }
+
+            }, 'JSON');
+        });
+    }
+
+    function edit(id) {
+        top.openDialog({
+            title: '修改',
+            url: convertUrl('~/Game/GameTeamUpdate/?Id=') + id,
+            width: 400,
+            height: 600,
+            callback: function () {
+                dataLoad(curPageIndex);
+            }
+        });
+    }
+
+    function del(id,name) {
+        top.confirmBox("确定删除【"+name+"】吗?", function () {
+            $.post(convertUrl('~/Game/TeamRemove/'), { 'id': id,'gameId':'@ViewBag.GameId' }, function (res) {
+                if (!res.IsSuccess) {
+                    top.errorBox(res.Message);
+                } else {
+                    dataLoad(curPageIndex);
+                }
+
+            }, 'JSON');
+        });
+    }
+</script>
+}

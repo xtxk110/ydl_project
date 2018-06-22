@@ -1,0 +1,9 @@
+﻿相关表说明：
+Organization 机构表，树形结构。IsDefault标记是否是系统默认(即不可修改删除)
+LimitRole 角色表
+LimitRoleUserMap 用户与角色映射表，一个用户可配多个角色
+Limit 角色具体权限信息。字段LimitDetail是权限位运算结果
+LimitName 权限定义相关信息
+备注：
+1.修改角色权限时，角色对应用户需掉线，重新登录。
+2.用户表UserAccount，新增字段OrganTypeId,记录用户所在机构(默认是悦动力),用于参看权限范围

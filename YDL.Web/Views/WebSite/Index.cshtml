@@ -1,0 +1,166 @@
+﻿@using YDL.Web;
+@using YDL.Model;
+@model MenuInfo
+
+@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/Shared/_LayoutWebsite.cshtml";
+}
+
+@section Keywords
+{
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
+}
+@section Style{
+    <style type="text/css">
+        .funcblock {
+            width:400px;
+            height:100%;
+            text-align:center;
+        }
+
+        .funcTitle {
+            color:#333;
+            font-size:24px;
+            margin-bottom:7px;
+        }
+
+        .funcline {
+            width:470px;
+            height:36px;
+            border-bottom:2px dashed #b2b2b2;
+        }
+
+        #divNews a{color:#209eff;font-weight:bold;text-decoration:none;}
+        #divNews a:link{color:#209eff;} 
+        #divNews a:visited{color:#209eff;} 
+        #divNews a:hover{ color:#209eff;}
+    </style>
+}
+@section featured {
+    <!-- banner -->
+    <div class="bannerImg" style="background: url('/Content/imgs/WebSite/banner/banner_index.jpg') no-repeat center;"></div>
+    <div style="margin-top:52px;margin-bottom:124px;">
+        <div style="width:1200px;height:292px;margin:0 auto;">
+            <div class="float-left funcblock" style="background: url('/Content/imgs/WebSite/homepage/func1.png') no-repeat center 0;background-position-y:bottom;">
+                <p class="funcTitle">公司简介</p>
+                <img style="width: 167px; height: 17px; border: none;" src="/Content/imgs/WebSite/homepage/funcname1.png" />
+            </div>
+            <div class="float-left funcblock" style="background: url('/Content/imgs/WebSite/homepage/func2.png') no-repeat center 0;background-position-y:bottom;">
+                <p class="funcTitle">最新活动</p>
+                <img style="width: 110px; height: 17px; border: none;" src="/Content/imgs/WebSite/homepage/funcname2.png" />
+            </div>
+            <div class="float-left funcblock" style="background: url('/Content/imgs/WebSite/homepage/func3.png') no-repeat center 0;background-position-y:bottom;">
+                <p class="funcTitle">赛事新闻</p>
+                <img style="width: 71px; height: 17px; border: none;" src="/Content/imgs/WebSite/homepage/funcname3.png" />
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+    <div style="width:1200px;margin:0 auto;">
+        <div class="float-left funcline"></div>
+        <div class="float-left" style="width:260px;text-align:center;">
+            <p style="color:#333;font-size:30px;">功能介绍</p>
+            <p style="color:#b2b2b2;font-size:24px;">FUNCTION</p>
+        </div>
+        <div class="float-left funcline"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div style="height:85px;"></div>
+    @*  *@
+    <div id="divNews">
+        <div style="height:500px;background-color:#f6f6f6;">
+            <div style="width:1200px;height:100%;margin:0 auto;background: url('/Content/imgs/WebSite/homepage/club&activity.png') no-repeat 0 center;background-position-x:right;">
+                <div style="padding-top:100px;width:650px;">
+                    <div style="color:#209eff;font-size:24px;line-height:36px;">
+                        <p>俱乐部&活动</p>
+                        <p>CLUB&ACTIVITY</p>
+                    </div>
+                    <div style="margin-top:40px;font-size:18px;line-height:36px;" info="球馆简介：球馆创建于2008年夏，专业从事乒乓球培训。场馆条件一流，全场塑胶地毯，自动发球机等一应俱全，免费提供球拍，乒乓球。可承接各种中小型的乒乓球比赛。针对人群：常年招收各层次乒乓球学员，5岁半以上，所有热爱乒乓球的朋友们。现目前学员人数近百人，绝大部分是小学生，初中生为主。教练员介绍：主教练及创始人吴女士，国家一级运动员，从事乒乓球事业30余年，具有丰富的教学经验，与邓亚萍，陈龙灿等世界冠军在国家级比赛中同场竞技。吴教练教学能力出众，打法攻击性强，教学耐心细致，教学经验长达30年之久。其他教练员均来自于各大专业，半专业大专院校，均有2年以上乒乓球教学经验，曾多次在省市级的乒乓球比赛中获得过前三名佳绩。">
+                    </div>
+                    <div style="margin-top:20px;text-align:right;"><a href="javascript:void(0);"><span style="font-size:18px;">更多</span>&nbsp;<span style="font-size:14px;">More</span></a></div>
+                </div>
+            </div>
+        </div>
+        <div style="height:500px;background-color:#eef5f8;">
+            <div style="width:1200px;height:100%;margin:0 auto;background: url('/Content/imgs/WebSite/homepage/gamenews.png') no-repeat 0 center;background-position-x:left;">
+                <div class="float-right" style="padding-top:100px;width:650px;">
+                    <div style="color:#209eff;font-size:24px;line-height:36px;text-align:right;">
+                        <p>赛事</p>
+                        <p>GAMENEWS</p>
+                    </div>
+                    <div style="margin-top:40px;font-size:18px;line-height:36px;" info="球馆简介：球馆创建于2008年夏，专业从事乒乓球培训。场馆条件一流，全场塑胶地毯，自动发球机等一应俱全，免费提供球拍，乒乓球。可承接各种中小型的乒乓球比赛。针对人群：常年招收各层次乒乓球学员，5岁半以上，所有热爱乒乓球的朋友们。现目前学员人数近百人，绝大部分是小学生，初中生为主。教练员介绍：主教练及创始人吴女士，国家一级运动员，从事乒乓球事业30余年，具有丰富的教学经验，与邓亚萍，陈龙灿等世界冠军在国家级比赛中同场竞技。吴教练教学能力出众，打法攻击性强，教学耐心细致，教学经验长达30年之久。其他教练员均来自于各大专业，半专业大专院校，均有2年以上乒乓球教学经验，曾多次在省市级的乒乓球比赛中获得过前三名佳绩。">
+                    </div>
+                    <div style="margin-top:20px;"><a href="javascript:void(0);"><span style="font-size:18px;">更多</span>&nbsp;<span style="font-size:14px;">More</span></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*  *@
+    <div style="height:300px;width:500px;margin:0 auto;text-align:center;">
+        <p style="padding-top:100px;color:#a0a0a0;font-size:24px;">点击查看更多功能介绍</p>
+        <p style="margin-top:24px;">
+            <img style="width: 40px; height: 40px; border: none;" src="/Content/imgs/WebSite/homepage/funcmore.png" />
+        </p>
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $(document).ready(function () {
+                $("div[info]").each(function () {
+                    if ($(this).attr("info").length > 130) {
+                        $(this).html($(this).attr("info").substring(0, 130) + "......");
+                    }
+                    else {
+                        $(this).html($(this).attr("info"));
+                    }
+                })
+            });
+        });
+        function Picture() {
+            var a = "";
+            $.ajax({
+                type: "POST",
+                url: "/192.168.0.195/WebSite/TestPCApi",
+                // The key needs to match your method's input parameter (case-sensitive).
+                data: JSON.stringify({ Markers: "dd" }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data)
+                {
+                    alert(data);
+                },
+                failure: function (errMsg) {
+                    alert(errMsg);
+                }
+            });
+
+
+            //        $.ajax({
+            //            "type": 'post',
+            //            "url":'http://192.168.0.195/WebSite/TestPCApi',
+            //            "dataType": "json",
+            //            "async" : false,
+            //            "data":dataurl,
+            //            "success": function(data) {
+            //                if(data.status==0){
+            //                    alert('启用用户成功',function(index){
+            //                    });
+            //                }else{
+            //                    alert(data.message);
+            //                }
+            //            }
+            //        });
+        }
+
+
+        //    }
+        $(document).ready(function () {
+            Picture();
+        });
+
+    </script>
+}

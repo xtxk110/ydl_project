@@ -1,0 +1,93 @@
+﻿@using YDL.Web;
+@using YDL.Model;
+@using YDL.Utility;
+@model Transfer
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+
+}
+@section Body{
+    <div style="width:350px;margin:0 auto;">
+        <div style="margin-top:10px;">
+            <label class="control-label col-sm-2">业务类型：</label>
+            <span>@Model.MasterType.GetLinkName()</span>
+        </div>
+        <div>
+            <label class="control-label col-sm-2">业务名称：</label>
+            <span>@Model.MasterId.GetLinkName()</span>
+        </div>
+        <div style="font-size:12px;color:red;text-indent:15px;">
+            目标人将获得相关管理权，原创建人失去管理权。
+        </div>
+        <div class="input-group" style="margin-left:15px;">
+            <input type="text" class="form-control" id="txTransfer" placeholder="移交给..." readonly>
+            <input type="hidden" id="txTransferId" />
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="btnChoose">选择</button>
+            </span>
+        </div>
+    </div>
+    <div class="btn-group" role="group" style="float:right;margin:10px 24px 0 0;">
+        <button type="button" class="btn btn-default" id="btnSave">保存</button>
+    </div>
+}
+
+@section Script{
+    <script type="text/javascript">
+    $(function () {
+        $(document.body).click(function (e) {
+            var id = e.target.id;
+            if (id == 'btnSave') {
+                save();
+            }
+            else if (id == 'btnChoose') {
+                top.openDialog({
+                    title: '选择裁判',
+                    url: convertUrl('~/Common/SelectUserIndex/?isMulti=false'),
+                    width: 800,
+                    height: 670,
+                    callback: chooseBack
+                });
+            }
+        })
+    })
+
+    function chooseBack(re) {
+        if (re) {
+            $('#txTransferId').val(re.judgeArr[0]);
+            $('#txTransfer').val(re.judgeArr[1]);
+        }
+    }
+
+    function save() {
+        if ($.isEmpty($('#txTransferId').val(), false))
+        {
+            top.errorBox('请选择移交人！');
+            return;
+        }
+
+        var model = new Object();
+        model.MasterType = '@Model.MasterType.GetLinkId()';
+        model.MasterId = '@Model.MasterId.GetLinkId()';
+        model.CreatorId = '@Model.CreatorId';
+        model.TargetUserId = $('#txTransferId').val();
+
+        $.post(convertUrl('~/Common/TransferSettingsSave/'), model, function (res) {
+
+            if (!res.IsSuccess) {
+                top.errorBox(res.Message);
+            } else {
+                top.closeDiag(window, true);
+            }
+
+        }, 'JSON');
+    }
+    </script>
+}
+
+

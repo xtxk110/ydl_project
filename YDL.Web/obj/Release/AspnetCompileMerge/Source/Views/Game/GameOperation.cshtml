@@ -1,0 +1,342 @@
+﻿@using YDL.Model;
+@using YDL.Web;
+@using YDL.Utility;
+@model Game
+
+@{
+    ViewBag.Title = "赛事编辑";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string disabled = string.IsNullOrEmpty(Model.State) || Model.State.GetLinkId() == GameState.NOTSTART.Id ? "" : "disabled";
+}
+
+@section Style{
+    <link href="@ViewHelper.BuildStaticPath("~/Content/css/default/dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@ViewHelper.BuildStaticPath("~/Content/css/default/select/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@ViewHelper.BuildStaticPath("~/Content/css/default/datetimepicker/bootstrap-datetimepicker.css")" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .inputSize{
+            width:450px;
+            padding-top:5px;
+        }
+    </style>
+}
+@section Body{
+    <div style="height:620px;overflow:auto;">
+    <div style="width:500px;margin:0 auto;">
+        <form id="form1" onsubmit="return false;">
+            <input type="hidden" id="ClubId" name="ClubId" value="@Model.ClubId" />
+            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanName">赛事Log</span>
+                <img src="@ViewHelper.BuildStaticPath(ViewHelper.FileFolderPath + Model.HeadUrl)" url="@Model.HeadUrl" style="width:154px;height:154px;" id="img_gamelog" />
+            </div>
+            <div id="uploadbtnbar"></div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanName">赛事名称</span>
+                <input type="text" id="Name" name="Name" value="@Model.Name" class="form-control" placeholder="" aria-describedby="spanName">
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanIntroduce">介绍</span>
+                <input type="text" id="Introduce" name="Introduce" value="@Model.Introduce" class="form-control" placeholder="" aria-describedby="spanIntroduce">
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanPrize">奖品</span>
+                <input type="text" id="Prize" name="Prize" value="@Model.Prize" class="form-control" placeholder="" aria-describedby="spanPrize">
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanGameRule">规则</span>
+                <input type="text" id="GameRule" name="GameRule" value="@Model.GameRule" class="form-control" placeholder="" aria-describedby="spanGameRule">
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.ClubId))
+            {
+                var clubInfo = ViewBag.Club as Club;
+                <div class="panel panel-default">
+                    <div class="panel-heading">档位信息</div>
+                    <div class="panel-body">
+                        @*档位*@
+                        <div class="input-group inputSize">
+                            <span class="input-group-addon" id="spanClubname">俱乐部</span>
+                            <input type="text" value="@clubInfo.Name" readonly class="form-control" placeholder="" aria-describedby="spanClubname">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                是档位赛<input type="checkbox" id="IsLevelGame" name="IsLevelGame" @(Model.IsLevelGame ? "checked" : "") @(disabled) />
+                            </label>
+                        </div>
+                        <div class="input-group inputSize">
+                            <span class="input-group-addon">比赛档位</span>
+                            <select name="LevelValue" id="LevelValue" class="selectpicker form-control" value="@Model.LevelValue" @(disabled)>
+                                <option value="">=====暂不定档=====</option>
+                                @for (var i = 1; i <= clubInfo.LevelValue; i++)
+                                {
+                                    <option value="@i">第@(i)档</option>
+                                }
+                            </select>
+                        </div>
+                    
+                    </div>
+                </div>
+            }
+            
+
+            @{
+                var isteam = true;
+            }
+            <div class="input-group inputSize">
+                <span class="input-group-addon">比赛项目</span>
+                <select name="BattleStyle" id="BattleStyle" class="selectpicker form-control" value="@Model.BattleStyle.GetLinkId()" @(disabled)>
+                    <option value="@BaseData.ALL_ITEM.Id">@BaseData.ALL_ITEM.Name</option>
+                    @foreach (BaseData bsItem in TTBattleStyle.GetItems(false))
+                    {
+                        if (Model.BattleStyle.GetLinkId() == bsItem.Id)
+                        {
+                            isteam = Convert.ToBoolean(bsItem.Tag2);
+                        }
+                        <option value="@bsItem.Id" tag="@bsItem.Tag" tag2="@(bsItem.Tag2.ToString().ToLower())">@bsItem.Name</option>
+                    }
+                </select>
+
+            </div>
+            @* 积分赛 *@
+            <div class="panel panel-default" id="divScore" style="@(isteam?"display:none":"")">
+                <div class="panel-heading">积分赛</div>
+                <div class="panel-body">
+                    <div class="checkbox">
+                        <label>
+                            是积分赛<input type="checkbox" id="IsScoreGame" name="IsScoreGame" @(Model.IsScoreGame ? "checked" : "") />
+                        </label>
+                    </div>
+                    <div class="input-group inputSize">
+                        <span class="input-group-addon" id="spanBeginScore">起始分</span>
+                        <input type="text" id="BeginScore" name="BeginScore" value="@Model.BeginScore" class="form-control" placeholder="" aria-describedby="spanBeginScore">
+                    </div>
+                    <div class="input-group inputSize">
+                        <span class="input-group-addon" id="spanEndScore">截止分</span>
+                        <input type="text" id="EndScore" name="EndScore" value="@Model.EndScore" class="form-control" placeholder="" aria-describedby="spanEndScore">
+                    </div>
+                </div>
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon">比赛方式</span>
+                <select name="KnockoutOption" id="KnockoutOption" class="selectpicker form-control" value="@Model.KnockoutOption.GetLinkId()" @(disabled)>
+                    @foreach (BaseData koItem in KnockoutOption.GetItems(true))
+                    {
+                        <option value="@koItem.Id">@koItem.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon">人员显示</span>
+                <select name="NameOption" id="NameOption" class="selectpicker form-control" value="@Model.NameOption.GetLinkId()" @(disabled)>
+                    @foreach (BaseData koItem in NameOption.GetItems(false))
+                    {
+                        <option value="@koItem.Id">@koItem.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanOrganizer">主办方</span>
+                <input type="text" id="Organizer" name="Organizer" value="@Model.Organizer" class="form-control" placeholder="" aria-describedby="spanOrganizer">
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanSecondOrganizer">承办方</span>
+                <input type="text" id="SecondOrganizer" name="SecondOrganizer" value="@Model.SecondOrganizer" class="form-control" placeholder="" aria-describedby="spanSecondOrganizer">
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon" id="spanCost">报名费</span>
+                <input type="text" id="Cost" name="Cost" value="@Model.Cost" class="form-control" placeholder="" aria-describedby="spanCost">
+            </div>
+            <div class="input-append date" id="pickerRegBeginTime" data-date="@Model.RegBeginTime">
+                <span>报名开始时间</span>
+                <input size="16" type="text" id="RegBeginTime" name="RegBeginTime" value="@Model.RegBeginTime" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <div class="input-append date" id="pickerRegEndTime" data-date="@Model.RegEndTime">
+                <span>报名截止时间</span>
+                <input size="16" type="text" id="RegEndTime" name="RegEndTime" value="@Model.RegEndTime" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <div class="input-append date" id="pickerPlayBeginTime" data-date="@Model.PlayBeginTime">
+                <span>比赛开始时间</span>
+                <input size="16" type="text" id="PlayBeginTime" name="PlayBeginTime" value="@Model.PlayBeginTime" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <div class="input-append date" id="pickerPlayEndTime" data-date="@Model.PlayEndTime">
+                <span>比赛结束时间</span>
+                <input size="16" type="text" id="PlayEndTime" name="PlayEndTime" value="@Model.PlayEndTime" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon">城市</span>
+                <select name="CityId" id="CityId" class="selectpicker form-control" value="@Model.CityId.GetLinkId()">
+                    <option value="">=====请选择=====</option>
+                    @foreach (City city in ViewBag.CityLst)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="input-group inputSize">
+                <span class="input-group-addon">举办场地</span>
+                <select name="VenueId" id="VenueId" class="selectpicker form-control" value="@Model.VenueId.GetLinkId()">
+                    <option value="">=====请选择=====</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon" id="spanVenueAddress">地址</span>
+                <input type="text" id="VenueAddress" name="VenueAddress" readonly class="form-control" placeholder="" aria-describedby="spanVenueAddress">
+            </div>
+        </form>
+    </div>
+</div>
+<div style="margin-top:5px;margin-right:5px;text-align:right;">
+    <button type="button" class="btn btn-default" id="btnSave">保存</button>
+    <button type="button" class="btn btn-default" id="btnClose">关闭</button>
+</div>
+}
+
+@section Script{
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/dialog.js")" type="text/javascript"></script>
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/bootstrap-select.min.js")" type="text/javascript"></script>
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/bootstrap-datetimepicker.js")" type="text/javascript"></script>
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/locales/bootstrap-datetimepicker.zh-CN.js")" type="text/javascript"></script>
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/swfobject.js")" type="text/javascript"></script>
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/swfupload.js")" type="text/javascript"></script>
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/annex.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var swfup;
+        $(function () {
+            $('#uploadbtnbar').annex({
+                type: 1,
+                fileamount: 1,
+                button_padding_left: 13,
+                button_padding_top: 1,
+                button_width: '93',
+                button_height: '28',
+                button_text: '浏览图片...',
+                uploadSuccess: function (file) {
+                    var imgdiv = $('#img_gamelog');
+                    imgdiv.attr('url', file.url).attr('src', convertUrl(file.url));
+                }
+            });
+            swfup = $('#uploadbtnbar').getAnnex();
+
+            $('#BattleStyle').on('change',
+                function () {
+                    $('#divScore').css("display", $(this).find('option:selected').attr('tag2') == 'false' ? "" : "none");
+                });
+
+            $('#CityId').on('change', function () {
+                loadVenue($(this).val());
+            });
+
+            $('#VenueId').on('change',
+                function () {
+                    if (!$.isEmpty($(this).val(), false)) {
+                        $('#VenueAddress').val($(this).find('option:selected').attr('address'));
+                    }
+                });
+
+            $(document.body).click(function (e) {
+                var id = e.target.id;
+                if (id == 'btnSave')
+                {
+                    save();
+                }
+                else if (id == 'btnClose')
+                {
+                    top.closeDiag(window, false);
+                }
+            })
+
+            $('#BattleStyle').val($('#BattleStyle').attr('value'));
+            $('#KnockoutOption').val($('#KnockoutOption').attr('value')); 
+            $('#NameOption').val($('#NameOption').attr('value'));
+
+            $('#CityId').val($('#CityId').attr('value'));
+            @if(!string.IsNullOrEmpty(Model.Id))
+            {
+                @:loadVenue($('#CityId').attr('value'),true);
+            }
+
+            
+            initTimePicker($("#pickerRegBeginTime"));
+            initTimePicker($("#pickerRegEndTime"));
+            initTimePicker($("#pickerPlayBeginTime"));
+            initTimePicker($("#pickerPlayEndTime"));
+        })
+
+        function loadVenue(cityId,isPageload)
+        {
+            if (!$.isEmpty(cityId, false)) {
+                $.post(convertUrl('~/Common/GetVenueListByCity/'), { 'cityId': cityId }, function (res) {
+                    if (!res.IsSuccess) {
+                        top.errorBox(res.Message);
+                    } else {
+                        $("#VenueId option[value!='']").remove();
+                        for (var i = 0; i < res.Entities.length; i++) {
+                            $("#VenueId").append("<option value='" + res.Entities[i].Id + "' address='" + res.Entities[i].Address + "'>" + res.Entities[i].Name + "</option>");
+                        }
+
+                        //修改时页面加载
+                        if (isPageload) {
+                            $('#VenueId').val($('#VenueId').attr('value'));
+                            $('#VenueAddress').val($('#VenueId').find('option:selected').attr('address'));
+                        }
+                        else
+                            $('#VenueId').selectpicker('refresh');
+                    }
+
+                }, 'JSON');
+            }
+        }
+        
+        function initTimePicker(o)
+        {
+            o.datetimepicker({
+                format: "yyyy-mm-dd hh:ii",
+                autoclose: true,
+                todayBtn: true,
+                language: "zh-CN",
+                startDate: new Date(),
+                pickerPosition: "top-right",
+                minuteStep: 10
+            });
+        }
+        
+        function save() {
+
+            var model = $.formSerialize('form1', 'o');
+            model.HeadUrl = $('#img_gamelog').attr('url');
+            model.IsOfficial = $('#IsOfficial').prop('checked');
+            model.BattleStyleCount = $('#BattleStyle').find('option:selected').attr('tag');
+            model.IsTeam = $('#BattleStyle').find('option:selected').attr('tag2');
+            if (model.IsTeam == 'false') {
+                model.IsScoreGame = $('#IsScoreGame').prop('checked');
+            }
+            else {
+                model.BeginScore = 0;
+                model.EndScore = 0;
+            }
+
+            $.post(convertUrl('~/Game/GameOperationSave/'), model, function (res) {
+
+                if (!res.IsSuccess) {
+                    top.errorBox(res.Message);
+                } else {
+                    top.closeDiag(window, true, true);
+                }
+                
+            }, 'JSON');
+        }
+    </script>
+}
+
+

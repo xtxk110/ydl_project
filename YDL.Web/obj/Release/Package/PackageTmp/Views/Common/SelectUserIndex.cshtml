@@ -1,0 +1,225 @@
+﻿@using YDL.Web;
+@using YDL.Model;
+
+@{
+    ViewBag.Title = "赛事列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+    <style type="text/css">
+        td {
+            text-align:center;
+        }
+
+        #footer {
+            height: 50px;
+        } 
+    </style>
+}
+
+@section Body{
+<form id="form1" onsubmit="return false;">
+    <div class="col-lg-6" style="width:300px;margin:5px 0 5px 0;">
+        <div class="input-group">
+            <input type="text" class="form-control" name="keywords" id="keywords" placeholder="输入名称...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" id="btnSearch" type="button">查询</button>
+            </span>
+        </div>
+    </div>
+</form>
+<div id="divGroups" style="width:100%;overflow:auto;">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                @if(ViewBag.IsMulti)
+                { 
+                <th style="width:60px;height:20px;">
+                    <input type="checkbox" id="chkall" />
+                </th>
+                }
+                <th>名称</th>
+            </tr>
+        </thead>
+        <tbody id="tbMain"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" align="center" id="tdPager">
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<input type="hidden" id="txJudges" value="" />
+<div id="footer">
+    <div style="float:right;margin:10px 10px 0 0;">
+        <button type="button" class="btn btn-default" id="btnSave">确定</button>&nbsp;
+        <button type="button" class="btn btn-default" id="btnClose">关闭</button>
+    </div>
+</div>
+}
+
+@section Script{
+    <script src="@ViewHelper.BuildStaticPath("~/Scripts/dialog.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        var pageCount = 1;
+        $(function () {
+            dataLoad(1);
+
+            $(document.body).click(function (e) {
+
+                var id = e.target.id;
+                switch (id) {
+                    case 'btnSearch':
+                        $('#txJudges').val('');
+                        dataLoad(1);
+                        break;
+                    case 'btnSave':
+                        if ($.isEmpty($('#txJudges').val(), false))
+                        {
+                            top.errorBox("请至少选择一条数据！");
+                            return;
+                        }
+                        top.closeDiag(window, true, [{ judgeArr: $('#txJudges').val().split(',') }]);
+                        break;
+                    case 'btnClose':
+                        top.closeDiag(window, false);
+                        break;
+                    case 'chkall':
+                        var judgeArr = $('#txJudges').val().split(',');
+                        $('#tbMain').find('[type=checkbox]').each(function () {
+                            $(this).prop('checked', $('#chkall').prop('checked'));
+
+                            if ($('#chkall').prop('checked')) {
+                                if(judgeArr.indexOf($(this).attr('userid'))==-1)
+                                    $('#txJudges').val($('#txJudges').val() + $(this).attr('userid') + ",");
+                            }
+                            else
+                                $('#txJudges').val($('#txJudges').val().replace($(this).attr('userid') + ",", ""));
+                        })
+                        break;
+                    case 'btnPagerGo':
+                        try {
+                            var gopageindex = parseInt($('#txPageIndex').val());
+                            if (gopageindex < 1 || gopageindex > parseInt($('#lbMaxpage').val())) {
+                                top.errorBox('输入页码超出范围！');
+                                return;
+                            }
+
+                            dataLoad(gopageindex);
+                        }
+                        catch (e) {
+                            top.errorBox('请输入整数');
+                            return;
+                        }
+                        break;
+                }
+
+                if (e.target.hasAttribute('pagerval')) {
+                    dataLoad(e.target.attributes['pagerval'].value);
+                }
+
+                if(e.target.tagName == "TD")
+                {
+                    $("tr").removeClass("active");
+                    $(e.target).parent().addClass("active");
+
+                    @if(ViewBag.IsMulti)
+                    {
+                        <text>
+                        var curChk = $(e.target).parent().find('[type=checkbox]');
+                        curChk.prop('checked',!curChk.prop('checked'));
+                        checkboxChange(curChk.attr('id'));
+                        </text>
+                    }
+                    else
+                    { 
+                        @:$('#txJudges').val($(e.target).attr('userid')+','+$(e.target).attr('username'));
+                    }
+                }
+            })
+
+
+            $('#btnGo').click(function () {
+                var pIndex = $('#txPageIndex').val();
+                if (isNaN(pIndex)) {
+                    top.errorBox("页码必须为整数！");
+                    return;
+                }
+
+                dataLoad(pIndex);
+            });
+            $("a[name='pageBtn']").click(function () {
+                dataLoad($(this).text());
+            });
+
+            //表格高度
+            $('#divGroups').height(580 - $('#footer').height());
+        })
+
+        function dataLoad(pageIndex) {
+            $('#chkall').prop('checked', false);
+
+            var model = $.formSerialize('form1', 'o');
+            model.pageIndex = pageIndex;
+
+            $.post(convertUrl('~/Common/SelectUserIndexData/'), model, function (res) {
+
+                if (!res.IsSuccess) {
+                    top.errorBox(res.Message);
+                } else {
+                    if (pageIndex == 1)
+                        pageCount = res.RowCount;
+
+
+                    $('#tbMain').html('');
+                    var judgeArr = $('#txJudges').val().split(',');
+                    var html = [];
+                    var uname = '';
+                    $.foreach_array(function (item, i) {
+                        html.push('<tr>');
+                        @if(ViewBag.IsMulti)
+                        {
+                            <text>
+                            html.push('<td><input type="checkbox" onclick="checkboxChange(\'chk', item.Id, '\')" id="chk', item.Id, '" userid="', item.Id, '"');
+                            if (judgeArr.indexOf(item.Id)>-1)
+                            {
+                                html.push(' checked="checked"');
+                            }
+                            html.push('/></td>');
+                            </text>
+                        }
+
+                        uname = $.isEmpty(item.CardName, false) ? item.PetName : item.CardName;
+                        html.push('<td userid="', item.Id, '" username="', uname, '">', uname, '</td>');
+                        html.push('</tr>');
+                    }, res.Entities);
+
+                    $('#tbMain').html(html.join(''));
+
+                    //加载分页按钮
+                    var pager = new Object();
+                    pager.TotalCount = pageCount;
+                    pager.PageIndex = pageIndex;
+                    pager.PageSize = @ViewHelper.PageSize;
+
+                    $.post(convertUrl('~/Common/PagerButton/'), pager, function (htmlStr) {
+                        $('#tdPager').html(htmlStr);
+                    },'html');
+                }
+
+            }, 'JSON');
+        }
+
+        function checkboxChange(chkId) {
+            $('#chkall').prop('checked', false);
+
+            var curChkBox = $('#' + chkId);
+            if (curChkBox.prop('checked'))
+                $('#txJudges').val($('#txJudges').val() + curChkBox.attr('userid') + ",");
+            else
+                $('#txJudges').val($('#txJudges').val().replace(curChkBox.attr('userid') + ",", ""));
+        }
+    </script>
+}

@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    @*<meta name="description" itemprop="description" content="摘要" />*@
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="~/Content/css/WebSite/StyleSheet.css?clear=1" />
+    <script type="text/javascript" src="~/Scripts/js/jquery-1.6.4.min.js"></script>
+</head>
+<body>
+    <div class="viewport">
+        <div class="box">
+            <img src="~/Content/images/btn.png" alt="Alternate Text" />
+            <div class="cover">
+                <form id="form1" action="/" method="post">
+                    <ul>
+                        <li>
+                            <h1 class="ft18">填写个人信息</h1>
+                        </li>
+                        <li>
+                            <span class="ft15">年级班级：</span>
+                            <input id="Grade" type="text" name="Grade" value="" placeholder="例如：二年级一班"/>
+                        </li>
+                        <li>
+                            <span class="ft15">学生姓名：</span>
+                            <input id="Student" type="text" name="Student" value="" placeholder="例如：张三"/>
+                        </li>
+                        <li>
+                            <span class="ft15">联系方式：</span>
+                            <input id="Contact" type="text" name="Contact" value="" placeholder="例如：135********"/>
+                        </li>
+                    </ul>
+                    
+                    <button id="submit" type="button">
+                        <img src="~/Content/images/submit.png" alt="Alternate Text" />
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(".box >img").click(function () {
+            $(".cover").show();
+        });
+        
+        $("#submit").click(function () {
+            if ($.trim($("#Grade").val()) == "" || $.trim($("#Student").val()) == "" || $.trim($("#Contact").val()) == "") {
+                window.alert("请完善所有信息,再提交");
+                return false;
+            }
+
+            $.ajax({
+                url: './Take_lessons',
+                type:'POST',
+                //dataType: 'application/json',
+                data: $("#form1").serialize(),
+                error: function () { },
+                success: function (mess) {
+                    if (mess == "0")
+                        window.location.replace("./success");
+                    else if (mess == "1")
+                        alert("请完善所有信息,再提交");
+                    else if (mess == "2")
+                        location.replace("./lose");
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,473 @@
+/* CSS Document */
+div, dl, dt, dd, form, h1, h2, h3, h4, h5, h6, img, ol, ul, li, table, th, td, p, span, a {
+    border: 0;
+}
+body, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, fieldset, table, td, img, div, tr {
+    margin: 0;
+    padding: 0;
+}
+html {
+    overflow-y: scroll;
+}
+* {
+    margin: 0px auto;
+    padding: 0px;
+}
+body {
+    width: 100%;
+    font-family:"Microsoft Yahei";
+    color: #333;
+}
+img, input {
+    border: none;
+    vertical-align: middle;
+}
+ul, ol {
+    list-style-type: none;
+}
+a {
+    text-decoration: none;
+    color: #ffffff;
+    display: inline-block;
+}
+a {
+    outline: none;
+    /*star: expression(this.onFocus=this.blur());*/
+}
+i {
+    display: inline-block;
+}
+input, select {
+    vertical-align: middle;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.clear {
+    clear: both;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+}
+.ft10 {
+     font-size: 10px;
+ }
+.ft12 {
+    font-size: 12px;
+}
+.ft13 {
+    font-size: 13px;
+}
+.ft16 {
+    font-size: 16px;
+}
+.ft18 {
+    font-size: 18px;
+}
+.ft20{
+    font-size: 20px;
+}
+.ft22 {
+    font-size: 22px;
+}
+.ft24 {
+    font-size: 24px;
+}
+.ft26 {
+    font-size: 26px;
+}
+.ft28 {
+    font-size: 28px;
+}
+.color_l {
+    color: #555972;
+}
+
+.color_b {
+    color: #fff;
+}
+.color_h{
+    color: #c5c5c5;
+}
+a:link, a:visited {
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+}
+
+/*index*/
+.main {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.content {
+    width: 100%;
+    width: expression(document.body.clientWidth <= 1200? "1200px": "auto");
+    min-width: 1200px;
+}
+.banner_bg {
+    background: url("/Content/images/bg_big.png");
+    background-size: 100% 100%;
+    height: 1054px;
+}
+.banner_bg_a {
+    background: url("/Content/images/bg_big_a.png");
+    background-size: 100% 100%;
+    height: 1054px;
+}
+.banner_bg_b {
+    background: url("/Content/images/bg_big_b.png");
+    background-size: 100% 100%;
+    height: 1054px;
+}
+.banner_bg_c {
+    background: url("/Content/images/bg_big_c.png");
+    background-size: 100% 100%;
+    height: 1054px;
+}
+.banner_left{
+    overflow: hidden;
+    padding: 135px 120px 70px 150px;
+    box-sizing: border-box;
+}
+ul.nav_list {
+    padding-top: 130px;
+    overflow: hidden;
+    margin-left: 20px;
+}
+ul.nav_list i {
+   width: 8px;
+   height: 8px;
+   border-radius: 100%;
+   background-color: none;
+   margin-right:20px;
+}
+ ul.nav_list i.org {
+    background-color: #fb4923;
+}
+    
+.nav_list li {
+      margin-bottom: 30px;
+}
+.hover {
+    width: 43px;
+    height: 43px;
+    margin-top: 200px;
+    position: relative;
+    margin-left: 36px;
+    cursor:pointer;
+}
+span.span_WeChat {
+    position: absolute;
+    bottom: -60px;
+    left: 85px;
+    display: none;
+}
+.hover:hover span.span_WeChat{
+    display: block;
+}
+.down {
+    padding-top: 190px;
+    padding-bottom:60px;
+    width: 1560px;
+    float: right;
+    overflow:hidden;
+    border-bottom: 8px solid #f2380c;
+}
+.down >span{
+    color: #242424;
+}
+.down h1{
+     color: #d4d4d6;
+    margin-top: 30px;
+ }
+.down >img{
+    padding-top: 60px;
+}
+.down ul{
+    margin-left: 190px;
+}
+.down ul li{
+    float: left;
+    margin-left: 40px;
+    position:relative;
+}
+    .down ul li div {
+        position: absolute;
+        top: -180px;
+        left: -40px;
+        display: none;
+    }
+    .down ul li:hover div {
+        display: block;
+    } 
+    #banner {
+        margin-top: 300px;
+        overflow: hidden;
+    }
+.banner{
+    width: 50%;
+    overflow: hidden;
+}
+.swiper-container {
+    width: 100%;
+    height: 450px;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+    .swiper-slide img {
+        width: 100%;
+        height: 100%;
+    }
+.more{
+    padding-top: 50px;
+    margin-left:100px;
+}
+.more h1{
+    margin-bottom: 50px;
+}
+.more p{
+    color: #6f6f70;
+    margin-bottom: 12px;
+}
+.more a{
+    width: 160px;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #fb4923;
+    margin-top: 80px;
+}
+.match {
+    margin-top: 300px;
+    background-image: url("/Content/images/game_big.png");
+    height: 900px;
+    position: relative;
+    background-size:100% 100%;
+}
+.match_box {
+    width: 530px;
+    height:915px;
+    position: absolute;
+    top: 120px;
+    left: 360px;
+    box-shadow: #f6f6f6 0px 0px 30px 5px;
+    background-color: #ffffff;
+    border: 2px solid #f6f6f6;
+    padding:60px 30px 70px 30px;
+    box-sizing:border-box;
+}
+.match_box h1{
+    line-height: 50px;
+}
+.match_box img{
+    margin-top: 30px;
+}
+    .match_box p {
+        line-height: 40px;
+        margin-top: 60px;
+        color: #6f6f70;
+    }
+.match_box a{
+    width: 160px;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #fb4923;
+    margin-top:100px;
+}
+.sports {
+    margin-top: 420px;
+    background: url("/Content/images/app_bg.png") no-repeat;
+    height: 696px;
+    background-size:100% 100%;
+}
+.sports_box{
+    width: 380px;
+    padding-top: 240px;
+    padding-left: 420px;
+    overflow: hidden;
+    height:inherit;
+}
+.sports_box p{
+    margin-top: 40px;
+    line-height: 40px;
+    color: #6f6f70;
+}
+ .sports_box div{
+     position:relative;
+     height:200px;
+}
+.sports_box div img.xianshi {
+    display:none;
+    position:absolute;
+    top:20px;
+    right:30px;
+}
+    .sports_box div img.download {
+        margin-top: 80px;
+        cursor:pointer;
+    }
+.sports_box div:hover img.xianshi {
+   display: block;
+}
+    .footer {
+        border-top: 1px solid #dedede;
+        padding-top: 90px;
+        margin: 300px 120px;
+    }
+.footer ul{
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+.footer li{
+    float: left;
+    margin-right: 35px;
+}
+.footer li a{
+    float: left;
+    color: #333333;
+}
+.footer span{
+    display: block;
+    margin-bottom: 10px;
+    color: #808080;
+}
+.bottom{
+    height: 100px;
+    background-color: #060709;
+    color: #ffffff;
+    line-height: 100px;
+    text-align: center;
+}
+.about_us{
+    margin-top: 120px;
+    overflow: hidden;
+}
+.about_us img{
+    margin-top: 30px;
+}
+.about_us  p{
+    margin-top: 70px;
+    line-height: 40px;
+    color: #6f6f70;
+}
+.about_us span{
+    line-height: 40px;
+    color: #6f6f70;
+    display: block;
+}
+.teach{
+    margin-top: 120px;
+    overflow: hidden;
+}
+.teach ul li{
+    width: 98%;
+    margin: 0 auto;
+    box-shadow: #f6f6f6 0px 0px 30px 5px ;
+    background-color: #ffffff;
+    border: 2px solid #f6f6f6;
+    padding: 70px 90px 70px 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: 70px;
+    margin-top: 10px;
+}
+.teach ul li img{
+    width: 186px;
+    height: 186px;
+}
+.teach ul li div{
+    padding-left: 70px;
+    overflow: hidden;
+}
+.teach ul li div span{
+    margin-left: 40px;
+    margin-top:8px;
+}
+    .teach ul li div p {
+        line-height: 40px;
+        margin-top: 70px;
+        color: #6f6f70;
+    }
+.news{
+    margin-top: 140px;
+}
+.news >div{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+.news >div span{
+    margin-right: 100px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    cursor:pointer;
+}
+.news >div span.active{
+    border-bottom: 3px solid #fb4923;
+}
+.news ul li{
+    border-bottom: 1px solid #eeeeee;
+    padding: 50px 120px 50px 0px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.news ul li >img{
+    width: 320px;
+    height: 200px;
+}
+.news ul li div.s_box{
+    padding-left: 40px;
+    overflow: hidden;
+}
+.news ul li div.s_box p{
+    margin-top: 30px;
+    color: #6f6f70;
+    line-height: 30px;
+}
+div.s_box div{
+    margin-top: 50px;
+    padding-left: 0px;
+}
+div.s_box div i{
+    width: 80px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-style: normal;
+    border: 1px solid #ff6443;
+    border-radius: 4px;
+    color: #ff6443;
+    margin-right: 20px;
+}
+div.s_box div span{
+    line-height: 26px;
+}
+.news ul li:hover{
+    background-color: #f9f9f9;
+}

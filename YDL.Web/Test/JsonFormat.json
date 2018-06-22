@@ -1,0 +1,21 @@
+﻿{
+  "Entities": [],
+  "Filter": {
+    "CurUserLat": 0,
+    "CurUserLng": 0,
+    "CurrentUserId": "696715b8-ba71-4dcf-83f8-a65701115cea",
+    "Distance": 0,
+    "IsEnableEdit": false,
+    "PageIndex": 0,
+    "PageSize": 0,
+    "RowVersion": 0,
+    "StudentIdList": [],
+    "VenueIdList": []
+  },
+  "IsEncrypt": true,
+  "IsInnerTest": false,
+  "IsMobile": true,
+  "Parameters": {},
+  "Token": "4a15fc830c33ab14198b9b47bdfe1562",
+  "Version": "1.9.0"
+}

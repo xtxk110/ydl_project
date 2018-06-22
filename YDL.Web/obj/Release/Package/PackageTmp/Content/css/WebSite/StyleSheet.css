@@ -1,0 +1,291 @@
+﻿@charset "utf-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0; /*vertical-align:baseline;*/
+    -webkit-text-size-adjust: none
+}
+
+a {
+    text-decoration: none;
+    color: #666666;
+    cursor: pointer;
+}
+
+body {
+    color: #222;
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.clear {
+    clear: both;
+    height: 0px;
+    visibility: hidden;
+    line-height: 0px;
+    font-size: 0px;
+    overflow: hidden;
+}
+
+strong {
+    font-weight: bold;
+}
+
+h1, h2 {
+    font-weight: normal;
+}
+
+input {
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+.clear {
+    clear: both;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+i {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pd-lf-rg {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.pd-tp-bt {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.cut {
+    height: 45px;
+    line-height: 45px;
+    overflow: hidden;
+}
+
+.pd-lf {
+    padding-left: 3%;
+}
+
+.borderall {
+    border: 1px #e6e6e6 solid;
+}
+
+.btop {
+    border-top: 1px #e6e6e6 solid;
+}
+
+.btbottom {
+    border-bottom: 1px #e6e6e6 solid;
+}
+
+.ft11 {
+    font-size: 11px;
+}
+
+.ft12 {
+    font-size: 12px;
+}
+
+.ft13 {
+    font-size: 13px;
+}
+
+.ft14 {
+    font-size: 14px;
+}
+
+.ft15 {
+    font-size: 15px;
+}
+
+.ft16 {
+    font-size: 16px;
+}
+
+.ft17 {
+    font-size: 17px;
+}
+
+.ft18 {
+    font-size: 18px;
+}
+
+.ft19 {
+    font-size: 19px;
+}
+
+.ft20 {
+    font-size: 20px;
+}
+
+.ft24 {
+    font-size: 24px;
+}
+
+.ft26 {
+    font-size: 26px;
+}
+
+.ft30 {
+    font-size: 30px;
+}
+
+.pd46 {
+    padding-top: 46px;
+}
+
+.col09c {
+    color: #09c800;
+}
+
+.cole84 {
+    color: #e84340;
+}
+
+.col999 {
+    color: #999999;
+}
+
+.col666 {
+    color: #666666;
+}
+
+.col339 {
+    color: #3391e8;
+}
+
+.cole25 {
+    color: #e25e5e;
+}
+
+.ba_blue {
+    background-color: #3391e8;
+}
+
+.ba_hui {
+    background-color: #f8f8f8;
+}
+
+.ba_d4d4 {
+    background-color: #d4d4d4;
+}
+
+.ba_fff {
+    background-color: #ffffff;
+}
+
+.lh22 {
+    line-height: 22px;
+}
+
+.lh50 {
+    line-height: 50px;
+}
+
+.lh40 {
+    line-height: 40px;
+}
+
+.viewport {
+    min-width: 300px;
+    max-width: 640px;
+    margin: 0 auto;
+}
+.box {
+    background-image: url(../../images/bg_one.png);
+    width: 100%;
+    height: 667px;
+    background-size: 100% 100%;
+    text-align: center;
+}
+.box >img {
+    width: 164px;
+    height: 74px;
+    padding-top:300px;
+}
+.cover {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(69,72,76,0.6);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display:none;
+}
+.cover ul{
+    width:258px;
+    margin:0 auto;
+    margin-top:220px;
+}
+.cover ul li {
+    background-color: #fff;
+    height: 44px;
+    line-height: 44px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    border-bottom: 1px dashed #bfbfbf;
+    padding: 0 14px;
+}
+.cover ul li:nth-child(4){
+    border-bottom:none;
+}
+.cover ul li span {
+    float: left;
+    color: #45484c;
+}
+.cover ul li input {
+    width: 140px;
+    height: 30px;
+    margin-top: 7px;
+    outline: none;
+    float: left;
+}
+#submit {
+    background: none;
+    border: none;
+    outline: none;
+}
+.cover button img{
+    width:98px;
+    height:44px;
+    margin-top:18px;
+}
+.box_one {
+    background-image: url(../../images/bg_two.png);
+    width: 100%;
+    height: 667px;
+    background-size: 100% 100%;
+}
+.box_two {
+    background-image: url(../../images/bg_three.png);
+    width: 100%;
+    height: 667px;
+    background-size: 100% 100%;
+}

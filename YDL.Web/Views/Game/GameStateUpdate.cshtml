@@ -1,0 +1,65 @@
+﻿@using YDL.Model;
+@using YDL.Web;
+
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+    <link href="@ViewHelper.BuildStaticPath("~/Content/css/default/select/bootstrap-select.min.css")" rel="stylesheet" type="text/css" />
+}
+@section Body{
+<div style="margin:20px 0px 20px 10px;">
+    @if (ViewBag.NextState != null)
+    {
+        <span>当前状态【@(ViewBag.CurSate.Name)】设置为【@(ViewBag.NextState.Name)】</span>
+        
+    }
+    else
+    {
+        <span>@(ViewBag.CurSate.Name)</span>
+    }
+</div>
+<div class="btn-group" role="group" style="float:right;margin:10px 10px 0 0;">
+    @if (ViewBag.NextState != null)
+    {
+        @:<button type="button" class="btn btn-default" id="btnSave">保存</button>&nbsp;
+    }
+    <button type="button" class="btn btn-default" id="btnClose">关闭</button>
+</div>
+}
+
+@section Script{
+    <script src="@ViewHelper.BuildStaticPath("~/Scripts/bootstrap-select.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function () {
+        $(document.body).click(function (e) {
+            var id = e.target.id;
+            if (id == 'btnSave') {
+                save();
+            }
+            else if (id == 'btnClose') {
+                top.closeDiag(window, false);
+            }
+        })
+    })
+
+    function save() {
+
+        top.confirmBox("确定将比赛状态设置为【@(ViewBag.NextState.Name)】?", function () {
+            $.post(convertUrl('~/Game/GameStateUpdateSave/'), { gameId: '@ViewBag.GameId', stateId: '@ViewBag.NextState.Id' }, function (res) {
+
+                if (!res.IsSuccess) {
+                    top.errorBox(res.Message);
+                } else {
+                    top.closeDiag(window, true);
+                }
+
+            }, 'JSON');
+        });
+    }
+</script>
+}
+
+

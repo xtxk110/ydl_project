@@ -1,0 +1,85 @@
+﻿角色名称:user   角色ID:000002
+权限:
+	操作权限:
+			赛事操作(GameOper) 291
+			{
+				新增Add 1
+				修改自己EditSelf 2
+				移交自己ChangeOwnerSelf 32
+				取消自己CancelSelf 256
+			}
+			活动操作(ActivityOper) 4387
+			{
+				新增Add 1
+				修改自己EditSelf 2
+				移交自己ChangeOwnerSelf 32
+				取消自己CancelSelf 256
+				结束自己EndSelf 4096
+			}
+			俱乐部操作(ClubOper) 1
+			{
+				新增Add 1
+			}
+			场馆操作(VenueOper) 1
+			{
+				新增Add 1
+				修改自己EditSelf 2
+				移交自己ChangeOwnerSelf 32
+				停用自己StopSelf 1024
+			}
+	特殊权限:
+			创建竞猜GuessAdd 1
+
+-------------------------------------------------
+角色名称:admin   角色ID:000001
+权限:
+	操作权限:
+			赛事操作(GameOper) 871
+			{
+				新增Add 1
+				修改自己EditSelf 2
+				修改全部EditAll 4
+				移交自己ChangeOwnerSelf 32
+				移交全部ChangeOwnerAll 64
+				取消自己CancelSelf 256
+				取消全部CancelAll 512
+			}
+			活动操作(ActivityOper) 13159
+			{
+				新增Add 1
+				修改自己EditSelf 2
+				修改全部EditAll 4
+				移交自己ChangeOwnerSelf 32
+				移交全部ChangeOwnerAll 64
+				取消自己CancelSelf 256
+				取消全部CancelAll 512
+				结束自己EndSelf 4096
+				结束全部EndAll 8192
+			}
+
+			俱乐部操作(ClubOper) 1
+			{
+				新增Add 1
+			}
+			场馆操作(VenueOper) 3303
+			{
+				新增Add 1
+				修改自己EditSelf 2
+				修改全部EditAll 4
+				移交自己ChangeOwnerSelf 32
+				移交全部ChangeOwnerAll 64
+				审核Audit 128
+				停用自己StopSelf 1024
+				停用全部StopAll 2048
+			}
+
+
+			查看权限：
+
+
+
+			特殊权限:
+			场馆收入统计VenueStatistics 1(去除)20180425
+			场馆收款VenueGetMoney 1(去除)20180425
+			直播LiveAdd 1
+			创建竞猜GuessAdd 1

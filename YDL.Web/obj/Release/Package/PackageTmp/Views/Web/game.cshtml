@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>悦动赛事</title>
+    <link type="text/css" rel="stylesheet" href="index.css" />
+    <script type="text/javascript" src="js/jquery-1.6.4.min.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div class="banner_bg_c banner_bg">
+            @Html.Partial("public_nav")
+        </div>
+
+        <div class="news main">
+            <div>
+                <span class="ft18 active">热门赛事</span>
+                <span class="ft18">最新发布</span>
+            </div>
+            <ul>
+                <li>
+                    <img src="~/Content/images/img_a.png" alt="" class="fl" />
+                    <div class="s_box">
+                        <h1 class="ft24">板凳奇兵飙5记三分狂轰31分 今天他就是NCAA的神</h1>
+                        <p class="ft18">北京时间4月3日，NCAA男篮锦标赛迎来了决赛，这次交手的两队分别是东区1号种子维拉诺瓦大学和西区3号种子密歇根.....</p>
+                        <div>
+                            <i class="fl">乒乓球</i>
+                            <span class="fl color_h">2018-4-3</span>
+                            <span class="fr color_h"><img src="~/Content/images/eyes.png" alt="" />124</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="~/Content/images/img_b.png" alt="" class="fl" />
+                    <div class="s_box">
+                        <h1 class="ft24">下半场连丢4分 男子冰壶世锦赛中国4-7不敌日本</h1>
+                        <p class="ft18">2018男子冰壶世锦赛在美国继续进行，邹德佳领衔的中国男队在战胜韩国队后连续作战迎战日本队.....</p>
+                        <div>
+                            <i class="fl">乒乓球</i>
+                            <span class="fl color_h">2018-4-3</span>
+                            <span class="fr color_h"><img src="~/Content/images/eyes.png" alt="" />124</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="~/Content/images/img_c.png" alt="" class="fl" />
+                    <div class="s_box">
+                        <h1 class="ft24">斯蒂文斯退出查尔斯顿站：迈阿密赛让我身心俱疲</h1>
+                        <p class="ft18">很遗憾地宣布，今年我无法参加查尔斯顿站的比赛，”斯蒂文斯在退赛声明中说道，“在迈阿密夺冠后，我感....</p>
+                        <div>
+                            <i class="fl">乒乓球</i>
+                            <span class="fl color_h">2018-4-3</span>
+                            <span class="fr color_h"><img src="~/Content/images/eyes.png" alt="" />124</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="~/Content/images/img_d.png" alt="" class="fl" />
+                    <div class="s_box">
+                        <h1 class="ft24">眼疾手术致缺战近四个月 傅家俊宣布出战世锦赛</h1>
+                        <p class="ft18">中国香港名将傅家俊因为眼疾遗憾的缺席了2018斯诺克中国公开赛。但是今天他在社交网站上公布，休战近4个月的他将复....</p>
+                        <div>
+                            <i class="fl">乒乓球</i>
+                            <span class="fl color_h">2018-4-3</span>
+                            <span class="fr color_h"><img src="~/Content/images/eyes.png" alt="" />124</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="~/Content/images/img_e.png" alt="" class="fl" />
+                    <div class="s_box">
+                        <h1 class="ft24">乒联排名樊振东登顶张继科仅第77 陈梦重回榜首</h1>
+                        <p class="ft18">国际乒联公布2018年4月的世界排名，樊振东取代波尔，登上世界第一的宝座，波尔和奥恰洛....</p>
+                        <div>
+                            <i class="fl">乒乓球</i>
+                            <span class="fl color_h">2018-4-3</span>
+                            <span class="fr color_h"><img src="~/Content/images/eyes.png" alt="" />124</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        @Html.Partial("public")
+    </div>
+    <script type="text/javascript">
+        $(".news div span").click(function () {
+            $(".news div span").removeClass();
+            $(this).addClass("active");
+        });
+    </script>
+</body>
+</html>

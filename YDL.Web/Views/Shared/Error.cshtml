@@ -1,0 +1,47 @@
+﻿@using YDL.Web;
+@model string
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width" />
+    <title>错误页面</title>
+
+    <link href="@ViewHelper.BuildStaticPath("~/Content/css/base.css")" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+
+    body
+    {
+        background-image:none;
+        background-color:#fff;
+    }
+    .error
+    {
+        width:680px;
+        height:481px;
+        margin:80px auto 0px auto;
+        font-size:14px;
+        background:url(@ViewHelper.BuildStaticPath("~/Content/imgs/default/error.png")) no-repeat;
+        position:relative;
+        border-radius:7px;
+    }
+    .error_cont
+    {
+        width:380px;
+        position:absolute;
+        left:300px;
+        top:70px;
+        font-family:微软雅黑,Arial,宋体;
+    }
+    </style>
+</head>
+<body>
+    <div class="error">
+        <div class="error_cont">
+            <p style="font-size:28px;color:#595656;font-weight:bold;">系统发生错误</p>
+            <p style="font-size:18px;color:#b2b2b2;margin-top:20px;">@Html.Raw(Model)</p>
+        </div>
+    </div>
+</body>
+</html>

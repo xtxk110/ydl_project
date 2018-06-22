@@ -1,0 +1,3192 @@
+﻿
+ @腾讯IM和YDL业务字段对应关系
+ 腾讯用户的 Identifier=  YDL User 实体的 Code
+ 腾讯群聊的 GroupId(群Id)= YDL Club 实体 的Id
+ 腾讯群聊成员的 Member_Account= YDL User 实体的 Code
+
+@ResetGameLoop：重置比分为初始状态
+（1）参数：Filter为GameLoop对象
+（2）返回结果：IsSuccess
+
+
+
+@GetVenueListAll 获取全部场馆
+注意: 此接口和之前的 GetVenueList 一样 , 唯一不同的是返回结果, 此接口返回的是全部场馆(包括审核的和未审核的)
+（1）参数: GetVenueListFilter  
+调用实例:
+"Filter": {
+    "CityId": "75",
+    "CurUserLat": 30.54141,
+    "CurUserLng": 104.07496,
+    "IsEnableEdit": false,
+    "IsOnlySelf": "0",
+    "IsSign": false,
+    "Name": "",
+    "PageIndex": 1,
+    "PageSize": 15,
+    "RowVersion": 0,
+    "UserId": "32d9ce6f-0ee0-4771-a2f0-a6c200fa458b",
+	"Distance":5000 //查询5公里内的场地 单位是米
+  },
+（2）返回结果:Venue
+ 
+
+ @IsCoacher 判断当前登陆者是不是教练
+（1）参数:  无
+（2）返回结果:User  实体 通过里面的 IsCoacher 字段判断， 是为true ，不是为false
+
+
+  
+
+ 
+ @GetCourseTimeList 获取课程时间列表
+（1）参数:  无  
+（2）返回结果:
+"Tag": [
+
+	    "8:00",
+        "8:30",
+        "9:00",
+        "9:30",
+			........
+]
+
+ 
+   
+
+@SaveImagesRelation 保存图片关系 (比如课程的图片)
+（1）参数: HeadBase  
+"Entities":[ {
+	"Id":"", // 主体的Id (比如课程的Id)
+    "Files": List<FileInfo>
+  },]  
+（2）返回结果:HeadBase
+ 返回的格式跟 传的格式是一样的, 不同的是Url 成了正式的Url
+
+
+ 
+
+@GetNoteList  获取精彩瞬间列表 
+（1）参数: GetNoteListFilter  跟以前一样
+（2）返回结果:
+	课程分享内容在 CourseSummary 字段上, 此字段实体为 CoacherCourse, 如果这个字段值为Null 就显示以前的笔记格式, 如果有值就加载成UI设计的样式
+
+
+@GetSomeoneGameList  获取某人的赛事列表 
+注意此接口跟 GetGameList 一样,除了要传以前的必传参数, 还要多传以下参数:
+（1）参数: GetGameListFilter  跟以前一样
+	只是多了个字段 UserId , 要查那个人的就传哪个人的UserId
+（2）返回结果: 跟以前一样
+	只是多了个姓名值, 放在tag 里面
+
+
+ 
+
+
+  @GetVenueList 获取场地列表
+  注意这个是老接口, 加了如下参数, 以前的传参数保持不变
+（1）参数: GetVenueListFilter  
+ "Filter": {
+    "State": "010001", //新加的字段 ,值枚举有  010001 查询 未审核 ,  010002 查询 已审核场地列表
+  },  
+  （2）返回结果:Venue
+
+
+ @SaveNoteHide 隐藏此条动态
+（1）参数: NoteHide  
+ "Entities": [
+    {
+      "HideNoteId": "606471e17b0547d0ba0da6fd011e1f91", //笔记Id , 取note 实体的Id 字段
+      "RowState": "Added" 
+    }
+  ],
+ （2）返回结果:IsSuccess
+
+
+  @SaveNoteCreatorHide 隐藏笔记创建人
+（1）参数: NoteCreatorHide  
+ "Entities": [
+    {
+      "HideCreatorId": "001003", //笔记创建人Id, 取note 实体的 CreatorId 字段
+      "RowState": "Added" 
+     
+    }
+  ],
+ （2）返回结果:IsSuccess
+
+
+ @GetNoteCreatorHideList 获取隐藏的笔记创建人列表
+（1）参数:  无
+ （2）返回结果: User 实体
+
+
+ @DeleteNoteCreatorHide  移除隐藏的笔记创建人
+（1）参数:   NoteCreatorHide
+ "Entities": [
+    {
+    	"Id":"9c9b6958-024a-4124-b7d9-a6bf00b8c1a2"  //取User实体的Id
+    }
+  ],
+ （2）返回结果: User 实体
+
+
+  @SaveNoteWhistleBlowing  保存精彩瞬间举报
+（1）参数:   WhistleBlowing 在 System 目录下
+注意: WhistleBlowingType 字段的枚举类型如下, 请传对应的英文 ,而且以下枚举通过 GetNoteWhistleBlowingType 接口可获取
+	营销诈骗 MarketingScam
+	淫秽色情 Pornographic
+	人生攻击 PersonalAttack
+	反动政治 Reactionism
+	其他理由 OtherReason
+
+"Entities": [
+    {
+      "ContentId": "606471e17b0547d0ba0da6fd011e1f91", //传 note 的 Id
+      "WhistleBlowingType": "PersonalAttack",
+      "Remark": "骂了我",
+      "RowState": "Added"
+    }
+  ], 
+  （2）返回结果: IsSuccess
+
+
+  @GetNoteWhistleBlowingType  获取举报类型
+（1）参数:   无
+ （2）返回结果: SysDic  在 System 目录下
+
+
+ @GetIMToken  获取IM Token
+ （1）参数:   GetIMRelatedFilter  在 Filter 目录下
+ "Entities": [
+    {
+      "Identifier": "admin15"
+     
+    }
+  ],
+ （2）返回结果: IMToken  在 InstantMessage 目录下
+
+
+ @GetQRCode  获取二维码
+ （1）参数:   QRCode  在 System 目录下
+ "Entities": [
+    {
+      "MasterId": "32d9ce6f-0ee0-4771-a2f0-a6c200fa458b",  // 这个是主体Id比如(用户Id, 赛事Id)
+      "ActionType": "Detail",  //动作类型 (比如详情, 支付什么的), 枚举见BaseData目录的 QRCodeActionType.cs 文件
+	  "BusinessType":"Game" //业务类型(比如是, 赛事, 还是场馆等等), 枚举见BaseData目录的 QRCodeBusinessType.cs 文件
+     }
+  ],
+
+ （2）返回结果: QRCode  在 System 目录下
+
+
+  @AnalysisQRCode  解析二维码
+ （1）参数:   QRCode  在 System 目录下
+ "Entities": [
+    {
+      "QRCodeId": "32d9ce6f-0ee0-4771-a2f0-a6c200fa458b",  //二维码Id
+    }
+  ],
+
+ （2）返回结果: QRCode  在 System 目录下
+
+  
+   @GetTeachingPointList  获取教学点列表 --仅限教练管理模块用
+ （1）参数:   GetSystemManageRelatedFilter  在 Filter -> Coacher 目录下
+ "Filter": {
+    "VenueName": "",
+	"IsOnlyTeachingPoint":true, // 是否只出教学点
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: TeachingPoint 在 Coacher 目录下
+
+
+  @SaveTeachingPoint  保存教学点
+ （1）参数:   TeachingPoint 在 Coacher 目录下
+ 注意: 此接口不用传 RowState , 保存 和 修改操作都不用传
+"Entities": [{
+    "VenueId": "001001",
+    "CourseManagerId": "001006", //课程管理员Id
+    "CoacherIds": "32d9ce6f-0ee0-4771-a2f0-a6c200fa458b,52172aab-2672-48db-a0b4-a657010dd1e7", // 教练员, 多个教练Id 逗号分隔
+    "IsEnableTeachingPoint": "true" //是否启用教学点
+  }
+  ],
+
+ （2）返回结果: IsSuccess
+
+
+  @SaveCategoryOfTechnology  新建技术类别
+ （1）参数:   SysDic  在 System 目录下
+"Entities": [{
+    "Name":"反手",
+    "RowState":"Added"
+    }
+ ],
+ （2）返回结果: IsSuccess
+
+
+ 
+
+
+   @UpdateCategoryOfTechnology  修改技术类别
+ （1）参数:     SysDic  在 System 目录下
+ "Entities": [
+    {
+      "Id": "baf3c5e264c64da29f90a72e0121e7ab",
+      "Name": "jk"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+    @DeleteCategoryOfTechnology  删除技术类别
+ （1）参数:     SysDic  在 System 目录下
+ "Entities": [
+    {
+      "Id": "baf3c5e264c64da29f90a72e0121e7ab" 
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+ 
+
+    @GetUserList  获取教练列表
+ （1）参数:    
+ Filter": {
+	"UserType": "Coacher",  // UserType有如下枚举  
+		 不传获取全部用户 , Coacher 获取教练列表,GeneralUser 获取一般用户(除教练外)
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: User
+
+
+   @GetVipPayInfo  获取支付信息--场馆用
+ （1）参数:    GetVipRelatedFilter 在 Filter -> Vip 目录
+ "Filter": {
+    "MasterId": "0625eca9-4abf-4f83-8633-a6c100b32457", //主体Id , 比如 场馆Id, 有就传没有就不传
+    "BusinessType": "016003", //场馆支付 , BusinessType 有如下枚举(这些枚举在 MasterType 类里面都可以找到)
+    "PayType": "Use", // 支付类型 枚举两个:  Buy 和 Use
+    "PayId": "02eaee3a-8926-414a-88d2-a659011b6103", //就是 SaveVipUse 返回的 tag值
+  },
+ （2）返回结果: VipPayInfo  在 Vip 目录下
+
+
+    @GetVipPayInfo  获取支付信息--教练用
+ （1）参数:    GetVipRelatedFilter 在 Filter -> Vip 目录
+ "Filter": {
+    "BusinessType": "016010001", //教练模块, 学员购买课时 支付 , BusinessType 有如下枚举(这些枚举在 MasterType 类里面都可以找到):
+    "PayType": "Use", // 支付类型 枚举两个:  Buy 和 Use
+    "PayId": "02eaee3a-8926-414a-88d2-a659011b6103", //就是 SaveCoachStudentMoney 返回的 tag值
+  },
+ （2）返回结果: VipPayInfo  在 Vip 目录下
+ CoachPayHeadInfo 字段解释如下: 
+		他的类型为 CoachStudentMoney
+		返回的字段有 
+			CourseTypeId,
+			CourseTypeName,
+			Amount,
+			HeadUrl,
+			CoachName,
+			CityName
+
+ @SaveCoachPrice  设置教练价格
+ 注意: 添加和修改价格都调用这个接口,唯一不同是修改将RowState 赋值为 Modified 并且 要传 Id
+ （1）参数:    CoachPrice 在 Coacher -> Coach 目录
+"Entities": [
+    {
+      "BigCourse": 160,
+      "CityCode": "75",
+      "AGrade": "200",
+      "BGrade": "250",
+      "CGrade": "300",
+      "IsEnabled": true,
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetCoachPriceList  获取教练价格列表
+ （1）参数:    GetSystemManageRelatedFilter 在 Filter -> Coacher 目录
+"Filter": {
+  	
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: CoachPrice 在 Coacher -> Coach 目录
+
+
+  @SaveOrganization  新建机构
+ （1）参数:  CoachOrganization    在 SystemManage  目录
+ 
+"Entities": [
+    {
+      "Name": "悦动力2",
+      "Address": "天府五街2",
+      "CommissionPercentage": 5.61,
+      "ManagerId": "123",
+      "RowState": "Added" 
+
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+ @SaveOrganization  修改机构
+ （1）参数:  CoachOrganization    在 SystemManage  目录
+ 
+"Entities": [
+    {
+	   "Id":"ac7fd1c7f8c943d6965ca7300102c909"	 
+      "Name": "悦动力2",
+      "Address": "天府五街2",
+      "CommissionPercentage": 5.61,
+      "ManagerId": "123",
+      "RowState": "Modified" 
+
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+  @SaveOrganizationCoach  机构添加教练
+ （1）参数:  Coach    在 Coach  目录
+ 注意 : 此接口支持两种操作 RowState 为Added 是添加,  Modified 为修改
+ "Entities": [
+    {
+      "Id": "3a31fea3-e6e9-450e-a559-a63600e873ae", //教练Id
+      "OrganizationId": "ac7fd1c7f8c943d6965ca7300102c909",
+      "CommissionPercentage": 60, //分成比例
+      "Grade": 1,
+      "CardId": "511",
+      "IdCardFrontUrl": "",
+      "IdCardBackUrl": "",
+      "VenueId": "fbf7d23b-6e70-4710-b37b-a6d700e0715d",
+      "BeginTeachingDate": "2015-01-01",
+      "Qualification": "资格证明x教练jk", //资质证明
+      "RowState":"Added"
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+   @GetOrganizationList  获取机构列表
+ （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+    "OrganizationName": "", 
+    "CurrentUserId":"8bdffaa0eff24225bc8aa6f200e762b1", //当前登陆者Id
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: CoachOrganization    在 SystemManage  目录
+ 
+
+    @GetOrganization 获取机构详情
+ （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	"OrganizationId":"ac7fd1c7f8c943d6965ca7300102c909"	
+  },
+ （2）返回结果: CoachOrganization    在 SystemManage  目录
+
+
+     @GetOrganizationCoachList 获取机构教练列表
+ （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	"OrganizationId":"ac7fd1c7f8c943d6965ca7300102c909"	
+  },
+ （2）返回结果: Coach    在Coacher -> Coach  目录
+
+ 
+  
+ @UpdateCoachPercentage  修改教练分成
+ （1）参数:  Coach    在 Coach  目录
+ 
+  "Entities": [
+    {
+      "Id": "sss", // 教练Id
+      "CommissionPercentage": 6
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+
+
+ @GetCoachIncome 查看教练收入
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	 	"CoachId":"32d9ce6f-0ee0-4771-a2f0-a6c200fa458b",
+	 	"CoachIncomeBeginTime":"2017-03-09 10:00:00.000",
+	 	"CoachIncomeEndTime":"2017-03-09 13:00:00.000"
+	 },
+ （2）返回结果: CoachIncome     在Coacher -> SystemManage  目录
+
+
+  @GetCoachIncomeDetail 查看教练收入明细
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	 	"CoachId":"32d9ce6f-0ee0-4771-a2f0-a6c200fa458b",
+	 	"CoachIncomeBeginTime":"2017-03-09 10:00:00.000",
+	 	"CoachIncomeEndTime":"2017-03-09 13:00:00.000"
+	 },
+ （2）返回结果: CoachIncome     在Coacher -> SystemManage  目录
+
+
+ @GetCoachAuditList 获取教练审核列表
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	 	"CoachState":"010001" , // 传010001 获取审核列表, 010002 获取通过列表, 010003 获取不通过列表 
+	 	"PageIndex":1,
+	 	"PageSize":15
+	 },
+ （2）返回结果: Coach    在Coacher -> Coach  目录
+
+
+ @SaveCoachAudit 保存教练审核
+  （1）参数: Coach  在 Coacher -> Coach 目录
+ "Entities": [
+    {
+      "Id": "cd2b3d01-9b30-438a-b817-a65800fce8b6", //教练Id
+      "Grade": 2, //通过传此值, 不通过传不传都无所谓
+      "AuditOpinion": "不通过", 
+      "State": "010003"  //有两个枚举, 010002 表示通过  010003 表示拒绝
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @GetAuditCoachInfo 获取审核教练详细信息
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	 "CoachState": "010002" //传010002 返回审核通过的数据 , 010001 返回未审核数据
+     "CoachId" : "3e21d053-5817-4195-82bd-a6cc01278112"
+  },
+ （2）返回结果: Coach    在Coacher -> Coach  目录
+
+
+ @GetOrderTrialCourseList 获取预约体验课联系人列表
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "IsContact":false,  //是否联系
+    "PageIndex":1,
+    "PageSize":15
+  },
+ （2）返回结果: CoachOrderTrialCourse    在Coacher -> SystemManage  目录
+
+
+  @SaveContactSituation 填写联系情况
+  （1）参数: CoachOrderTrialCourse  在Coacher -> SystemManage  目录
+ "Entities": [{
+    "ContactSituation":"此人不来了",
+    "StudentId":"c52d059b-f949-4afb-ade3-a54d00b07da6" // 联系人Id 取  CoachOrderTrialCourse 实体的 StudentId
+  }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetOrderPersonDetail 获取预约人员详情
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+   "StudentId":"c52d059b-f949-4afb-ade3-a54d00b07da6"
+   
+  },
+   （2）返回结果: CoachOrderTrialCourse    在Coacher -> SystemManage  目录
+
+
+    @SaveCoachApply 申请教练
+  （1）参数: CoachApply  在Coacher -> Coach  目录
+  注意: 相比以前接口只多了个 执教日期 BeginTeachingDate 字段
+ "Entities": [
+    {
+      "Id": "08a7916e-3212-4ebe-8d03-a66400b440eb",
+      "VenueId": "fbf7d23b-6e70-4710-b37b-a6d700e0715d",
+      "BeginTeachingDate": "2015-01-01",
+      "Qualification": "资格证明x教练jk",
+      "Name": "jk",
+      "HeadUrl": "",
+      "Mobile": "1113",
+      "CardId": "511023199010138318x",
+      "IdCardFrontUrl": "",
+      "IdCardBackUrl": "",
+      "RowState": "Added",
+      "RowVersion": 0
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+ 
+  @SaveCoachOrderTrialCourse 保存预约体验课
+  （1）参数: CoachOrderTrialCourse  在Coacher -> SystemManage  目录
+  "Entities": [
+    {
+	  "StudentId":"d34ae370566544699df1a73900f8e671",
+      "Name": "蒋奎11",
+      "Mobile": "15208169741",
+      "CityCode": "75",
+      "Address": "成都",
+      "Remark": "kk", //备注
+      "ContactSituation": "此人不来了",
+      "IsContact":false,
+      "RowState":"Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+   @GetOrderTrialCourseState  获取学员是否预约过体验课
+  （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+   "StudentId":"c52d059b-f949-4afb-ade3-a54d00b07da6"
+  },
+   （2）返回结果: tag 字段 里面  true 表示预约过, false 相反
+
+
+   @GetCoachCommentList  获取教练评论列表
+   注意: 此接口跟之前一样的, 只是去除了接口名和实体名中的 er, 
+		还有参数中 教练Id 变成了 CoachId
+  （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+  "Filter": {
+      "CoachId": "32d9ce6f-0ee0-4771-a2f0-a6c200fa458b",
+      "PageSize": 16,
+      "PageIndex": 1
+    },
+   （2）返回结果: 在 Coacher -> Coach  目录 CoachComment
+
+
+   
+
+    @GetCoachAuditRecord  获取教练审核纪录
+  （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+  "Filter": {
+      "CoachId": "32d9ce6f-0ee0-4771-a2f0-a6c200fa458b"
+    },
+   （2）返回结果: Coach 在 Coacher -> Coach  
+
+
+  
+
+
+ @SaveCoachStudentMoney  购买大课, 教练的课时
+ 注意: 此购买支付流程和以前的流程一样, 唯一不同是 将 SaveVipUse替换成了SaveCoachStudentMoney, 
+	SaveCoachStudentMoney 接口会返回tag 支付Id, 对比如下:
+	以前调用接口流程: SaveVipUse->GetVipUse->GetPayStr ->SaveVipUsePay 
+	购买大课, 教练的课时流程: SaveCoachStudentMoney->GetVipPayInfo->GetPayStr ->SaveVipUsePay 
+
+  （1）参数: CoachStudentMoneyNotPay  在Coacher -> Student  目录
+ "Entities": [
+    {
+      "StudentUserId": "dda8881f-e128-4986-ac61-a6a60102488b",
+      "CoachId": "3a31fea3-e6e9-450e-a559-a63600e873ae", //大课不传此值, 私教传
+      "Amount": 10,
+      "ThenMoney": 1600,
+      "CourseTypeId": "027001", // 大课 027001 私教 027003, 这个用的是以前的枚举,
+	  "CityId":"75",
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @SaveCoachCourse  发表课程(添加和修改公用)(大课和私教公用)
+   注意: 添加和修改课程都用这个接口
+   唯一不同是, 修改多个Id字段(即课程Id), RowState=Modified
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+ "Entities": [
+    {
+      "Id":"9b0f4ea3f9694f96b870a73c0124ebf2", //修改传此字段,添加不传
+      "CoachId": "3a31fea3-e6e9-450e-a559-a63600e873ae333", //教练Id
+      "StudentId": "1a627bd9-f993-4a59-b0ab-a61d00b9f8b8333", //学员Id, 私教传, 大课不传
+      "BeginTime": "2017-03-21 11:12:45.133",
+      "EndTime": "2017-03-26 11:12:45.133",
+      "Type": "027001", //课程类型 027001 大课, 027003 私教
+      "VenueId": "09254b98-12ff-41be-9a04-a56000a4b22733",
+      "CourseGrade": 1, //课程等级(仅大课传) 1初级,2中级
+      "RowState": "Modified"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @GetBigCourseBuyInfo 获取大课购买时展示的信息
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+    "CityId":"76"
+  },
+   （2）返回结果: CoachPrice 在 Coacher -> Coach  
+
+
+   
+ @GetNearbyTeachingPointList 获取附近教学点列表(图形界面和列表界面公用)(主体业务)
+   （1）参数: GetVenueListFilter  在 Filter  目录
+  "Filter" : {
+    "StudentId" : "eb71682dc6ee4a708b49a6f600fcdc60",
+    "CityId" : "75",
+    "CurUserLat" : 30.54146879621069,
+    "CurUserLng" : 104.0750443310816,
+    "PageIndex" : 1,
+    "PageSize" : 38 
+  },
+   （2）返回结果: Venue 在 Venue  
+
+
+   @UpdateCoachGrade  教练提升等级
+  （1）参数: Coach  在Coacher -> Coach  目录
+ "Entities": [
+    {
+      "Id": "8e6aa030-e83a-458a-a680-a6b200a4b461",
+      "Grade": 3
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetSyllabusTeachingPointList 获取课程表大课教学点列表 (学员和教练都调用这个接口)
+   （1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+  "Filter" : {
+    "CurrentUserId": "32d9ce6f0ee04771a2f0a6c200fa458b", // 当前登陆者Id
+    "CityId": "75",
+	"PageIndex":1,
+	"PageSize":13
+  },
+   （2）返回结果: Venue 在 Venue  
+ 
+
+ @GetSyllabusOftenTeachingPointList 获取课程表我常去的教学点(仅学员调用)
+   （1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+  "Filter" : {
+	"StudentId": "32d9ce6f0ee04771a2f0a6c200fa458b", // 学员Id
+  },
+   （2）返回结果: Venue 在 Venue  
+ 
+
+  @GetMyPagePermission  获取我的界面--权限
+   （1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+  "Filter" : {
+	"CurrentUserId": "32d9ce6f0ee04771a2f0a6c200fa458b", // 当前登陆者Id
+  },
+   （2）返回结果: UserMyPagePermission 在 User  目录
+
+
+   @GetPrivateCoachList 学员获取私教列表 
+   （1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+   "Filter": {
+    "CurrentUserId": "d35a331d-450c-4d5d-8df7-a60301181fd3",
+    "CurUserLng": 104.0750263649714,
+    "CurUserLat": 30.54148434794828,
+	  "PageSize": 16,
+      "PageIndex": 1
+  },
+   （2）返回结果: Coach 在 Coacher -> Coach  
+ 
+
+    @IsTeachingPointManager 是否为教学点课程管理员 
+   （1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+   "Filter": {
+    "VenueId": "d35a331d-450c-4d5d-8df7-a60301181fd3",
+    "CurrentUserId": 104.0750263649714 
+   },
+   （2）返回结果: Tag  里面 true 表示 是教学点管理员, false 则相反
+
+   
+    @GetSyllabusTeachingPointCourseList 获取课程表 教学点 课程列表 
+   （1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+   "Filter": {
+    "SyllabusTime": "d35a331d-450c-4d5d-8df7-a60301181fd3", // 要查询的哪一天(传年月日 , 可以不传时分秒)
+    "VenueId":"d35a331d-450c-4d5d-8df7-a60301181fd3", // 教学点Id (场馆Id)
+   },
+   （2）返回结果: CoachCourse  在 Coacher -> Coach  
+
+   
+   @SaveCoachCourseJoin  课程报名(大课和私教公用)
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+ "Entities": [
+    {
+      "StudentId": "d35a331d-450c-4d5d-8df7-a60301181fd3",   
+      "CoachId": "32d9ce6f0ee04771a2f0a6c200fa458b",
+      "CourseId": "dba653c94ba94ac1a6daa73f00a8fffc", //课程Id
+      "RowState": "Added"
+    }
+  ],
+  （2）返回结果: IsSuccess
+
+
+ @GetSyllabusCoachCourseList 获取课程表 教练 课程列表 
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+"SyllabusTime": "d35a331d-450c-4d5d-8df7-a60301181fd3", // 要查询的哪一天(可以不传时分秒)
+"CoachId":"d35a331d-450c-4d5d-8df7-a60301181fd3", 
+},
+（2）返回结果: CoachCourse  在 Coacher -> Coach  
+
+
+ @GetCoachCourse 获取课程详细信息
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+ "Filter": {
+   "CourseId": "151e6e252c0142729dcda73f010a8c01",
+   "CurrentUserId": "117ad586-722d-4c50-bb0e-a65000fccf32" 
+  },
+（2）返回结果: CoachCourse  在 Coacher -> Coach  
+	返回的 CourseState 状态 枚举如下
+	 
+	CanNotComment 不显示评价按钮, 不能评价,课程还没结束
+	Comment 显示评价按钮, 课程已结束,能评价 
+	Commented 已评价
+
+	ConfirmStart  确认开始
+	ConfirmFinished 确认结束
+	CourseFinished 课程结束
+ 
+ 
+ @GetCourseCommentList 获取课程详情  评论列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+	"CourseId": "d35a331d-450c-4d5d-8df7-a60301181fd3", //课程Id
+},
+（2）返回结果: CoachComment  在 Coacher -> Student  
+
+
+ @SaveCoachCourseNotJoin 课程取消报名
+（1）参数:  CoachCourseJoin  在Coacher -Coach
+调用实例
+"Entities": [
+    {
+      "StudentId": "d35a331d-450c-4d5d-8df7-a60301181fd3", 
+      "CoachId": "32d9ce6f0ee04771a2f0a6c200fa458b",
+      "CourseId": "10f5319a233f4b69999fa74000c1594d" 
+    }
+  ],
+（2）返回结果:IsSuccess
+
+
+ @SaveCoachCourseStart 课程详细 -- 确认课程开始
+（1）参数:  CoachCourse  在Coacher -Coach
+调用实例
+"Entities": [
+    {
+		"Id": "151e6e252c0142729dcda73f010a8c01", //课程Id
+		"CourseContent": "课程内容",
+		"CategoryOfTechnologyId": "654f7eaedc0546798661a74000b531ef" //技术类别Id
+	}
+  ],
+（2）返回结果:IsSuccess
+
+
+ @SaveCoachCourseEnd 课程详细 -- 确认课程结束
+（1）参数:  CoachCourse  在Coacher -Coach
+调用实例
+"Entities": [
+     {
+		"Id": "151e6e252c0142729dcda73f010a8c01",//课程Id
+		"CourseSummary": "课程总结",
+		 "CityId":"75",
+		 "StudentNumber":3 //此堂课学员数量
+		 "CoachStudentRemarkList": //  List<CoachStudentRemark> 点评列表
+	}
+  ],
+（2）返回结果:IsSuccess
+
+
+ @SaveCoachCourseStudentRemark 课程详细 -- 点评学员
+（1）参数:  CoachStudentRemark  在Coacher -Coach
+调用实例
+"Entities": [
+      {
+      "CourseId": "151e6e252c0142729dcda73f010a8c01",
+      "StudentId": "d35a331d-450c-4d5d-8df7-a60301181fd3",
+      "Remark": "这瓜娃子不错", //评语
+      "RemarkUserId": "d35a331d-450c-4d5d-8df7-a60301181fd3", //评语人Id( 传当前登陆者Id)
+      "RowState":"Added"
+    }
+  ],
+（2）返回结果:IsSuccess
+
+
+@DeleteCourse 课程详细 -- 删除课程
+（1）参数:  GetCoachRelatedFilter  在 Filter ->Coacher 目录
+调用实例
+"Filter": {
+    "CourseId":"151e6e252c0142729dcda73f010a8c01" //课程Id
+  },
+  （2）返回结果:IsSuccess
+
+
+  @GetCoachTeachingCourseList  获取教练--授课列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "CoachId":"e3c5eb71-ad42-44b2-80c7-a6c101141e15" //教练Id
+  },
+（2）返回结果: CoachCourse  在 Coacher -> Coach  
+
+
+  @GetStudentJoinCourseList  获取学员--上课记录
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"e3c5eb71-ad42-44b2-80c7-a6c101141e15" //学员Id
+  },
+（2）返回结果: CoachCourse  在 Coacher -> Coach  
+
+
+ @GetStudentCourseBalance  获取学员-- 学员余额  
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"e3c5eb71-ad42-44b2-80c7-a6c101141e15" //学员Id
+    "CityId":75" //当前城市Id
+  },
+（2）返回结果: CoachStudentMoney  在 Coacher -> Student  
+
+	 
+ @GetStudentCourseRemarkList  获取学员--课程评语列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"e3c5eb71-ad42-44b2-80c7-a6c101141e15" //学员Id
+  },
+（2）返回结果: CoachCourse  在 Coacher -> Coach  
+
+
+@SaveUserFavorite 保存用户收藏 --场馆
+（1）参数:  CoachUserFavorite  在Coacher -Student
+调用实例
+"Entities": [
+     {
+      "UserId": "194c6cfd-d3e9-4224-bccc-a666010315e5", //当前登陆者Id
+      "FavoriteId": "0625eca9-4abf-4f83-8633-a6c100b32457", // 收藏Id (这里传场馆Id)
+      "FavoriteType": "Venue", //收藏类型 , 传 BusinessType 枚举 , 在BaseData 目录 BusinessType.cs 文件中
+      "RowState":"Added"
+    }
+  ],
+（2）返回结果:IsSuccess
+
+
+@CancelUserFavorite 取消用户收藏 --场馆
+（1）参数:  CoachUserFavorite  在Coacher -Student
+调用实例
+"Entities": [
+     {
+      "UserId": "194c6cfd-d3e9-4224-bccc-a666010315e5", //当前登陆者Id
+      "FavoriteId": "0625eca9-4abf-4f83-8633-a6c100b32457", // 收藏Id (这里传场馆Id)
+    }
+  ],
+（2）返回结果:IsSuccess
+
+
+@GetStudentBigCourseDeadlineList  获取学员余额中 -- 大课的过期时间列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"e3c5eb71-ad42-44b2-80c7-a6c101141e15" //学员Id
+  },
+（2）返回结果: CoachStudentMoney  在 Coacher -> Student  
+	返回的是这两个字段
+	Amount  剩余次数 Deadline 过期时间
+
+
+@GetUserList  获取教学点教练列表
+ （1）参数:    
+ Filter": {
+	"VenueId":"0625eca9-4abf-4f83-8633-a6c100b32457",
+  	"UserType":"TeachingPointCoach",
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: User
+
+
+ @GetUserContactList  获取联系人列表
+ （1）参数:   GetUserListFilter  在 Filter 目录
+ "Filter": {
+    "CurrentUserId": "d35a331d-450c-4d5d-8df7-a60301181fd3"  //当前登陆者Id
+  },
+ （2）返回结果: UserContactList   在 User目录
+
+
+ @SaveCoachCourseShare 保存教练课程分享 
+（1）参数: Note  
+ "Entities": {
+      "Content": "再来一下", //精彩瞬间内容
+      "CourseId": "04a15fabbd6a4b03b320a6dd00b9e6f1", //分享课程Id
+      "RowState": "Added"
+  },
+（2）回结果:IsSuccess
+ 
+
+ @GetOrganizationIncome 查看机构教练收入
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+  "Filter": {
+     "OrganizationId":"ydl",
+     "CoachIncomeBeginTime":"2017-03-09 10:00:00.000",
+     "CoachIncomeEndTime":"2017-03-31 13:00:00.000"
+   },
+ （2）返回结果: CoachIncome     在Coacher -> SystemManage  目录
+
+
+  @GetOrganizationIncomeDetail 查看机构教练收入明细
+  （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+  "Filter": {
+     "OrganizationId":"ydl",
+     "CoachIncomeBeginTime":"2017-03-09 10:00:00.000",
+     "CoachIncomeEndTime":"2017-03-31 13:00:00.000"
+   },
+ （2）返回结果: CoachIncome     在Coacher -> SystemManage  目录
+
+
+@GetVenueIncome 查看场馆收入
+  （1）参数: GetVenueRelatedFilter  在 Filter -> Venue 目录
+  友情提示: 下面的Filter 参数值可以查出数据, 可以用下面的Filter来调试界面
+  "Filter": {
+     "VenueId":"6df567e3-5ef1-4547-81eb-a65800ae2daf", 
+     "IncomeBeginTime":"2013-03-09 10:00:00.000",
+     "IncomeEndTime":"2017-12-09 13:00:00.000"
+   },
+ （2）返回结果: VenueIncome     在Venue  目录
+
+
+@GetVenueIncomeDetail 查看场馆收入明细
+  （1）参数: GetVenueRelatedFilter  在 Filter -> Venue 目录
+  友情提示: 下面的Filter 参数值可以查出数据, 可以用下面的Filter来调试界面
+
+  "Filter": {
+     "VenueId":"6df567e3-5ef1-4547-81eb-a65800ae2daf",
+     "IncomeBeginTime":"2013-03-09 10:00:00.000",
+     "IncomeEndTime":"2017-12-09 13:00:00.000"
+   },
+ （2）返回结果: VenueIncome     在Venue  目录
+
+
+ @GetCourseBuyDescription 获取大课购买时展示的信息
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+    "CityId":"76",
+	"CoachId": "dsd" 教练Id
+  },
+   （2）返回结果: CoachPrice 在 Coacher -> Coach  
+
+
+
+    @SaveCoachBootcamp  新建集训, 修改集训
+  
+  （1）参数: CoachBootcamp  在Coacher -> SystemManage  目录
+ "Entities": [
+    {
+	  "HeadUrl":"",	 //传集训要在首页展示的图片
+      "Name": "08a7916e-3212-4ebe-8d03-a66400b440eb",
+      "VenueId": "0626896ba7fd429b91e4a74c0113c788",
+      "Price": 55,
+      "DiscountPrice": 30,
+      "BeginTime": "2017-07-01 00:00:00",
+      "EndTime": "2017-09-01 00:00:00",
+      "JoinDeadline": "2017-06-30 00:00:00",
+      "Remark": "这是暑假班",
+	  "CourseCount":10, //集训课时
+      "RowState": "Added" //修改的话, 这里改成 modified
+    }
+  ],
+ （2）返回结果: IsSuccess, Tag 里面会返回此集训的Id
+
+
+  @GetCoachBootcamp  获取集训详情
+  
+  （1）参数: GetSystemManageRelatedFilter  在filter -> Coacher  目录
+ "Filter": {
+	"CoachBootcampId":"064f61212e0e4afb9fd8a789011383b4",
+	"CurrentUserId":"das" // 传当前登陆者的id
+  },
+ （2）返回结果: CoachBootcamp
+	其中 State字段的枚举如下:
+	Unpublish = 未发布
+	Join = 报名中
+	Finished = 已截止
+	Joined =已报名
+
+@UpdateCoachBootcampState 修改集训的状态
+  （1）参数: CoachBootcamp  在Coacher -> SystemManage  目录
+ "Entities": [{
+   "State":"Join",
+   "Id":"193b05f623d84668ae58a78b009ddc50"
+  }
+  ],
+	  其中 State字段的枚举如下:
+		Unpublish = 未发布
+		Join = 报名中
+		Finished = 已截止
+ （2）返回结果: isSuccess
+	
+ 
+    @DeleteCoachBootcamp  删除集训 
+  （1）参数: CoachBootcamp  在Coacher -> SystemManage  目录
+ "Entities": [
+    {
+      "Id": "dda8881f-e128-4986-ac61-a6a60102488b",//集训课id
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @SaveCoachBootcampCourse  新建集训的课程, 修改集训的课程
+  
+  （1）参数: CoachBootcampCourse  在Coacher -> SystemManage  目录
+ "Entities": [
+      {
+      "Id":"ae23335e9f444e9e84f6a78a00a46a18",
+      "CoachBootcampId":"064f61212e0e4afb9fd8a789011383b4",
+      "BeginTime": "2017-07-01 11:00:00",
+      "EndTime": "2017-07-01 13:00:00",
+	  "CourseContent": "反手课",
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+   @DeleteCoachBootcampCourse  删除集训的课程 
+  （1）参数: CoachBootcampCourse  在Coacher -> SystemManage  目录
+ "Entities": [
+    {
+      "Id": "dda8881f-e128-4986-ac61-a6a60102488b",//集训的课程id
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @GetCoachBootcampCourseList  获取集训的课程表
+ （1）参数:    GetSystemManageRelatedFilter 
+  注意此接口跟以前一样,  传参唯一不同是, 开始时间和结束时间传一样就行了
+  "Filter": {
+    "CoachBootcampId":"064f61212e0e4afb9fd8a789011383b4", // 集训Id
+	"BootcampCourseBeginTime":"2017-06-10 13:00:00.000", // 集训的课程开始时间  
+    "BootcampCourseEndTime":"2017-07-01 11:00:00.000", //集训的课程结束时间  
+	"CurrentUserId":"dd",// 当前登陆者Id
+    "PageIndex":1,
+    "PageSize":20
+  },
+ （2）返回结果: CoachBootcampCourse  在Coacher -> SystemManage 目录
+State 字段的枚举是
+ NotBuy 未购买
+ NotJoin 未预约
+ Joined  预约成功
+ HaveCourse 有课
+
+
+
+    @SaveStudentBootcampMoney  购买集训课
+ 注意: 此购买支付流程和以前的流程一样, 唯一不同是 将 SaveVipUse替换成了SaveStudentBootcampMoney, 
+	SaveStudentBootcampMoney 接口会返回tag 支付Id, 对比如下:
+	以前调用接口流程: SaveVipUse->GetVipUse->GetPayStr ->SaveVipUsePay 
+	购买集训课流程: SaveStudentBootcampMoney->GetVipPayInfo->GetPayStr ->SaveVipUsePay 
+
+  （1）参数: CoachStudentMoneyNotPay  在Coacher -> Student  目录
+ "Entities": [
+    {
+      "StudentUserId": "dda8881f-e128-4986-ac61-a6a60102488b",
+      "CoachBootcampId": "3a31fea3-e6e9-450e-a559-a63600e873ae", //集训课id
+      "ThenMoney": 1600, //集训课价格
+	  "Amount": 10,//集训课时
+	  "CityId":"75",
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+   @GetVipPayInfo  获取支付信息--集训用
+
+  （1）参数:    GetVipRelatedFilter 在 Filter -> Vip 目录
+ "Filter": {
+    "BusinessType": "016010005", //集训模块,  BusinessType  的枚举在 MasterType 类里面都可以找到:
+    "PayType": "Use", // 支付类型 枚举两个:  Buy 和 Use
+    "PayId": "02eaee3a-8926-414a-88d2-a659011b6103", //就是 SaveStudentBootcampMoney 返回的 tag值
+  },
+ （2）返回结果: VipPayInfo  在 Vip 目录下
+ CoachBootcampHeadInfo 字段解释如下: 
+		他的类型为 CoachBootcamp
+		返回的字段有 
+			Name , 集训的名称
+			BeginTime 集训开始时间
+			EndTime 集训结束时间
+ 
+
+  @GetBootcampJoinedStudentList  获取集训报名的学员列表
+  （1）参数: GetSystemManageRelatedFilter  在filter -> Coacher  目录
+  "Filter": {
+    "CoachBootcampId":"064f61212e0e4afb9fd8a789011383b4", // 集训Id
+    "PageIndex":1,
+    "PageSize":20
+  },
+ （2）返回结果: User
+
+
+  @GetCoachBootcampList  获取集训列表
+  （1）参数: GetSystemManageRelatedFilter  在filter -> Coacher  目录
+ "Filter": {
+     "PageIndex":1,
+    "PageSize":20
+  },
+   （2）返回结果:  CoachBootcamp 在Coacher -> SystemManage 目录
+
+   @GetCoachBootcampList  获取集训列表--用于课程表里面
+  （1）参数: GetSystemManageRelatedFilter  在filter -> Coacher  目录
+ "Filter": {
+	"IsForSyllabus":"true", //这个值写死 , 传true 即可
+	 "PageIndex":1,
+    "PageSize":20
+  },
+   （2）返回结果:  CoachBootcamp 在Coacher -> SystemManage 目录
+
+   
+  @GetCoachBootcampForHomePage  获取集训在首页显示
+  （1）参数:  无
+ （2）返回结果: CoachBootcamp
+	 注: 返回的是最新的 可以报名的 一条集训记录
+
+
+ @GetCoachBootcampListForStudent  获取集训列表, 在学员我的课程里面查看
+  （1）参数: GetSystemManageRelatedFilter  在filter -> Coacher  目录
+ "Filter": {
+	"PageIndex":1,
+    "PageSize":20,
+    "StudentId":"dda8881f-e128-4986-ac61-a6a60102488b"
+  },
+   （2）返回结果:  CoachBootcamp 在Coacher -> SystemManage 目录
+
+
+@GetUserList  获取集训课程的预约学员列表
+ （1）参数:  GetUserListFilter  在 Filter 目录   
+"Filter": {
+    "PageIndex":1,
+    "PageSize":20,
+    "UserType":"BootcampStudent",
+    "CoachBootcampCourseId":"ddd"
+  },
+ （2）返回结果: User
+
+
+ @SaveCoachBootcampCourseDetail  保存上课详情(包含添加和修改操作)
+  （1）参数: CoachCourse  在Coacher ->Coach 目录  
+  注意: 添加时 RowState 为 Added , 没有Id字段
+  修改时 RowState 为 Modified  ,  Id 字段必传
+ "Entities": [
+    {
+      
+      "CoachId": "32d9ce6f0ee04771a2f0a6c200fa458b",
+      "StudentList": [
+        { "UserId": "fefd56d4-cbe9-4089-95aa-a6c9013b9a70" },
+
+        { "UserId": "2be5778bee684472b86fa74c011248db" }
+      ],
+      "BeginTime": "2017-07-03 12:30:00.000",
+      "EndTime": "2017-07-03 13:30:00.000",
+      "Type": "027005",
+      "VenueId": "208894a2-1216-49ba-a8a3-a68601583246",
+      "CoachBootcampCourseId":"97394263c6b5494d89b4a79300ad4c59", //集训课Id
+      "CourseGrade":1,
+      "RowState": "Modified",
+      "Id":"8e89e95f607348cd8aada79301202d16"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @DeleteCoachBootcampCourseDetail  删除集训课的详情
+  （1）参数: CoachCourse  在Coacher ->Coach 目录  
+
+ "Entities": [
+    {
+      "Id":"8e89e95f607348cd8aada79301202d16" //课程Id, 即CoachCourse 的Id
+    }
+  ],
+ （2）返回结果: IsSuccess
+ 
+
+ @GetVenueListForTeachingPoint  获取场馆只包含教学点的列表
+ （1）参数:   此接口的传参数跟 GetVenueList 完全一样
+ （2）返回结果: 返回的字段跟 GetVenueList 完全一样 , 只是只返回了教学点
+
+
+ @GetCoachBootcampCourseDetailList  获取集训 课程详细 列表
+  （1）参数: GetSystemManageRelatedFilter  在filter -> Coacher  目录
+ "Filter": {
+    "PageIndex":1,
+    "PageSize":20,
+    "CoachBootcampCourseId":"97394263c6b5494d89b4a79300ad4c59"
+  },
+ （2）返回结果: CoachCourse   在Coacher ->Coach 目录  
+
+
+  @GetUserIdByCode  根据code 获取用户Id
+  （1）参数: GetIMRelatedFilter  在filter -> IM  目录
+  "Filter": {
+  	"UserCode":"160000000116"
+  },
+ （2）返回结果: User 
+
+
+  @GetUserInfoByCode  根据code 获取用户信息
+  （1）参数: GetIMRelatedFilter  在filter -> IM  目录
+  "Filter": {
+  	"UserCode":"160000000116"
+  },
+ （2）返回结果: User 
+
+
+ @SaveBootcampCourseJoin  预约集训的课程
+  （1）参数: CoachBootcampCourseJoin  在Coacher -> SystemManage  目录
+ "Entities": [
+    {
+      "StudentId": "c38aeea1-dd37-43b8-b929-a6570110648d",
+      "BootcampCourseId": "881dae7348944074ad4fa79900e80fc3", //集训的课程ID(第二层Id)
+      "CoachBootcampId" : "62a158fd6565412994efa79900e7e80e",//集训的Id(第一层Id)
+      "RowState":"Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @SaveBootcampCourseNotJoin  取消预约的集训课程
+  （1）参数: CoachBootcampCourseJoin  在Coacher -> SystemManage  目录
+ "Entities": [
+    {
+      "StudentId": "c38aeea1-dd37-43b8-b929-a6570110648d",
+      "BootcampCourseId": "881dae7348944074ad4fa79900e80fc3", //集训的课程ID(第二层Id)
+      "CoachBootcampId" : "62a158fd6565412994efa79900e7e80e",//集训的Id(第一层Id)
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @GetUserListForIM  IM搜索用户
+ （1）参数:   GetUserListFilter  在 Filter 目录
+ Filter": {
+	"Keywords" :"dd", //关键字 , 可以是 昵称 或账号 或电话号码 或 姓名
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: User
+
+  
+  @GetUser  获取用户信息(包含是否为俱乐部管理员等判断)
+ （1）参数:   GetUserRelatedFilter  在 Filter 目录
+ "Filter":  {
+      "Id": "7f5c3032-913c-4010-b51a-a6c000bcc2fe",//要查询的用户id
+      "CurrentUserId":"32d9ce6f-0ee0-4771-a2f0-a6c200fa458b", //当前登陆者Id
+      "ClubId":"cb90d466d7b54e74aae5a71c0127deb4" //俱乐部Id
+    },
+ （2）返回结果: User
+	 
+ 
+ @GetClubManagerList  获取俱乐部管理员列表
+ （1）参数:   GetClubRelatedFilter  在 Filter 目录
+"Filter": {
+  	"ClubId":"087e48ef-fd10-4db6-9328-a6c8010395ac"
+  },
+ （2）返回结果: User
+ 
+
+   @SaveClubPetName  修改俱乐部成员昵称
+  （1）参数: ClubUser  在Club 目录
+ "Entities": [
+    {
+      "ClubId": "c38aeea1-dd37-43b8-b929-a6570110648d",
+      "UserId": "881dae7348944074ad4fa79900e80fc3", 
+      "PetName" : "62a158fd6565412994efa79900e7e80e", 
+	  "UserCode":"kk"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+   @SaveClubAdmin  设置或者取消管理员(支持批量和单个操作)
+  （1）参数: ClubUser  在Club 目录
+ "Entities": [
+    {
+      "ClubId": "c38aeea1-dd37-43b8-b929-a6570110648d",
+      "UserId": "881dae7348944074ad4fa79900e80fc3", 
+      "IsAdmin" :true
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+   
+   @SaveClubUserLevel  修改俱乐部成员档位 
+  （1）参数: ClubUser  在Club 目录 
+ "Entities": [
+    {
+      "ClubId": "c38aeea1-dd37-43b8-b929-a6570110648d",
+      "UserId": "881dae7348944074ad4fa79900e80fc3", 
+      "LevelValue" : int 类型值(安装以前的方式传)
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetGroupMemberShutupState  获取群用户禁言状态
+ （1）参数:   GetIMRelatedFilter  在 Filter 目录
+"Filter": {
+  	"ClubId":"254fffbe-4218-4b0e-8dba-a65800e1a32a",
+  	"UserCode":"admin14"
+  },
+ （2）返回结果: Tag  , true 表示已被禁言, false表示没有
+
+
+ @SetOrCancelAllShutup 设置或取消全员禁言 (全员禁言后管理员和群主可以聊天). ShutUpTime  为0时表示取消禁言
+ （1）参数: IMGroup  在IM 目录 
+ "Entities": [
+	 {
+		"GroupId": "@TGS#2C5SZEAEF",//俱乐部Id
+		"ShutUpTime": 60  // 禁言时间，单位为秒, 0时表示取消禁言
+	}
+  ],
+ （2）返回结果: IsSuccess
+
+  @RemoveClubUser 移除俱乐部某个或多个成员
+ （1）参数: ClubUser  在Club 目录 
+ "Entities": [
+	 {
+		"UserId": "dd",
+		"UserCode":"ss",
+		"ClubId":"dd"
+	}
+  ],
+ （2）返回结果: IsSuccess
+
+
+   @GetGroupShutupState  获取群全员禁言状态
+ （1）参数:   GetIMRelatedFilter  在 Filter 目录
+"Filter": {
+  	"ClubId":"254fffbe-4218-4b0e-8dba-a65800e1a32a"
+  },
+ （2）返回结果: Tag  , true 表示已全部禁言(管理员和创建者除外), false表示没有
+
+  
+  @GetUserInfoByCode  根据用户code获取用户信息(包含是否为俱乐部管理员等判断)
+ （1）参数:   GetUserRelatedFilter  在 Filter 目录
+ "Filter":  {
+      "UserCode": "7f5c3032-913c-4010-b51a-a6c000bcc2fe",//要查询的用户code
+      "CurrentUserId":"32d9ce6f-0ee0-4771-a2f0-a6c200fa458b", //当前登陆者Id
+      "ClubId":"cb90d466d7b54e74aae5a71c0127deb4" //俱乐部Id
+    },
+ （2）返回结果: User
+
+ @GetAppIncomeStatisticsList 获取app 收入统计
+  （1）参数:   GetVipBuyListFilter  在 Filter 目录
+ "Filter": {
+  	"BeginDate":"2017-03-07",
+  	"EndDate":"2017-07-07",
+    "PayOption":"023002",
+    "PageIndex":1,
+    "PageSize":20 
+  },
+ （2）返回结果: VipBuy
+
+
+ @GetTVInfoList 获取电视列表
+  （1）参数:   GetVipBuyListFilter  在 Filter 目录
+ "Filter": {
+    "PageIndex":1,
+    "PageSize":20 
+  },
+ （2）返回结果: TVInfo 在  TV 目录
+
+
+    @SaveTVConfig  保存新建电视配置 
+  （1）参数: ClubUser  在Club 目录 
+"Entities": [
+    {
+      "UserCode": "160000000205", //取user 实体的code
+      "TVCode": "TV1", //去TVInfo 实体的code
+      "RowState": "Added"
+    },
+    {
+      "UserCode": "160000000205",
+      "TVCode": "TV3",
+      "RowState": "Added"
+    },
+    {
+      "UserCode": "160000000209",
+      "TVCode": "TV9", 
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @GetTVConfigList 获取电视配置列表
+  （1）参数:    无
+ （2）返回结果: TVConfig 在  TV 目录
+
+
+  @DeleteTVConfig  删除电视配置
+  （1）参数:    TVConfig  在  TV 目录
+ （2）返回结果: isSuccess
+
+
+ @GetGameGroupListForTV 获取比赛小组列表
+  （1）参数:  实体跟以前一样 GetGameGroupListFilter
+   "Filter": {
+     "GameId": "4af6b13c9085444d9847a77600f86910",
+     "IsContainMember": true //写死
+  }
+   （2）返回结果: 跟以前一样 GameGroup
+
+
+  @GetGameGroupForTV 获取比赛小组比赛明细
+  （1）参数:  实体跟以前一样 GetGameGroupListFilter
+ "Filter": {
+    "GameId": "4af6b13c9085444d9847a77600f86910",
+    "GroupId": "bda68c14307249faa557a77600ff4b44", //这个值来源于上个接口GetGameGroupListForTV返回的 GameGroup实体的Id
+    "IsContainMember": true, //写死
+    "IsContainLoop": true, //写死
+  },
+   （2）返回结果: 跟以前一样 GameGroup
+
+
+
+  @GetNationalFlagList 获取所有国家和国旗
+  （1）参数:   GetTVRelatedFilter  在 Filter 目录
+ "Filter": {
+   "NationalName":"",
+     "PageIndex": 1,
+     "PageSize": 30
+  },
+ （2）返回结果: NationalFlag
+
+
+@GetCoachBootcampCourseTimeList  获取集训的课程时间列表
+  （1）参数:   GetSystemManageRelatedFilter  在 Filter 目录
+"Filter": {
+    "CoachBootcampId": "62a158fd6565412994efa79900e7e80e" 
+  },
+ （2）返回结果: CoachBootcampCourse
+ 取 CourseTime 字段来展示即可
+
+
+ @IsRegistered_184  判断手机号是否已注册
+  （1）参数:  GetUserRelatedFilter 
+"Filter": {
+    "Mobile": "62a158fd6565412994efa79900e7e80e" 
+  },
+ （2）返回结果: 
+ Tag true 表示已注册, false表示没有注册
+ Entities 里面返回了一个 User类型 实体, 在里面绑定头像和昵称
+ 
+
+  @GetWeiXinLoginInfo_184  获取微信登陆信息 
+  （1）参数:  GetUserRelatedFilter 
+"Filter": {
+    "WeiXinTempCode": "62a158fd6565412994efa79900e7e80e" //注意这个WeiXinTempCode 每次都要用腾讯返给你们的最新的
+  },
+ （2）返回结果: User
+ Entities 里面返回了一个 User类型 实体, User实体的 ThirdPartyLoginState字段 如果是 "GoLogin"
+ 就直接取密码和code 来自动登陆, 如果是 "GoBindMobile" 就跳到手机绑定界面
+
+
+ @BindMobileForWinXinLogin_184  微信登陆绑定手机号
+  （1）参数:  GetUserRelatedFilter 
+  注意: 以下参数值 取 GetWeiXinLoginInfo_184 接口返回的
+  "Filter": {
+    "Mobile":"15208169741",
+    "WeiXinUnionId":"12356",
+    "PetName":"jkhome",
+    "Sex":1,
+    "HeadUrl":""
+  },
+ （2）返回结果: User
+ Entities 里面返回了一个 User类型 实体, 在里面取密码和code 来自动登陆
+
+
+  @GetQQLoginInfo_184  获取QQ登陆信息 
+  （1）参数:  GetUserRelatedFilter 
+  "Filter": {
+    "QQOpenId":"CA1F2B5EC8829124E109EBA47D305950" 
+  },
+ （2）返回结果: User
+  Entities 里面返回了一个 User类型 实体, User实体的 ThirdPartyLoginState字段 如果是 "GoLogin"
+ 就直接取密码和code 来自动登陆, 如果是 "GoBindMobile" 就跳到手机绑定界面
+
+
+  @BindWeiXinQQ_184  微信QQ绑定
+  （1）参数:  GetUserRelatedFilter 
+ "Filter": {
+    "QQOpenId":"",//余东洋魏永成传这个值
+    "WeiXinTempCode":"jkwx",//何明阳胡勇传这个值
+    "UserId":"f1a9f26b8aa0415f90eca7ee01250beb"//都传
+  },
+ （2）返回结果: IsSuccess
+
+
+   @UnBindWeiXinQQ_184  微信QQ解绑
+  （1）参数:  GetUserRelatedFilter 
+  "Filter": {
+	"UnBindType":"WeiXin",  //有两个枚举值, 解绑微信的时候传 "WeiXin" , 解绑QQ 的时候传 "QQ"
+    "UserId":"32d9ce6f0ee04771a2f0a6c200fa458b"
+  },
+ （2）返回结果: IsSuccess
+
+
+  @BindMobileForQQLogin_184  qq登陆绑定手机号
+  （1）参数:  GetUserRelatedFilter 
+  "Filter": {
+    "QQOpenId":"jkid",
+    "PetName":"kj",
+	"HeadUrl":"",
+	"Sex":"0",
+	"Mobile":"15208169741"
+  },
+ （2）返回结果: User
+ Entities 里面返回了一个 User类型 实体, 在里面取密码和code 来自动登陆
+
+
+ @UpdatePassword 修改密码
+（1）参数: User  
+ "Entities": [
+    {
+      "Password": "xx", 
+      "Id": "xdx" 
+    }
+  ],
+ （2）返回结果:IsSuccess
+
+
+  @SetPayPassword  设置支付密码
+（1）参数: User  
+ "Entities": [
+    {
+      "PayPassword": "xx", 
+      "Id": "xdx" 
+    }
+  ],
+ （2）返回结果:IsSuccess
+
+ 
+  @SetPayNoPwdAmount  设置免密额度
+（1）参数: User  
+ "Entities": [
+    {
+      "PayNoPwdAmount":0, 
+      "Id": "xdx" 
+    }
+  ],
+ （2）返回结果:IsSuccess
+
+
+ @CheckPayPassword  检查支付密码是否正确
+（1）参数: User  
+"Entities": [
+    {
+      "PayPassword": "xx", 
+      "Id": "xdx" 
+    }
+  ],
+ （2）返回结果:IsSuccess 
+
+ -------------------------186接口开始------------------------------------------------------------------------------------------
+ @GetCoachBigCourseInfoList_186 获取大课信息列表
+ （1）参数:  无
+ （2）返回结果:   CoachBigCourseInfo 在 Coacher->SystemManage 下面
+ 此接口目前最多返回5条数据
+
+  @GetCoachList 获取教练列表
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+  "Filter": {
+	"Name"://可选值, 教练列表搜索时传教练名称
+    "PageIndex": 1,
+    "PageSize": 21 
+  },
+   （2）返回结果: Coach 在 Coacher -> Coach  
+
+ @GetCoachBigCourseInfo_186  获取大课介绍信息
+（1）参数:   GetSystemManageRelatedFilter  在 Filter -> Coacher 目录下
+ "Filter": {
+    "BigCourseInfoId":"d5248f8e560c4c8aa1c3a80e010e7fb5"//来源于GetCoachBigCourseInfoList 接口返回的 CoachBigCourseInfo模型的Id
+  },
+ （2）返回结果:   CoachBigCourseInfo 在 Coacher->SystemManage 下面
+
+ 
+ -------购买大课相关接口------开始
+ @GetNearbyTeachingPointList 获取附近教学点(学员购买大课私教时用)
+   （1）参数: GetVenueListFilter  在 Filter  目录
+  "Filter" : {
+    "UserId" : "eb71682dc6ee4a708b49a6f600fcdc60",//当前登陆者Id
+    "CurUserLat" : 30.54146879621069,//当前位置纬度, 没得传0
+    "CurUserLng" : 104.0750443310816,//当前位置经度,没得传0
+    "PageIndex" : 1,//写死传1
+    "PageSize" : 1,//写死传1
+  },
+   （2）返回结果: Venue 在 Venue  
+  
+  
+  @GetCoachCourseGoalList_186  获取课程目标列表
+ （1）参数:  无
+ （2）返回结果:   SysDic 在 System 目录下 , SysDic 实体中的 Name用做显示, Code 用做显示的值
+ 
+ @SaveCoachStudentMoney_186  购买大课, 私教的课时
+ 注意: 此购买支付流程和以前的流程一样, 唯一不同是 将 SaveVipUse替换成了SaveCoachStudentMoney_186, 
+	SaveCoachStudentMoney_186 接口会返回tag 支付Id, 对比如下:
+	以前调用接口流程: SaveVipUse->GetVipUse->GetPayStr ->SaveVipUsePay 
+	购买大课, 教练的课时流程: SaveCoachStudentMoney_186->GetVipPayInfo->GetPayStr ->SaveVipUsePay 
+
+  （1）参数: CoachStudentMoneyNotPay  在Coacher -> Student  目录
+ "Entities": [
+    {
+      "StudentUserId": "dda8881f-e128-4986-ac61-a6a60102488b", 
+      "CoachId": "3a31fea3-e6e9-450e-a559-a63600e873ae", //大课不传此值, 私教传
+      "Amount": 10,
+      "ThenMoney": 1600, 
+      "CourseTypeId": "027001", // 大课 027001 私教 027003, 这个用的是以前的枚举,
+	  ---新加的
+	  "VenueId":"",//教学地点
+	  "StudentName":"",//学员姓名
+	  "StudentMobile":"",//电话
+	  "StudentRemark":"",//备注
+	  "CourseGoalCode":"EnjoyPingPongFun",//目标Id, 取 GetCoachCourseGoalList_186 接口的 Code 字段值
+	  "BigCourseInfoId":"",//大课Id , 来自上个大课介绍界面中的 CoachBigCourseInfo 实体的Id, 私教不要传
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+ @GetCoach 获取教练详情 
+ （1）参数: GetSystemManageRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	"CoachId":"ac7fd1c7f8c943d6965ca7300102c909"	
+  },
+ （2）返回结果: Coach    在Coacher -> Coach  目录
+
+ @GetCourseBuyPresetInfo_186 获取购买时预设信息
+(1)参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+    "StudentId" : "eb71682dc6ee4a708b49a6f600fcdc60", //当前登陆者Id
+    "CurUserLat" : 30.54146879621069, 
+    "CurUserLng" : 104.0750443310816
+  },
+(2)返回结果: CoachCourse  在Coacher -> Coach  目录
+字段Venue为附近教学点, CourseCountList 为课时列表
+
+
+ @GetCourseBuyContract_186 获取购买协议
+(1)参数: 无
+(2)返回结果: Tag 里面是具体的协议内容
+
+
+
+ -------购买大课相关接口------结束
+
+ -------约课模块相关接口------开始
+
+ 约课模块接口调用顺序: 
+	IsHaveBalance_186->GetCourseNameAndAmountList_186->GetReserveCourseHistoryInfo_186->SaveReserveCourse_186
+
+@GetReserveCourseListForStudent_186 获取学员界面的约课列表
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "SyllabusTime": "2017-10-19", //传要查询的这天时间
+    "CurrentUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2"
+  },
+（2）返回结果: CoachCourse    在Coacher -> Coach  目录
+其中 CourseState 字段表示课程状态, 枚举有如下值: 
+NotStart 已预约
+HasScore 已评分 (这个状态时去绑定 Score 评分字段作展示)
+NotScore 未评分
+
+@IsHaveBalance_186 获取学员是否有余额
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	"CurrentUserId":"ac7fd1c7f8c943d6965ca7300102c909"	//当前登陆者Id
+  },
+（2）返回结果: Tag   true表示有余额, false 表示没有
+
+
+  @GetCourseNameAndAmountList_186  获取课程名称和余额列表 (发布约课界面用)
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+	"StudentId":"ac7fd1c7f8c943d6965ca7300102c909"	
+  },
+（2）返回结果: CoachStudentMoney  在 Coacher -> Student  
+
+
+  @GetReserveCourseHistoryInfo_186  获取约课历史信息 (发布约课界面用)
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "CurrentUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2",
+    "CourseTypeId":"027001",  //大课传027001 私教传 027003
+    "CourseNameId":"d5248f8e560c4c8aa1c3a80e010e7fb5" //传 GetCourseNameAndAmountList_186 接口返回实体的 CourseNameId 字段值
+  },
+（2）返回结果: CoachCourse   在Coacher -> Coach  目录
+
+
+ @SaveReserveCourse_186  发表约课(包含大课私教)
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+  注意: 下面字段除非特别说明, 默认大课私教都要传这些字段
+  "Entities": [  {
+  	  "ReservedPersonId": "9c9b6958024a4124b7d9a6bf00b8c1a2", //约课人id, 传当前登陆者Id
+      "CourseNameId":"d5248f8e560c4c8aa1c3a80e010e7fb5", //传 GetCourseNameAndAmountList_186 接口返回实体的 CourseNameId 字段值
+      "VenueId":"0626896ba7fd429b91e4a74c0113c788",
+      "BeginTime": "2017-10-19 15:12:45",
+      "EndTime": "2017-10-19 16:12:45",
+      "Type": "027001", // 大课传 027001 私教传 027003, 这个用的是以前的枚举,
+	  "CourseGoalCode":"",//这个传GetCoachCourseGoalList_186接口返回实体的Code
+	  "Remark":"",
+      "CoursePersonInfoList": 	[
+      	{
+     
+      		 "StudentName":"张三",
+		      "StudentMobile":"15208169741",
+			  "FrequentStudentId":""//常用学员Id
+      	},{
+     
+      		 "StudentName":"李四" ,
+			   "StudentMobile":"15208169741",
+			   "FrequentStudentId":""//常用学员Id
+      	}], //这个传 个人信息列表, 注意大课是多个或一个, 私教只有一个
+      
+      "RowState": "Added",
+      "RowVersion": 0
+    }],
+ （2）返回结果: IsSuccess
+
+
+ @UpdateReserveCourse_186   修改约课(包含大课私教)
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+  "Entities": [  {
+  	  "Id": "9c9b6958024a4124b7d9a6bf00b8c1a2", //要修改的课程id
+      "BeginTime": "2017-10-21 15:12:45.133",
+      "EndTime": "2017-10-21 16:12:45.133",
+      "CoursePersonInfoList": 	[
+      	{
+     
+      		 "StudentName":"张三",
+		      "StudentMobile":"15208169741",
+		      "StudentRemark":"heheh",
+		      "CourseGoalCode":"EnjoyPingPongFun" //这个传GetCoachCourseGoalList_186接口返回实体的Code
+      	},{
+     
+      		 "StudentName":"李四" ,
+			   "StudentMobile":"15208169741",
+		      "StudentRemark":"heheh",
+		      "CourseGoalCode":"EnjoyPingPongFun"
+      	}], //这个字段传 个人信息列表, 注意大课是多个或一个, 私教只有一个
+      "RowState": "Added",
+      "RowVersion": 0
+    }],
+ （2）返回结果: IsSuccess
+ 
+
+ @CancelReserveCourse_186 取消约课(包含大课私教)
+ （1）参数: CoachCourse  在Coacher -> Coach  目录
+ 注意此接口的传值 跟 SaveReserveCourse_186 接口差不多, 可仿照他来传下面的值
+  "Entities": [  {
+  	  "Id":"db1a9c04acfb4aa3b5a6a81101174c7a",//要取消的课程Id
+  	  "CourseNameId":"d5248f8e560c4c8aa1c3a80e010e7fb5"	,
+  	  "ReservedPersonId": "9c9b6958024a4124b7d9a6bf00b8c1a2", 
+      "Type": "027001",
+      "RowState": "Added",
+      "RowVersion": 0
+    }],
+ （2）返回结果: IsSuccess
+
+ @GetReserveCourseDetail_186 获取约课详情
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "CourseId":"9c9b6958024a4124b7d9a6bf00b8c1a2", //课程id
+	"CurrentUserId":""//当前登陆者id
+  },
+（2）返回结果: CoachCourse   在Coacher -> Coach  目录
+界面的"课程名称"请绑定 CourseName 字段
+
+ @GetNearbyTeachingPointList 获取附近教学点(约课时用)
+   （1）参数: GetVenueListFilter  在 Filter  目录
+  "Filter" : {
+    "UserId" : "eb71682dc6ee4a708b49a6f600fcdc60",//当前登陆者Id
+    "CurUserLat" : 30.54146879621069,//当前位置纬度, 没得传0
+    "CurUserLng" : 104.0750443310816,//当前位置经度,没得传0
+	"Name":""//教学点名字 
+    "PageIndex" : 1,
+    "PageSize" : 1,
+  },
+   （2）返回结果: Venue 在 Venue  
+
+ -------约课模块相关接口------结束
+
+ -------课程评价模块相关接口---------开始
+  @GetHaveCourseDateListForStudent_186  获取有课日期号数列表(学员界面用)
+   （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "CurrentUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2",
+     "BeginTime":"2017-10-01",
+     "EndTime":"2017-10-29"
+  },
+  （2）返回结果: CoachCourseExtend  在Coacher -> Coach  目录 
+  CoachHaveCourseDate 字段为有课日期
+
+  @SaveStudentCommentTheCoach_186 保存学员对教练的评论
+  （1）参数: CoachComment  在Coacher -> Coach  目录
+   "Entities": [
+    {
+	  "CommentatorId": "3bcac366-b7a0-4563-9b05-a65a00b533e1", // 评论者Id , 传当前登陆者Id
+      "CoacherUserId": "3bcac366-b7a0-4563-9b05-a65a00b533e1",
+      "CourseId": "b7556832-c0e5-4678-8d35-a6da0122e969",
+      "Score": 4.5,
+      "RowState": "Added",
+      "RowVersion": 0
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+ -------课程评价模块相关接口---------结束
+ -------教练上课打卡评价模块---------开始
+ @GetHaveCourseDateListForCoach_186   获取有课日期号数列表(教练界面用)
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "CurrentUserId":"8ab796a3-5bd8-4180-8925-a66400b47069",
+    "BeginTime":"2017-10-01",
+    "EndTime":"2017-10-29"
+  },
+  （2）返回结果: CoachCourseExtend  在Coacher -> Coach  目录 
+  CoachHaveCourseDate 字段表示有课的日期
+
+  
+  @GetReserveCourseListForCoach_186  获取教练界面的约课列表
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "SyllabusTime": "2017-10-20", //要查询的这一天
+    "CurrentUserId":"8ab796a3-5bd8-4180-8925-a66400b47069" //当前登陆者Id
+  },
+  （2）返回结果: CoachCourse  在Coacher -> Coach  目录 
+  State 字段的枚举如下:
+  NotStart 未开始(也是 已预约 的意思)
+  Processing 进行中
+  Finished 已完成
+
+
+   @GetCoachCourseDetail_186  获取教练端课程详情
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+   "CourseId":"a9d12756ef914ec0b4fca812012359ac" //课程Id
+   },
+  （2）返回结果: CoachCourse  在Coacher -> Coach  目录 
+  CoursePersonInfoList 代表学员列表
+ 
+
+ @SaveCoachStartCard_186 保存教练上课打卡
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+
+  "Entities": [  {
+	  "BeginTime": "2017-10-19 15:12:45.133",//取当前界面的CoachCourse实体 BeginTime字段值
+      "StartCardAddress":"meinian" ,//上课打卡地址
+      "Id":"20676e64372d453b94a4a8100151a932" //课程Id
+    }],
+ （2）返回结果: IsSuccess
+	Tag 返回了打卡时间
+
+ @SaveCoachEndCard_186 保存教练下课打卡
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+
+  "Entities": [  {
+      "EndCardAddress":"meinian" ,//下课打卡地址
+      "Id":"20676e64372d453b94a4a8100151a932" //课程Id
+    }],
+ （2）返回结果: IsSuccess
+	Tag 返回了打卡时间
+ 
+ @GetCategoryOfTechnologyList  获取技术类别列表
+ （1）参数:    
+ "Filter": {
+	"TeachTypeName":""//技术类别名称,搜索时传
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: SysDic
+
+
+  @SaveCoachCommentTheStudent_186 保存教练对学员的评价(包括添加和修改)
+  （1）参数: CoachCommentStudent  在Coacher -> Coach  目录
+   "Entities": [  {
+	  "Id":"",//添加不传,修改传, 取当前 CoachCommentStudent实体的Id
+      "CoursePersonInfoId": "6ba9045d37ce44518a99a8110116e783", //取CoachCoursePersonInfo 实体的Id
+      "YdlUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2" ,//取CoachCoursePersonInfo 实体的YdlUserId
+      "CourseSummary":"haixing",//课程总结
+      "TeachTypeId":"cfa2891901ca46e4b2d2a7590121680a;30a80e9976d7421e9d1da74000b5230e",//技术类别id, 多个用;号分割
+      "RowState": "Added",//添加传Added, 修改传Modified
+      "RowVersion": 0,
+	  "CourseId":"",//课程Id
+    }],
+ （2）返回结果: IsSuccess
+
+  
+  @SaveStudentIsSignIn_186 保存学员是否签到
+  （1）参数: CoachCoursePersonInfo  在Coacher -> Coach  目录
+   "Entities": [  {
+      "IsSignIn": true, //是否签到
+      "Id":"021e271461d9456cb932a810013c5f76"  //CoachCoursePersonInfo实体的id
+    }],
+ （2）返回结果: IsSuccess
+ 
+
+ -------教练上课打卡评价模块---------结束
+
+ -------学员课程进度表---------开始
+ @GetStudentCourseSchedule_186  获取学员 课程进度表  
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"e3c5eb71-ad42-44b2-80c7-a6c101141e15" //学员Id
+  },
+（2）返回结果: CoachStudentMoney  在 Coacher -> Student  
+
+-------学员课程进度表---------结束
+
+ @GetCoachStudentList_186  教练获取学员列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "CoachId":"a7ee99e2faf546cb86aea75400f9bea1" //当前登陆者Id, 不传时 获取所有学员列表
+	"StudentName":""//搜索时传学员名称
+	 "pageSize":20,
+     "pageIndex":1
+  },
+ （2）返回结果: CoachStudent  在 Coacher -> Coach
+ 
+ 
+  @SaveFrequentStudent_186 保存常用学员(包括添加修改,删除操作)
+  （1）参数: CoachFrequentStudent  在Coacher -> Coach  目录
+  "Entities": [  {
+  	  "Id":"8572c29f83b841b587f6a81800b10e98", //添加不传,修改删除传
+      "Name": "kj",
+      "Mobile":"152",
+      "CreatorId":"ddsd",
+       "RowState": "Modified" //传以前的枚举, 添加Add 修改Modified,删除传Deleted 
+    }],
+ （2）返回结果: IsSuccess
+
+
+  @GetFrequentStudentList_186  获取常用学员列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "CurrentUserId":"a7ee99e2faf546cb86aea75400f9bea1" //当前登陆者Id
+  },
+ （2）返回结果: CoachFrequentStudent  在 Coacher -> Coach
+
+   
+   @SaveCoachTrainingPlan_186 保存教练对学员的训练计划 (包含添加修改操作)
+  （1）参数: CoachTrainingPlan  在Coacher -> Coach  目录
+   "Entities": [  {
+      "StudentId": "ddd",
+      "CoachId":"666",
+      "TrainingPlanContent":"这是训练计划5d" 
+    }],
+ （2）返回结果: IsSuccess
+
+
+   @GetStudentDetail_186  获取学员详情
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"a7ee99e2faf546cb86aea75400f9bea1" ,
+	"CurrentUserId":"a7ee"
+  },
+ （2）返回结果: User
+
+
+  @GetStudentCourseScheduleDetail_186  获取学员 课程进度表详情
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+"Filter": {
+    "StudentId":"001003",//当前登陆者Id
+    "BigCourseInfoId":"d5248f8e560c4c8aa1c3a80e010e7fb5",
+    "CoachId":"",
+    "CourseTypeId":"027001" //课程类型Id
+	"CoachStudentMoneyId":""//传前面列表的 CoachStudentMoney 实体 Id
+    
+  }, 
+  （2）返回结果: CoachStudentMoney
+  HaveBeenCourseList 字段表示课程列表
+ 
+
+  @GetHaveBeenCourseList_186  获取已上课列表
+（1）参数: GetCoachRelatedFilter  在 Filter ->Coacher 目录
+  "Filter": {
+    "CurrentUserId":"001003",//当前登陆者Id
+    "CourseTypeId":"027001", //要查大课的传027001 , 要查私教的传027003
+    "PageSize": 16,
+    "PageIndex": 1
+  },
+  （2）返回结果: CoachCourse
+ 
+
+  @GetAccountBindSecurityInfo_187  获取账号绑定和安全相关信息
+ （1）参数:   GetUserRelatedFilter  在 Filter 目录
+ "Filter":  {
+      "CurrentUserId":"32d9ce6f-0ee0-4771-a2f0-a6c200fa458b", //当前登陆者Id
+    },
+ （2）返回结果: User
+
+
+   @GetBeginTimeList_187  获取约课开始时间列表
+ （1）参数:   GetCoachRelatedFilter   
+ "Filter":  {
+      "CurrentUserId": "3bcc58ba-a680-4a52-a8f1-a65701119fbb",
+      "SyllabusTime":"2017-11-21"//选中的时间
+    },
+ （2）返回结果: CourseTime 
+ 
+
+ @GetVenue 获取单个场馆信息
+ （1）参数:   Venue   
+ "Filter":  {
+		"Id": "3bcc58ba-a680-4a52-a8f1-a65701119fbb",
+		"IsGetMyRole":true //是否获取当前用户在场馆的角色 , 是教练？是学员？
+		"CurUserLng ":2.3
+		"CurUserLat":5.6
+    },
+ （2）返回结果: Venue 
+
+
+  @GetCoachLeaveList_187  获取教练请假列表
+ （1）参数:   GetCoachRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":"805ba7064c4c47afba0ca75100e74fc5",
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: CoachLeave
+ 
+
+   @SaveCoachLeave_187 保存教练请假
+  （1）参数: CoachLeave  
+  "Entities": [
+    {
+      "CoachId":"8ab796a3-5bd8-4180-8925-a66400b47069",
+      "LeaveType":"SickLeave", //传如下枚举的英语, 请自己建立枚举保存
+				SickLeave : 病假
+				MatterLeave: 事假
+				OtherLeave: 其他
+      "BeginTime":"2017-11-22 08:00:00",
+      "EndTime":"2017-11-23 08:00:00",
+      "LeaveDays":1.5, //请假天数
+      "LeaveReason":"kkkk", //请假事由
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+ 
+ @GetCoachHaveCourseList_187  获取教练请假时有课列表
+ （1）参数:   GetCoachRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":"805ba7064c4c47afba0ca75100e74fc5",
+	  "BeginTime":""//请假开始时间
+	  "EndTime":""//请假结束时间
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: CoachCourse
+ 
+
+  @GetCoachLeaveDetail_187  获取教练请假详情
+ （1）参数:   GetCoachRelatedFilter   
+ "Filter":{
+  	  "CoachLeaveId":"805ba7064c4c47afba0ca75100e74fc5",//CoachLeave实体的Id
+  },
+ （2）返回结果: CoachLeave
+ 
+  @SaveCoachPrice_187 设置教练价格(包含添加和修改操作)
+  （1）参数: CoachPrice
+   注意: 以下字段默认都传, 特别说明的不用传
+   "Entities": [
+    {
+      "Id":"1a0cbeef24a3480abb37a83400b22b69",//修改传, 添加不传
+      "CityCode":"99",
+      "CityName":"安岳",
+      "BigCourseInfoList":[{
+      	"Name":"第2阶段",
+      	"HeadUrl":"封面图片",
+      	"Price":120,
+      	"Content":"把吃得开"
+      },{
+      	"Id":"a5248f8e560c4c8aa1c3a80e010e7fb5", //修改传, 添加不传
+      	"Name":"乒乓球第一阶段",
+      	"HeadUrl":"封面图片",
+      	"Price":100,
+      	"Content":"乒乓球第一阶段"
+      }
+      ],
+	  "AGrade":100,
+	  "BGrade":150,
+	  "CGrade":110,
+      "RowState":"Modified" //修改Modified, 添加Added
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+ @ GetCoachPriceDetail_187 获取教练价格详情
+  （1）参数:   GetCoachRelatedFilter   
+ "Filter":{
+  	  "CoachPriceId":"805ba7064c4c47afba0ca75100e74fc5",//CoachPrice实体的Id
+  },
+ （2）返回结果: CoachPrice
+
+
+   @SaveCoachLeaveAudit_187 教练请假审核通过/不通过
+  （1）参数: CoachLeave
+   注意: 以下字段默认都传, 特别说明的不用传
+   "Entities": [
+    {
+      "State": //传对应的审核枚举Id值
+      "Id"://传CoachLeave 的Id
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetCoachLeaveAuditList_187  获取教练请假审核列表
+ （1）参数:   GetCoachRelatedFilter   
+ "Filter":{
+  	  "CoachLeaveState"://传对应的审核枚举Id值, 传不同的状态会查出不同的列表
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: CoachLeave
+
+
+   @SaveVenueEnabled_187 保存场馆启用和停用
+  （1）参数: Venue
+  注意: 只有创建者和系统管理能操作, 其他人员隐藏操作按钮
+   "Entities": [
+    {
+      "IsEnabled": //true 启用, false 停用
+      "Id"://场馆Id
+    }
+  ],
+ （2）返回结果: IsSuccess
+ 
+
+ @IsCoachManager_187 是否为教练管理员
+  （1）参数: 无
+ （2）返回结果: tag值 true表示是, false不是
+ 
+
+  @GetCoachLeaveAuditCount_187 获取教练请假待审核数
+  （1）参数: 无
+ （2）返回结果:  取 tag值
+
+
+ @GetHaveCourseDateList_187  获取有课日期列表(场馆的或者全部的)
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "VenueId":"8ab796a3-5bd8-4180-8925-a66400b47069" //获取场馆的传, 全部的不传
+    "BeginTime":"2017-10-01",
+    "EndTime":"2017-10-29"
+  },
+  （2）返回结果: CoachCourseExtend  在Coacher -> Coach  目录 
+  CoachHaveCourseDate 字段表示有课的日期
+
+  
+  @GetReserveCourseList_187  获取约课列表(场馆的或者全部的)
+（1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+"Filter": {
+    "SyllabusTime": "2017-10-20", //要查询的这一天
+    "CurrentUserId":"8ab796a3-5bd8-4180-8925-a66400b47069" //当前登陆者Id,
+	"VenueId":"8ab796a3-5bd8-4180-8925-a66400b47069" //获取场馆的传, 全部的不传
+  },
+  （2）返回结果: CoachCourse  在Coacher -> Coach  目录 
+  State 字段的枚举如下:
+  NotStart 未开始(也是 已预约 的意思)
+  Processing 进行中
+  Finished 已完成
+
+
+ @TeachManagerUpdateReserveCourse_187   教学管理员 修改约课(包含大课私教)
+  （1）参数: CoachCourse  在Coacher -> Coach  目录
+  "Entities": [  {
+  	  "Id": "9c9b6958024a4124b7d9a6bf00b8c1a2", //要修改的课程id
+      "BeginTime": "2017-10-21 15:12:45.133",
+      "EndTime": "2017-12-21 16:12:45.133",
+      "CoachId":"sss",	
+      "VenueId":"ddd",	
+    }],
+ （2）返回结果: IsSuccess
+ 
+
+ @TeachManagerCancelReserveCourse_187 教学管理员 取消约课(包含大课私教)
+ （1）参数: CoachCourse  在Coacher -> Coach  目录
+  "Entities": [  {
+  	  "Id":"db1a9c04acfb4aa3b5a6a81101174c7a",//要取消的课程Id
+    }],
+ （2）返回结果: IsSuccess
+
+ ----------------------------------------188接口----------------------------------------
+ @GetYueDouConvertInfo_188 获取悦豆兑换比例
+ (1) 无参数
+ (2) tag 里面返回比例 整型
+
+
+ @SaveYueDouTopUp_188  悦豆充值
+	整个悦豆充值接口调用流程: SaveYueDouTopUp_188->GetVipUse(以前的接口)->GetVipPayInfo(以前的接口) 
+			->GetPayStr(以前的接口) ->SaveVipUsePay (以前的接口)
+  （1）参数: VipUse 
+
+  "Entities": [
+    {
+      "UserId": "9c9b6958024a4124b7d9a6bf00b8c1a2", //传选择用户的id
+      "TotalAmount": 10, //充值金额
+      "Remark": "购买悦豆"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+
+ @SaveGuess_188 保存竞猜 (包含修改和添加操作)
+  （1）参数: Guess
+   "Entities": [
+    {
+      "Id":""	//修改的时候传
+      "GuessName":"sb竞猜",
+      "VsGameLoopId":"5340fc7f49c140248346a6f800f85952", //取 GameLoop 实体的 id
+      "VsOrderId":"c65b7ff60318440185a9a6f800f838ce",//取 GameLoop 实体的 OrderId
+      "VsOrderNo":1,		//取 GameLoop 实体的 OrderNo
+      "GuessType":"VictoryDefeat", //枚举见 GuessDic
+	  "VSLeftId":"dd", // 在有胜负竞猜的时候传, 取 GameLoop 实体的 Team1Id
+      "VSLeftOdds":0.8, //在有胜负竞猜的时候传, 左边的赔率
+	  "VSRightId":"dd", // 在有胜负竞猜的时候传, 取 GameLoop 实体的 Team2Id
+      "VsRightOdds":0.2,//在有胜负竞猜的时候传, 右边的赔率
+      "BeginTime":"2017-12-23 08:00:00",
+      "EndTime":"2017-12-24 08:00:00",
+      "VictoryDefeatDeclarerDeposit":1600, //胜负竞猜庄家悦豆
+      "ScoreDeclarerDeposit":1000,//比分竞猜庄家悦豆
+      "ScoreList":[{ //仅比分竞猜 传
+      		"LeftScore":3,
+      		"RightScore":0,
+      		"Odds":0.6
+		  },{
+      		"LeftScore":3,
+      		"RightScore":1,
+      		"Odds":0.4
+		  }],
+      
+	  "CreatorId"://传当前登陆者id
+	  "WinNumber"://传 GetGameOrderList 里面的 WinTeam
+	  "GameId": //传赛事Id
+      "RowState": "Added" //修改传Modified
+    }
+  ],
+
+  （2）返回结果: IsSuccess
+
+
+  @GetGuess_188  获竞猜详情
+（1）参数: GetGuessRelatedFilter 
+"Filter": {
+    "GuessId":  ""//竞猜id
+  },
+  （2）返回结果: Guess
+  已结算的金额位置: 
+	胜负竞猜在Guess实体 GuessVSDetail 字段里面
+	比分竞猜在 Guess实体 ScoreList 字段里面, IsBingo = true, 谁就是已猜中的
+
+  
+  @GetGuessList_188  获取竞猜列表
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "GuessName":"",
+  	  "CreatorId":"", //传当前登陆者id, 在 tab 为 我的时候传, 其他时候不要传
+  	  "State":"Processing", // tab 为 进行中, 已结束, 已结算的时候传, 其他时候不要传, 不传查询全部.
+	  "GameId":""//赛事进去的时候需要传这个值
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: Guess   
+
+
+ @GetYueDouBalance_188  获取悦豆余额
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":""
+  },
+ （2）返回结果: YueDou   
+ 
+
+ @GetGuessVSScoreList_188 获取比分列表
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "WinNumber": 传 GetGameOrderList 里面的 WinTeam
+  },
+ （2）返回结果: GuessScore   
+ 
+
+ @SaveGuessBet_188 保存竞猜投注
+  （1）参数: GuessBet
+   "Entities": [
+    {
+    	
+      "GuessId":"6592b0fd610d49cc9407a85100f147cf",
+      "UserId":"9c9b6958024a4124b7d9a6bf00b8c1a2", //当前登陆者Id
+      "Amount":100, //投注悦豆数
+      "BetVSId":"", //投注一方的id,  胜负投注才传此值,其他时候不传. 
+      "LeftScore":3, //投注的比分左边数字,  比分投注时才传, 其他时候不传
+      "RightScore":1,//投注的比分右边数字,  比分投注时才传, 其他时候不传
+      "RowState": "Added"
+    }
+  ],
+  （2）返回结果: IsSuccess
+
+
+    @GetGuessRank_188  获取竞猜排行榜(赚得的悦豆排行榜)
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":"", //传当前登陆者id 
+	  "GameId":"",//传表示查询此赛事的悦豆排行, 不传表示查询所有的悦豆排行
+  },
+ （2）返回结果: YueDouRank   
+
+   
+  @GetYueDouFlowList_188  获取悦豆账单列表
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2", 
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: YueDouFlow   
+  FlowType 枚举
+  GuessCost 竞猜消费
+  GuessEarn 竞猜赚得
+  YueDouTopUp 悦豆充值
+  
+
+   @SaveGuessEnd_188 保存竞猜结束
+  （1）参数: Guess
+   "Entities": [
+    {
+		"Id":""//竞猜Id
+    }
+  ],
+  （2）返回结果: IsSuccess
+  
+
+  @GetGuessBetList_188  获取竞猜记录
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2", 
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: GuessBet   
+ BetOdds 赔率
+ VSResult 对阵结果
+ BingoResult 猜中结果
+ Amount 投的好多悦豆
+ BingoResultState 猜中结果的状态,枚举如下
+		Bingo//表示猜中
+		WaitSettlement//等待结算
+
+
+ @SaveGuessSettlement_188 保存竞猜结算
+  （1）参数: Guess
+   "Entities": [
+    {
+      "Id": "6592b0fd610d49cc9407a85100f147cf" //竞猜的Id
+    }
+  ],
+  （2）返回结果: IsSuccess
+
+
+   @GetVipPayInfo  获取支付信息--场馆悦豆支付
+ （1）参数:    GetVipRelatedFilter 在 Filter -> Vip 目录
+ "Filter": {
+    "MasterId": "0625eca9-4abf-4f83-8633-a6c100b32457", //场馆Id
+    "BusinessType": "016020002", //悦豆消费传 016020002,  枚举在 MasterType 类里面
+    "PayType": "Use", // 支付类型 枚举两个:  Buy 和 Use
+    "PayId": "02eaee3a-8926-414a-88d2-a659011b6103", //就是 SaveVipUse 返回的 tag值
+  },
+ （2）返回结果: VipPayInfo  在 Vip 目录下
+
+
+  @SaveYueDouUse_188 保存悦豆在场馆的消费
+  （1）参数: VipPayInfo
+   "Entities": [
+    {
+      "VenueId": "0626896ba7fd429b91e4a74c0113c788",
+      "Amount":100, //悦豆数
+      "CurrentUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2"
+    }
+  ],
+  （2）返回结果: IsSuccess
+
+
+   @GetMyGuessList_188  获取我的竞猜列表
+ （1）参数:   GetGuessRelatedFilter   
+ "Filter":{
+  	  "CurrentUserId":"",
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: Guess   
+
+
+ ------------------------------------------------189---------------------------------------------------------------------------
+
+@SaveOrganization  保存封闭机构(包括新建和修改) (这是以前的机构故没有版本号)
+ （1）参数:  CoachOrganization     
+"Entities": [
+    {
+	  "Id": ""	//仅修改时传
+      "Name": "蒋奎机构",
+      "Address": "天府五街2",
+      "ManagerId": "123", //机构管理员
+      "OrgType":"Sealed", //机构类型 传 "Sealed" 即可
+      "RowState": "Added" //修改传Modified 
+    }
+  ],
+ （2）返回结果: isSuccess
+ 
+
+@GetSealedOrganizationList_189  获取封闭机构列表
+ （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+    "OrganizationName": "", 
+    "CurrentUserId":"8bdffaa0eff24225bc8aa6f200e762b1", //当前登陆者Id
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: CoachOrganization    在 SystemManage  目录
+ 
+
+ @SaveSealedOrganizationCoach_189  封闭机构添加教练 (支持批量添加, 传多个就是批量添加)
+ （1）参数:  Coach    在 Coach  目录
+ "Entities": [
+    {
+      "Id": "3a31fea3-e6e9-450e-a559-a63600e873ae", //选中的普通用户Id
+      "SealedOrganizationId": "ac7fd1c7f8c943d6965ca7300102c909",
+      "RowState":"Added"
+    },
+	 {
+      "Id": "3a31fea3-e6e9-450e-a559-a63600e873ae", //选中的普通用户Id
+      "SealedOrganizationId": "ac7fd1c7f8c943d6965ca7300102c909",
+      "RowState":"Added"
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+  @SaveSealedOrganizationCoach_189  封闭机构修改教练
+ （1）参数:  Coach    在 Coach  目录
+ "Entities": [
+    {
+      "Id": "3a31fea3-e6e9-450e-a559-a63600e873ae",  
+      "HeadUrl":"",
+	  "Name":"",
+      "IdCardFrontUrl": "",
+      "IdCardBackUrl": "",
+      "CardId":"",
+	  "VenueId": "fbf7d23b-6e70-4710-b37b-a6d700e0715d",
+      "BeginTeachingDate": "2015-01-01",
+      "Qualification": "资格证明x教练jk", 
+      "RowState":"Modified"
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+ 
+ @SaveSealedBootcamp_189  保存封闭集训(包括添加修改操作)
+  （1）参数: CoachBootcamp  在Coacher -> SystemManage  目录
+ "Entities": [
+    {
+	  "Id":"d41b3f64e83c4491ba67a86a00ae25c4",//仅修改时传
+	  "HeadUrl":"",	 
+      "Name": "jk集训课",
+      "VenueId": "0626896ba7fd429b91e4a74c0113c788",
+      "BeginTime": "2017-07-01 00:00:00",
+      "EndTime": "2017-09-01 00:00:00",
+      "Remark": "这是暑假班", //集训简介
+	  "CourseCount":10, 
+	  "CourseContent":"这是课程那日", //课程内容
+	  "SealedOrganizationId":"c5aaa8a7abe942c496ada86901445bc6",//封闭机构的id
+      "RowState": "Added" //修改传modified
+    }
+  ],
+ （2）返回结果: IsSuccess, Tag 里面会返回此集训的Id
+
+
+ 
+
+ @GetSealedOrganizationCoachList_189  获取封闭机构下的教练列表
+ （1）参数: GetCoachRelatedFilter  在 Filter -> Coacher 目录
+ "Filter": {
+    "Name": "", //教练名称(搜索用)
+    "SealedOrganizationId":"8bdffaa0eff24225bc8aa6f200e762b1", //封闭机构Id
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: Coach    在 SystemManage  目录
+ 
+
+ @GetSealedOrganization_189  获取封闭机构详情
+ （1）参数: GetCoachRelatedFilter   
+ "Filter": {
+	特别注意: 下面的参数只能传其中一个
+	传SealedOrganizationManagerId表示获取我的管理的机构详情
+	传CoachId 表示获取教练所属的封闭机构详情
+	传SealedOrganizationId 表示根据封闭机构id查询此封闭机构详情
+
+    "SealedOrganizationManagerId":"8bdffaa0eff24225bc8aa6f200e762b1",
+	"CoachId":"",//教练id
+	"SealedOrganizationId": ""//封闭机构id
+  },
+ （2）返回结果: CoachOrganization   
+ 
+ 
+  @GetSealedBootcampList_189  获取封闭机构的集训班列表
+ （1）参数: GetCoachRelatedFilter   
+ "Filter": {
+    "BootcampName": "", //集训名称(搜索用)
+    "SealedOrganizationId":"8bdffaa0eff24225bc8aa6f200e762b1", //封闭机构Id
+    "PageIndex": 1,
+    "PageSize": 15
+  },
+ （2）返回结果: CoachBootcamp     
+ 
+ 
+  @EnableStopCoach  启用停用教练
+ （1）参数:  Coach    在 Coach  目录
+ 
+  "Entities": [
+    {
+      "Id": "sss", // 教练Id
+      "IsEnabled": false // true 启用, false 停用
+    }
+  ],
+ （2）返回结果: isSuccess
+
+
+ ---------机构管理2图对应接口-------------
+
+ 
+  @GetBootcampHaveCourseList_189  获取集训班有课列表  
+  注意: 此接口的跟 GetHaveCourseDateListForStudent_186 老接口类似, 可参考对它的调用
+ （1）参数: GetCoachRelatedFilter   
+"Filter": {
+     "CoachBootcampId":"9c9b6958024a4124b7d9a6bf00b8c1a2",
+     "BeginTime":"2017-10-01",
+     "EndTime":"2017-10-29"
+  },
+  （2）返回结果: CoachBootcampCourse  
+  HaveCourseDate 字段为有课日期
+
+
+ @GetSealedBootcampCourseList_189  获取封闭机构的集训班课程列表(按天查询)
+ （1）参数: GetCoachRelatedFilter 
+ "Filter":{
+  	  "SyllabusTime":"2017-09-01 05:00:00.000", //查询的这天
+  	  "CoachBootcampId":"d12168b058644d0ab5d0a7c10105d322", //集训课Id
+  },
+ （2）返回结果: CoachBootcampCourse 
+ 
+   
+ @SaveSealedBootcampCourse_189  保存封闭机构集训课程(包括添加,修改,删除操作)
+  （1）参数: CoachBootcampCourse  
+ "Entities": [
+   {
+     	"Id":"fc0efae941a54664b1b3a86a010476ec", //仅修改时传
+     "CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4", //集训id
+      "BeginTime": "2018-01-20 09:00:00.000",  //课程开始时间
+      "EndTime": "2018-01-20 11:00:00.000",
+      "RowState": "Deleted"   //添加传Added, 修改传Modified, 删除传Deleted 跟以前一样
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetSealedBootcamp_189  获取封闭机构的集训详情
+ （1）参数: GetCoachRelatedFilter 
+ "Filter":{
+  	"CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4"
+  },
+ （2）返回结果: CoachBootcamp
+ 
+
+  @SaveSealedBootcampStudent_189  添加集训的学员(支持批量添加)
+  （1）参数: CoachStudent  
+  "Entities": [
+    {
+      "CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4",
+      "UserId":"9c9b6958024a4124b7d9a6bf00b8c1a2",
+      "RowState": "Added"
+    },
+     {
+      "CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4",
+      "UserId":"3010cbd309d94de7b0dda7bb00a81687",
+      "RowState": "Added"
+    },
+    {
+      "CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4",
+      "UserId":"30f6c8946d994960b0fca75100acf522",
+      "RowState": "Added"
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+  @SaveSealedBootcampStudent_189  删除集训的学员 
+  （1）参数: CoachStudent  
+  "Entities": [
+    {
+		"Id":""; //CoachStudent实体的Id
+		"CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4",
+      "RowState": "Deleted"
+    },
+   
+  ],
+ （2）返回结果: IsSuccess
+
+ @GetSealedStudentList_189  获取封闭机构或者集训 下的学员列表 
+ （1）参数: GetCoachRelatedFilter  
+ 注意: CoachBootcampId和SealedOrganizationId字段只能二选一传一个, 传那个就查询那个下面的学员
+  "Filter":{
+     "StudentName":"",
+     "CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4", //集训Id
+	 "SealedOrganizationId":"",//封闭机构Id
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: CoachStudent      
+
+
+
+@GetUserList  获取集训课添加时的学员选择列表
+ （1）参数:  GetUserListFilter  在 Filter 目录   
+"Filter": {
+    "PageIndex":1,
+    "PageSize":20,
+    "UserType":"BootcampAddStudentSelectList",
+	"BootcampCourseBeginTime":"",//此节课的开始时间
+	"BootcampCourseEndTime":"",//此节课的结束时间
+	"CoachId":""//当前登陆者Id
+    "CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4"
+  },
+ （2）返回结果: User
+
+
+ @SaveBootcampCourse_189  保存集训班实际课程(如果是第一次操作, 会用集训班课程模板创建实际课程)
+  （1）参数: CoachCourse
+  "Entities": [
+   {
+    	"CoachBootcampId":"d41b3f64e83c4491ba67a86a00ae25c4", //集训Id
+    	"BeginTime":"2018-01-20 14:00:00.000", //集训的开始时间
+    	"EndTime":"2018-01-20 15:00:00.000", //集训的结束时间
+    	"CoachId":"37389c070f1c440696b8a74f01164651", //当前登陆者Id
+    	"CoursePersonInfoList":[
+    		{
+    			"YdlUserId":"30f6c8946d994960b0fca75100acf522" //用户Id
+    		},
+    		{
+    			"YdlUserId":"3010cbd309d94de7b0dda7bb00a81687"
+    		},
+    		{
+    			"YdlUserId":"9c9b6958024a4124b7d9a6bf00b8c1a2"
+    		}
+    	]
+    }
+  ],
+ （2）返回结果: IsSuccess
+ tag 上返回了此课程的Id
+
+
+ @IsSealedCoach 判断当前登陆者是不是封闭机构教练
+ (1)无参数
+ (2)返回tag , true 表示是, false 表示不是
+
+
+ @GetSealedBootcampCourse_189 获取封闭机构的 集训班课程信息
+ （1）参数:  GetUserListFilter   
+"Filter": {
+    "BootcampCourseTemplateId":"d41b3f64e83c4491ba67a86a00ae25c4"
+  },
+ （2）返回结果: CoachCourse
+
+
+ @学员端开始部分的跳转逻辑
+ 如果列表CoachCourse实体的Id为空, 那就获取集训详情, 不为空就 获取课程详情
+
+
+  @GetStudentSealedBootcampList_189  获取学员参加过的集训班列表 
+ （1）参数: GetCoachRelatedFilter  
+  "Filter":{
+     "StudentId":"55d43067-57b6-4104-a961-a65701138a8b", //当前登陆者Id
+      "PageSize": 16,
+      "PageIndex": 1
+  },
+ （2）返回结果: CoachBootcamp      
+
+
+   @GetSealedBootcampCourseCount_189  获取封闭机构的集训班课时统计 
+ （1）参数: GetCoachRelatedFilter  
+  "Filter":{
+     "CoachBootcampId":"55d43067-57b6-4104-a961-a65701138a8b", //集训Id
+  },
+ （2）返回结果: CoachBootcamp      
+
+
+ @DeleteAnnex  删除附件
+  （1）参数: FileInfo  
+  "Filter":{
+     "Id":"",//  FileInfo Id
+  },
+ （2）返回结果: IsSuccess
+
+
+ @SaveAnnex  保存附件
+  （1）参数: FileInfo
+  "Entities": [
+   {
+		"MasterId":"",
+		"FilePath":"",
+    	"RowState":"Added", 
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+  @GetStudentBootcampList_189  获取学员的集训班列表(包括封闭机构和悦动力的)
+  （1）参数: GetCoachRelatedFilter   
+ "Filter": {
+	"PageIndex":1,
+    "PageSize":20,
+    "StudentId":"dda8881f-e128-4986-ac61-a6a60102488b"
+  },
+   （2）返回结果:  CoachBootcamp  
+
+
+@SetGameTVIsEnabled_191 设置赛事的TV是否启用
+（1）参数: Game   
+    "Entities": [
+    {
+      "Id":"00067940-5da8-4da7-9706-a5fd00a2a58a",
+      "IsEnableTV":"true"
+    }
+  ],
+（2）返回结果: IsSucces
+
+
+@GetSocketIPAndPort_191 获取socket 服务器ip和端口
+（1）参数: 无
+（2）返回结果:   ip和端口 返回在tag上
+
+
+
+@GetSocketIPAndPort_191 获取socket 服务器ip和端口
+（1）参数: 无
+（2）返回结果:   ip和端口 返回在tag上
+
+
+---------------------------------------------------------------------------直播---------------------------------------------------
+ @SaveLiveRoom_192  创建或删除 房间信息
+  （1）参数: LiveRoom
+ "Entities": [
+    {
+		"Id":""//创建不传, 删除时传
+		"GameId"://比赛id
+      "LiveTitle":"jk's live", //直播标题
+      "AnchorId":"9c9b6958024a4124b7d9a6bf00b8c1a2", //主播id , 传当前登陆者id
+      "HeadUrl":"", //直播封面, 非必传值
+      "RowState":"Added"  //创建传Added, 删除时传Deleted
+    }
+  ],
+ （2）返回结果: IsSuccess
+ Tag 返回推流url  Tag1 :直播分享地址
+
+  @SetLiveState_192  设置房间状态
+	业务逻辑解释: 
+		有两种情况需要调用此接口
+		1.如果推流成功, 调用此接口,并且State传Active, 将直播设置为正在直播的状态
+		2.如果主播关闭了直播, 调用此接口,并且State传Close, 将直播设置为已结束的状态
+  （1）参数: LiveRoom
+ "Entities": [
+    {
+		"Id"://直播的id
+		"State":"Active" //直播状态 ,  枚举定义在 LiveDic 模型 里面
+    }
+  ],
+ （2）返回结果: IsSuccess
+
+
+ @GetLiveRoomList_192 获取房间列表
+ （1）参数: GetLiveRelatedFilter  
+ "Filter":{
+  	  "GameId":"00067940-5da8-4da7-9706-a5fd00a2a58a",//为空时，拉取所有正在直播的列表
+      "PageSize":20,
+      "PageIndex": 1
+  },
+ （2）返回结果: LiveRoom      
+
+
+ @SetLiveVS_192  设置直播对阵
+  （1）参数: LiveRoom
+ "Entities": [
+    {
+	  "VsGameLoopId":"5340fc7f49c140248346a6f800f85952", //取 GameLoop 实体的 id
+      "VsOrderId":"c65b7ff60318440185a9a6f800f838ce",//取 GameLoop 实体的 OrderId
+      "Id":"7b18b0881e364f8fb520a89e0091d486" 
+    }
+  ],
+ （2）返回结果: IsSuccess
+ ---------------------------------------app升级检测---------------------------------------------------------
+ @InspectVer_193  APP升级检测
+ （1）参数: AppVersion
+ "IsInnerTest":false,//是否是测试版本，测试版本不检查升级，一般为false
+ "Filter": [
+    {
+  	  "DeviceType":"2",//设备类型:iphone->"1",ipad->"2",android->"3",winmobile->"4",pc->"5",pc类型不检查升级
+  	  "ClientVer":"190"//客户端APP版本号
+    }
+  ],
+ （2）返回结果: AppVersion
+	实体主要字段
+	"Entities": [
+    {
+	  "AndroidCode":'193',//安卓APP版本
+	  "IosCode":"193",//ios APP版本
+	  "AndroidName":"",//安卓显示版本
+	  "IosName":"",//IOS显示版本
+	  "AndroidIsUpdate":false,//安卓是否强制升级
+	  "IosIsUpdate":false,//IOS是否强制升级
+	  "AndroidRemark":"",//安卓更新说明
+	  "IosRemark":""//IOS更新说明
+    }]，
+	Message:"发现新版本，请更新。",//有新版本时，才更新值
+	"ErrorCode":ErrorCode.NEW_VERSION//有新版本时，才更新值
+说明：此接口在APP启动且登录前调用，首先根据版本号比较再根据[强制升级标志]判断升级情况；假如为false,APP端则根据用户选择是否更新进行更新，同时记录返回的版本号，便于比较忽略的版本。
+
+
+
+@GetGameJudgeLoopListOfMine 获取需要我打分的比赛对阵列表
+ （1）参数: GetGameJudgeLoopListFilter  
+ "Filter":{},
+ （2）返回结果: GameLoop    
+
+ ---------------角色相关-------------
+ @SaveRole_196  //新增删除更新用户角色
+ (1)参数:LimitRole
+ "Entities": [
+    {
+	  "Id":"",//角色id,   角色更改,删除时上传
+	  "Name":'',//角色名称,  角色新增,更改时上传
+	  "RowState":,//新增时 1,更改时2,删除时3
+    }]
+ （2）返回结果:IsSuccess
+
+ @GetRoleList_196 //获取角色列表
+ (1) 返回结果:LimitRole  
+
+ @SaveRoleUserMap_196 //用户角色匹配增加(从角色添加用户或从用户添加角色)
+ (1)参数:LimitRole
+ "Entities":[{
+	"Id":"",//角色id,通过角色添加用户才上传此项
+	"UserId":"",//用户ID,通过用户添加角色才上传此项
+	"MapList":[{"RoleId":"","UserId":""}]
+ },]
+ 2）返回结果:IsSuccess
+
+ @GetRoleUserMapList_196 //获取用户角色关系列表
+ (1)参数:LimitRoleUserMap
+ "Filter":{
+	"RoleId":""//角色id,
+	"CardName":"",
+	"PageIndex":1,
+	"PageSize":20
+ },
+ (2)返回结果 LimitRoleUserMap
+
+ @GetRoleUserMapListByUserId_196  //获取用户角色关系列表,根据用户ID
+ (1)参数:LimitRole
+ "Filter":{
+	"UserId":""//用户id,
+ },
+ (2)返回结果 LimitRole
+ 其中 IsChecked为true,代表拥有此权限
+
+ @DeleteRoleUserMap_196  //用户角色删除(从角色删除某个用户)
+ (1)参数:LimitRole
+ "Entities":[{
+	"Id":"",//角色id
+	"UserId":"" //用户 id
+ },]
+ (2) 返回结果:IsSuccess
+
+ @GetOrgList_196 //获取机构列表
+ (1)参数:OrganizationFilter
+ {
+	"PageIndex":1,
+	"PageSize":20
+ },
+ (2)返回结果:Organization
+ 说明:Level字段代表层级,用于缩进
+
+ @SaveOrg_196  //增加机构
+ (1)参数:Organization
+ "Entities":[{
+	"Name":"",//机构名称
+	"ParentTypeId":"" //上级机构TypeId
+ },]
+ (2) 返回结果:IsSuccess
+
+ @UpdateOrg_196  //修改机构名称
+ (1)参数:Organization
+ "Entities":[{
+	"Id":"",//ID
+	"Name":"",//机构名称
+	"TypeId":"" //当前机构TypeId
+ },]
+ (2) 返回结果:IsSuccess
+
+ @DeleteOrg_196  //删除机构
+ (1)参数:Organization
+ "Entities":[{
+	"TypeId":"", //当前机构TypeId
+	"ParentTypeId":"" //上级机构TypeId
+ },]
+ (2) 返回结果:IsSuccess
+
+ @ UpdateUserOrg_196  //通过用户更改所属组织机构
+ (1)参数:Organization
+ "Entities":[{
+	"UserId":"", //所选用户ID
+	"OrgTypeId":"" //组织机构TypeId
+ },]
+ (2) 返回结果:IsSuccess
+
+ //@GetLimitNameList_196 //获取总的业务分类权限(旧)
+ //(1)参数: LimitModelFilter
+ //"Filter":{
+//	"RoleId":"",//角色ID
+//	"Type":1//权限动作类型,1操作2查看3特殊
+ //},
+ //(2)返回结果:LimitBaseData,  
+//			 Tag(LimitBaseData集合,只有Range,NameId有值)//代表此角色已经有的权限
+
+@GetLimitNameList_196 //获取总的业务分类权限(新)
+ (1)参数: LimitModelFilter
+ "Filter":{
+	"RoleId":"",//角色ID
+	"Type":1//权限动作类型,1操作2查看3特殊
+ },
+ (2)返回结果:LimitBaseData,  
+			
+
+@SaveLimit_196 //保存当前角色权限
+(1)参数:Limit
+"Entities":[{
+	"RoleId":"", //角色ID
+	"LimitName":"", //业务权限名,对应LimitBaseData里的NameId
+	"LimitDetail":"",//具体权限和(查看权限和特殊权限只有1或0)
+	"Type":1//权限动作类型  1操作,2查看,3特殊
+ }]
+
+ @GetLimitByUser_196 //获取对应用户id的所有权限
+ (1)参数:LimitFilter
+ "Filter":{
+	"LimitName":""//业务权限类型
+ },
+ (2)返回结果:Limit
+
+ -----------------------------------------------------------
+ @SaveGameManage  //赛事管理设置
+ (1)参数:Game
+ "Entities":[{
+	"Id":"", //赛事ID
+	"AuditId":"", //审核员用户ID,多个以逗号隔开
+	"ManageId":"",//管理员用户ID,多个以逗号隔开
+ }]
+(2)返回结果:IsSuccess
+
+@GetGame   //Game模型新几个字段 IsAudit,IsManage
+
+@GetGameOrderLoopList  //赛事对阵列表
+(1) 参数:GetGameOrderLoopListFilter  
+	"Filter":{
+	"GameId":"",//赛事ID
+	"KnockOutAB":"",//淘汰赛AB组类型
+	"OrderId":""",//轮次ID
+	"GroupId":"",//组ID
+	"IsExtra":"",//附加赛选项
+	"groupOrderNo": 1 //小组序号  int
+	"orderNo":1//每个小组的轮次号
+
+	"StartTime":""//开始时间,不选不传
+	"EndTime":"" //结束时间,不选不传
+	"Team1Id":"" //队伍1ID
+	"Team2Id":"" //队伍2ID
+	"TableNo":1//球桌号
+	"PageIndex":1,//页数
+	"PageSize":25 //页条数
+ },
+	
+(2)返回结果:GameLoop 
+
+@GetMyScoreAndGrade //获取用户 积分段位
+(1) 参数:UserSport
+(2)返回结果:UserSport
+
+@GetScoreHistoryList  //获取用户积分记录详情
+(1) 参数:GetUserScoreHistoryListFilter
+	"Filter":{
+	"UserId":"",//用户ID
+	"SportId":"",//运动类型ID,现阶段可不传
+	"PageIndex":1,//
+	"PageSize":20,//
+	
+ },
+(2)返回结果:ScoreHistory  	
+
+@GetGameRankList //获取队伍排名(整合到队伍列表中,此接口不用)
+(1)参数:Game 保持不变
+"Filter":{
+	"Id":"",//赛事ID
+	"KnockOutAB":"",// 辅助字段，用于查询名次AB组
+ },
+ (2)返回结果:GameTeam  增加加几个字段  LoopCount //参赛场次;  Score //队伍积分
+
+@ GetGameOrderNoList_196  //获取比赛单循环的轮次列表,针对单循环排名轮次筛选列表
+ (1)参数:Game
+ "Filter":{
+	"Id":"",//赛事ID
+ },
+ (2)返回结果:GameLoopOrderNo   关注字段  OrderNo //轮次序号
+
+ @GetGameRankListByOrder_196  //获取队伍排名,筛选轮次,只针对单循环比赛
+ (1)参数:GameRankFilter
+ "Filter":{
+	"GameId":"",//赛事ID
+	"StartOrderNo":1,//起始轮次,不筛选传0
+	"EndOrderNo":3//结束轮次,不筛选传0
+ },
+ (2)结果:GameTeam
+
+ @GetGameTeam  //获取队伍详情   增加字段TeamDetail  //队员用户详情
+
+ @GetPersonalRankListByOrder_196 // 获取此赛事参赛人员个人排名,可筛选轮次
+ (1)参数:GameRankFilter
+ "Filter":{
+	"GameId":"",//赛事ID
+	"StartOrderNo":1,//起始轮次,不筛选传0
+	"EndOrderNo":3//结束轮次,不筛选传0
+	"PageIndex":1,
+	"PageSize":20
+ },
+ (2)结果:GamePersonaRank
+
+ GetGameTaleNoList_196 //获取该赛事的球桌号
+ (1)参数:Game
+ "Filter":{
+	"Id":"",//赛事ID
+ },
+ (2)结果:GameTable  //关注字段:No
+
+ @GetGameTeamList  //获取比赛的队伍列表(新,分赛事类型排名等)
+ (1)参数:GetGameTeamListFilter
+	"Filter":{
+	"GameId":"",//赛事ID
+	"TeamName":"",//队伍名称关键字,可不传
+	
+ },
+(2)返回结果:GameTeam
+-------------------------团体对阵模板规则-----------------------------------------
+@GameLoopTempletCheck_198 //检查团体对阵模板名称是否重复,TRUE为重复,且返回队伍1,队伍2编码字符数组
+(1)参数:GameTeamLoopTempletFilter
+"Filter":{
+	"Name":"",//模板名称
+	"PersonCount":3//上场人数,根据此值返回字符编码
+	"ModifyFlag":false//修改模板时,验证重名,传true;新建模板时传false
+	"IsGuest":true//是否启用主客队
+ },
+ (2)结果: Tag:bool类型true(存在);Tag1:["A", "B", "C", "D"]队伍1字符编码;Tag2:["W", "X", "Y", "Z"]队伍2字符编码
+
+ @GetGameTempletList_198 //创建赛事时选择对阵模板列表
+ (1)参数:GameTeamLoopTempletFilter
+"Filter":{
+	"Name":"",//模板名称
+ },
+ (2)结果:GameTeamLoopTemplet  详情请查看此模型各字段
+
+ @GetMyTempletList_198 //进入我的团体对阵模板页面时调用
+ (1)参数:GameTeamLoopTempletFilter
+ "Filter":{
+	"Name":"",//模板名称
+ },
+ (2)结果:GameTeamLoopTemplet  详情请查看此模型各字段
+
+ @SaveGameLoopTemple_198 //团体对阵模板增 删  改
+ (1)参数:GameTeamLoopTemplet
+ "Entities":[{
+    "Id":""//删除(只传此ID及状态,其他不传).修改时,模板ID必须传
+	"RowState":1(增加),2(修改),3(删除)  必传其中一个
+	"Name":"",//模板名称
+	"PersonCount":0,//上场人数
+	"LoopCount":0,//对阵总场数
+	"Description":"",//模板规则描述
+	"IsGuest":false,//是否启用主客队
+	"IsEnable":true,//新增时可不传,修改时,必须此字段
+	"Detail":[{
+		"Id":"",//,规则详情ID,修改时,必传
+		"TempletId":"",//模板ID,新增不传
+		"OrderNo":1,规则对阵出场序号
+		"Code1":"",队伍1(主队)规则字符编码
+		"Code2":"",//队伍2(客队)规则字符编码
+		"IsDouble":0//是否是双打
+	}]
+	
+ }]
+ (2)结果:IsSuccess
+	假如是修改正在使用的模板,保存 返回值  Tag:true; Message提示语
+
+ @SetTempletShareState_198 //设置对阵模板的分享状态及分享人
+ (1)参数:GameTeamLoopTemplet
+ "Entities":[{
+    "ID":""//模板ID必须传
+	"IsShared":0 //是否分享 0不分享;1分享
+ }]
+ (2)结果:IsSuccess
+
+ @GetGameTemplet_198 //获取团体对阵模板规则详情(设置对阵页面也获取该接口)
+ (1)参数:GameTeamLoopTempletFilter
+ "Filter":{
+	"TempletId":"",//对阵模板ID
+	"GameId":"",//赛事ID(设置或查看团体对阵,才传此值)
+	"LoopId":""//对阵ID(设置或查看团体对阵,才传此值)
+ },
+ (2)结果:GameTeamLoopTemplet
+
+ @SetTempletEnableState_198  //设置模板启用关闭状态,同时返回Tag(模板使用过为true)
+ (1)参数:GameTeamLoopTemplet
+ "Entities":[{
+    "ID":""//模板ID必须传
+	"IsEnable":0 //是否启用 0关闭;1启用
+ }]
+ (2)结果:IsSuccess;Tag(停用时,被赛事使用为true)
+
+ @SaveGameLoopMap  //保存对阵关系,原接口上调整
+ (1)参数:GameLoopMapNew(上传时Entities中永远只有一个实体)
+ "Entities":[{
+	"LoopMapList":[{//对应原有的GameLoopMap实体集合
+		"LoopId":"",//对阵ID
+		"OrderNo":1,//出场序号
+		"IsTeam":1,//是否是团队
+		"Team1Id":"",队伍1
+		"User1Id":"",//队伍1队员ID
+		"User1Name":"",//队伍1队员名称
+		"Team2Id":"",队伍2
+		"User2Id":"",//队伍2队员ID
+		"User2Name":"",//队伍2队员名称
+	}],
+	"TempletMapList":[{//设置对阵时,规则与队员的映射关系集合
+		"TempletId":"",//模板ID
+		"GameId":"",//赛事ID
+		"LoopId":"",//对阵ID
+		"TeamId":"",//队伍ID,
+		"Code":"",//规则编码字符
+		"CodeUserId":"",规则编码字符对应的队员ID
+		"CodeUserName":""规则编码字符对应的队员名称
+		"IsHost":true//是否是主队(队伍1)
+	}]
+ }]
+ (2)结果:IsSuccess
+
+ @GetMyPagePermission  //我的页面权限里,增加  TempletCount  字段,模板数量
+
+ @GetTempletOther_198 //新建接口时,返回场次数组和参赛人员个数数组
+ (1)结果:Tag { 2, 3, 4, 5, 6, 7, 8, 9 };//参赛人员个数数组 ;  Tag1  { 3, 5, 7, 9 };//场次数组
+

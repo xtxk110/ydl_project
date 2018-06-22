@@ -1,0 +1,77 @@
+﻿在view/admin/moive.html中引用这两个文件，(代码片段)
+
+~ vi view/admin/moive.html
+<html>
+<head>
+<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link href="/css/bootstrap-select.min.css" rel="stylesheet" media="screen" />
+
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-select.min.js"></script>
+</head>
+<body>
+<!-- 代码片断 -->
+<form class="form-horizontal well" method="GET">
+<select name="type" class="selectpicker show-tick" data-size="5" value="<%=search.type||''%>">
+<option></option>
+<option>科幻</option>
+<option>剧情</option>
+<option>犯罪</option>
+<option>西部</option>
+<option>爱情</option>
+</select>
+</form>
+
+<!-- 代码片段 -->
+<script type="text/javascript">
+$(function(){
+
+//下拉菜单
+$('.selectpicker').selectpicker({noneSelectedText:'请选择'});
+$('.selectpicker').selectpicker('val',$('.selectpicker').attr('value'));
+
+})
+</script>
+
+</body>
+</html>
+3. 使用bootstrap-select实现需求
+
+通过select标签实现下拉列表
+
+初始化样式：
+通过class=”selectpicker”，设置bootstrap-select的样式。
+通过$(‘.selectpicker’).selectpicker()，启动js渲染
+
+默认显示 “请选择”
+$('.selectpicker').selectpicker({noneSelectedText:'请选择'});
+
+默认值是空
+<option></option>
+
+单选下拉列表
+无特别代码。
+多选下拉列表，增加multiple属性
+<select class="selectpicker" multiple >
+
+下拉后选中的行，结尾以“√”标识
+增加show-tick的css显示类型
+<select class="selectpicker show-tick" >
+
+下拉列表长度为5行，多于5行的用滚动条显示
+增加data-size=”5″的属性
+<select class="selectpicker" data-size="5" >
+
+通过nodejs传参数设置默认值
+增加value属性，获得nodejs的传参
+
+<select name="type" class="selectpicker show-tick" data-size="5" value="<%=search.type||''%>">
+再通过javascript前端赋值
+
+$('.selectpicker').selectpicker('val',$('.selectpicker').attr('value'));
+
+选中事件
+$('#BattleStyle').on('change',
+                function () {
+                    alert();
+                });

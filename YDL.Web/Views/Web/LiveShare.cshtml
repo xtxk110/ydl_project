@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>LiveShare</title>
+    <link type="text/css" rel="stylesheet" href="~/Content/css/Live_broadcast.css" />
+    <script src="//imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.2.1.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="viewport">
+        <div id="id_test_video" style="width:100%; height:auto;"></div>
+    </div>
+
+    <script>
+        function getQuery(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);//从?之后开始匹配如getQuery(courseid)返回一个数组["courseid=8","","8","&",index:0,input:"courseid=8"]
+            if (r != null) return (r[2]); return null;
+        }
+        $(document).ready(function () {
+            alert(getQuery("url"));
+        });
+
+        //    //手机浏览器
+        //    var player = new TcPlayer('id_test_video', {
+        //        "m3u8": "http://21474.liveplay.myqcloud.com/live/21474_001002_1.m3u8", //请替换成实际可用的播放地址
+        //        "autoplay" : true,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+        //        "coverpic" : "http://www.test.com/myimage.jpg",
+        //        "width" :  '480',//视频的显示宽度，请尽量使用视频分辨率宽度
+        //        "height" : '320'//视频的显示高度，请尽量使用视频分辨率高度
+        //    });
+
+        //PC 浏览器
+        var player = new TcPlayer('id_test_video', {
+            "m3u8": "http://21474.liveplay.myqcloud.com/live/21474_001002_1.m3u8",
+            "flv": "http://2157.liveplay.myqcloud.com/live/2157_358535a.flv", //增加了一个flv的播放地址，用于PC平台的播放 请替换成实际可用的播放地址
+            "autoplay": true,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+            "coverpic": "http://www.test.com/myimage.jpg",
+            "m3u8_hd": "http://200002949.vod.myqcloud.com/200002949_b6ffc.f230.av.m3u8",
+            "m3u8_sd": "http://200002949.vod.myqcloud.com/200002949_b6ffc.f220.av.m3u8",
+            "width": '480',//视频的显示宽度，请尽量使用视频分辨率宽度
+            "height": '320'//视频的显示高度，请尽量使用视频分辨率高度
+        });
+    </script>
+</body>
+</html>

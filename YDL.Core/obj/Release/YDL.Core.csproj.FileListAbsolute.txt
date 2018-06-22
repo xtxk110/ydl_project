@@ -1,0 +1,13 @@
+E:\开发项目\vscode\YDL.Core\bin\Release\YDL.Core.dll
+E:\开发项目\vscode\YDL.Core\bin\Release\YDL.Core.pdb
+E:\开发项目\vscode\YDL.Core\bin\Release\Newtonsoft.Json.dll
+E:\开发项目\vscode\YDL.Core\bin\Release\YDL.Utility.dll
+E:\开发项目\vscode\YDL.Core\bin\Release\NLog.dll
+E:\开发项目\vscode\YDL.Core\bin\Release\YDL.Utility.pdb
+E:\开发项目\vscode\YDL.Core\bin\Release\Newtonsoft.Json.pdb
+E:\开发项目\vscode\YDL.Core\bin\Release\Newtonsoft.Json.xml
+E:\开发项目\vscode\YDL.Core\bin\Release\NLog.xml
+E:\开发项目\vscode\YDL.Core\obj\Release\YDL.Core.csprojResolveAssemblyReference.cache
+E:\开发项目\vscode\YDL.Core\obj\Release\YDL.Core.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\YDL.Core\obj\Release\YDL.Core.dll
+E:\开发项目\vscode\YDL.Core\obj\Release\YDL.Core.pdb

@@ -1,0 +1,324 @@
+﻿@using YDL.Web;
+@using YDL.Model;
+@{
+    ViewBag.Title = "系统首页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var curUser = OnlineHelper.GetCurrentUser();
+}
+
+@section Style{
+    <link href="@ViewHelper.BuildStaticPath("~/Content/css/default/dialog.css")" rel="stylesheet" type="text/css" />
+}
+
+@section Body{
+<nav class="navbar navbar-default" role="navigation">
+
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    赛事
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)">我的赛事</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    我的
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)">个人资料</a></li>
+                    <li class="divider"></li>
+                    <li><a href="javascript:void(0)" id="btnlogout">注销</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div style="width:90%;margin:0 auto;">
+    <div style="width:300px;margin:5px 0 5px 0;">
+        <div class="input-group">
+            <input type="text" id="txGameName" class="form-control" placeholder="输入比赛名称...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" id="btnSearch">查询</button>
+            </span>
+        </div>
+    </div>
+    <div id="divGroups" style="height:520px;overflow:auto;">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>俱乐部</th>
+                    <th>对战方式</th>
+                    <th>报名费</th>
+                    <th>报名时间</th>
+                    <th>比赛时间</th>
+                    <th>状态</th>
+                    <th>操作
+                    @if(curUser.UserLimit.IsGame)
+                    { 
+                    <button class="btn btn-default" id="btnGameAdd">创建比赛</button>
+                    }
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbMain"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="9" align="center" id="tdPager"></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+}
+
+
+@section Script{
+<script src="@ViewHelper.BuildStaticPath("~/Scripts/dialog.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+    var curPageIndex=1;
+    var pageCount = 1;
+
+    $(function () {
+        dataLoad(1);
+
+        $(document.body).click(function (e) {
+            var id = e.target.id;
+            switch (id) {
+                case 'lkGameLst':
+                    showGameLst();
+                    break;
+                case 'btnlogout':
+                    $.post(convertUrl('~/Free/Logoff/'), null, function (res) {
+                        if (!res.IsSuccess) {
+                            top.errorBox(res.Message);
+                        } else {
+                            location.reload();
+                        }
+
+                    }, 'JSON');
+                    break;
+                case 'btnPagerGo':
+                    try {
+                        var gopageindex = parseInt($('#txPageIndex').val());
+                        if (gopageindex < 1 || gopageindex > parseInt($('#lbMaxpage').val())) {
+                            top.errorBox('输入页码超出范围！');
+                            return;
+                        }
+
+                        dataLoad(gopageindex);
+                    }
+                    catch (e) {
+                        top.errorBox('请输入整数');
+                        return;
+                    }
+                    break;
+                case 'btnSearch':
+                    dataLoad(1);
+                    break;
+                case 'btnGameAdd':
+                    CreateGame();
+                    break;
+            }
+
+            if (e.target.hasAttribute('pagerval')) {
+                dataLoad(e.target.attributes['pagerval'].value);
+            }
+        })
+    })
+
+    function CreateGame() {
+        top.openDialog({
+            title: '赛事新增',
+            url: convertUrl('~/Game/GameOperation/'),
+            width: 1024,
+            height: 700,
+            callback: function(){
+                $('#txGameName').val('');
+                dataLoad(1);
+            }
+        });
+    }
+
+    function showGameLst() {
+        top.openDialog({
+            title: '赛事信息',
+            url: convertUrl('~/Game/GameList/'),
+            width: 1024,
+            height: 600,
+            callback: null
+        });
+    }
+
+    function dataLoad(pageIndex) {
+        curPageIndex = pageIndex;
+        var model = $.formSerialize('form1', 'o');
+        model.pageIndex = pageIndex;
+
+        $.post(convertUrl('~/Game/GameListFilter/'), {gameName:$('#txGameName').val(),pageIndex:pageIndex}, function (res) {
+
+            if (!res.IsSuccess) {
+                top.errorBox(res.Message);
+            } else {
+                if(pageIndex == 1)
+                    pageCount = res.RowCount;
+
+
+                $('#tbMain').html('');
+                var html = [];
+                $.foreach_array(function (item, i) {
+                    html.push('<tr>');
+                    html.push('<td>', (i + 1), '</td>');
+                    html.push('<td><a href="javascript:showDetail(\'', item.Id, '\');">', item.Name, '</a></td>');
+                    html.push('<td>', $.getLinkName(item.ClubId), '</td>');
+                    html.push('<td>', $.getLinkName(item.BattleStyle), '</td>');
+                    html.push('<td>', item.Cost, '</td>');
+                    html.push('<td>', $.dt.formatToYdlDate(item.RegBeginTime.todate()), ' 至 ', $.dt.formatToYdlDate(item.RegEndTime.todate()), '</td>');
+                    html.push('<td>', $.dt.formatToYdlDate(item.PlayBeginTime.todate()), ' 至 ', $.dt.formatToYdlDate(item.PlayEndTime.todate()), '</td>');
+
+                    html.push('<td>');
+                    if ($.getLinkId(item.State) != '@(GameState.FINISH.Id)' && $.getLinkId(item.State) != '@(GameState.CANCEL.Id)' && item.CreatorId == globalConfig.userID) {
+                        html.push('<a href="javascript:updateState(\'', item.Id, '\',\'', $.getLinkId(item.State), '\');">' + $.getLinkName(item.State) + '</a>');
+                    }
+                    else {
+                        html.push($.getLinkName(item.State));
+                    }
+                    html.push('</td>');
+
+                    html.push('<td>');
+                    if(item.CreatorId == globalConfig.userID)
+                    {
+                        html.push('<a href="javascript:cancel(\'', item.Id, '\');">取消比赛</a>');
+                        html.push('&nbsp;<a href="javascript:EditGame(\'', item.Id, '\');">修改</a>');
+                        html.push('&nbsp;<a href="javascript:showJudge(\'', item.Id, '\');">裁判</a>');
+                    }
+                    html.push('&nbsp;<a href="javascript:showGameTeam(\'', item.Id, '\',', item.CreatorId == globalConfig.userID, ');">参赛队</a>');
+                    if ($.getLinkId(item.State) != '@(GameState.NOTSTART.Id)'
+                            && $.getLinkId(item.State) != '@(GameState.SIGN.Id)') {
+                        html.push('&nbsp;<a href="javascript:showOrder(\'', item.Id, '\',\'', item.KnockoutOption, '\',\'', $.getLinkId(item.State), '\',', item.CreatorId == globalConfig.userID, ');">轮次</a>');
+                    }
+                    if(item.CreatorId == globalConfig.userID)
+                    {
+                        html.push('&nbsp;<a href="javascript:changeCreator(\'', item.Id, '\',\'', item.Name, '\',\'', item.CreatorId, '\');">移交</a>');
+                    }
+                    html.push('</td>');
+                    html.push('</tr>');
+                }, res.Entities);
+
+                $('#tbMain').html(html.join(''));
+
+                //加载分页按钮
+                var pager = new Object();
+                pager.TotalCount = pageCount;
+                pager.PageIndex = pageIndex;
+                pager.PageSize = @ViewHelper.PageSize;
+
+                    $.post(convertUrl('~/Common/PagerButton/'), pager, function (htmlStr) {
+                        $('#tdPager').html(htmlStr);
+                    },'html');
+                }
+
+
+            }, 'JSON');
+        }
+
+        function showDetail(id) {
+            top.openDialog({
+                title: '详情',
+                url: convertUrl('~/Game/Detail/?gameId=') + id,
+                width: 1024,
+                height: 600,
+                callback: null
+            });
+        }
+
+        function cancel(id) {
+
+            top.confirmBox("确定要取消比赛？此操作不可恢复，请谨慎进行。", function () {
+                $.post(convertUrl('~/Game/GameStateUpdateSave/'), { gameId: id, stateId: '@(GameState.CANCEL.Id)' }, function (res) {
+
+                    if (!res.IsSuccess) {
+                        top.errorBox(res.Message);
+                    } else {
+                        reload();
+                    }
+
+                }, 'JSON');
+            });
+        }
+
+        function EditGame(id) {
+            top.openDialog({
+                title: '赛事修改',
+                url: convertUrl('~/Game/GameOperation/?id=') + id,
+                width: 1024,
+                height: 700,
+                callback: null
+            });
+        }
+
+        function showGameTeam(id,canOper) {
+            top.openDialog({
+                title: '参赛队',
+                url: convertUrl('~/Game/GameTeamList/?gameId=') + id + '&canOper=' + canOper,
+                width: 1024,
+                height: 600,
+                callback: null
+            });
+        }
+
+        function showJudge(id) {
+            top.openDialog({
+                title: '裁判',
+                url: convertUrl('~/Game/GameJudgeLst/?gameId=') + id,
+                width: 800,
+                height: 500,
+                callback: null
+            });
+        }
+
+        function showOrder(id, knockoutId, stateid, isCreator) {
+            top.openDialog({
+                title: '轮次',
+                url: convertUrl('~/Game/GameOrderOperation/?gameId=') + id + '&knockoutId=' + knockoutId + '&stateId=' + stateid + '&isCreator=' + isCreator,
+                width: 1300,
+                height: 700,
+                callback: null
+            });
+        }
+
+        function updateState(id, stateid) {
+            top.openDialog({
+                title: '修改状态',
+                url: convertUrl('~/Game/GameStateUpdate/?gameId=') + id + '&stateId=' + stateid,
+                width: 300,
+                height: 170,
+                callback: reload
+            });
+        }
+
+        function changeCreator(id,name,creatorId) {
+            top.openDialog({
+                title: '移交',
+                url: convertUrl('~/Common/TransferSettings/?MasterType=@(MasterType.GAME.Id + "," + MasterType.GAME.Name)&MasterId=')+id+','+name+'&CreatorId='+creatorId,
+                width: 400,
+                height: 200,
+                callback: reload
+            });
+        }
+
+        function reload()
+        {
+            dataLoad(curPageIndex);
+        }
+    </script>
+}

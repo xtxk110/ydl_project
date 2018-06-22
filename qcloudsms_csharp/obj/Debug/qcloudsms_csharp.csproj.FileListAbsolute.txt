@@ -1,0 +1,7 @@
+E:\开发项目\vscode\qcloudsms_csharp\bin\Debug\qcloudsms_csharp.dll
+E:\开发项目\vscode\qcloudsms_csharp\bin\Debug\qcloudsms_csharp.pdb
+E:\开发项目\vscode\qcloudsms_csharp\bin\Debug\Newtonsoft.Json.dll
+E:\开发项目\vscode\qcloudsms_csharp\obj\Debug\qcloudsms_csharp.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\qcloudsms_csharp\obj\Debug\qcloudsms_csharp.dll
+E:\开发项目\vscode\qcloudsms_csharp\obj\Debug\qcloudsms_csharp.pdb
+E:\开发项目\vscode\qcloudsms_csharp\obj\Debug\qcloudsms_csharp.csprojResolveAssemblyReference.cache

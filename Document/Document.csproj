@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D86F732-E98D-4EEF-A301-105502754776}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Document</RootNamespace>
+    <AssemblyName>Document</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JPushRemark.txt" />
+    <Content Include="SQL\Version_18x\180完整脚本.sql" />
+    <Content Include="SQL\Version_19x\194完整脚本.sql" />
+    <Content Include="SQL\Version_19x\193完整脚本.sql" />
+    <Content Include="SQL\Version_19x\192完整脚本.sql" />
+    <Content Include="SQL\Version_18x\189补丁.sql" />
+    <Content Include="SQL\Version_18x\189完整脚本.sql" />
+    <Content Include="SQL\Version_18x\188完整脚本.sql" />
+    <Content Include="SQL\Version_18x\187完整脚本.sql" />
+    <Content Include="SQL\Version_18x\186完整脚本.sql" />
+    <Content Include="SQL\Version_18x\184完整脚本.sql" />
+    <Content Include="SQL\Version_18x\181完整脚本.sql" />
+    <Content Include="SQL\Version_18x\183完整脚本.sql" />
+    <Content Include="SQL\Version_19x\195完整脚本.sql" />
+    <Content Include="SQL\Version_19x\197完整脚本.sql" />
+    <Content Include="SQL\Version_19x\196完整脚本.sql" />
+    <Content Include="SQL\Version_19x\198完整脚本.sql" />
+    <Content Include="SQL\Version_19x\199完整脚本.sql" />
+    <Content Include="SQL\参考脚本\A.新表脚本.sql" />
+    <Content Include="SQL\参考脚本\B.表修改脚本.sql" />
+    <Content Include="SQL\参考脚本\C.存储过程和函数.sql" />
+    <Content Include="SQL\参考脚本\D.预制数据.sql" />
+    <Content Include="SQL\参考脚本\E.数据迁移脚本.sql" />
+    <Content Include="SQL\数据同步（同步云服务器）脚本.sql" />
+    <Content Include="SQL\赛事TV配置脚本.sql" />
+    <Content Include="UI组件\bootstrap-select插件.txt" />
+    <Content Include="功能设计说明\内置角色权限划分.txt" />
+    <Content Include="功能设计说明\系统梳理.txt" />
+    <Content Include="功能设计说明\系统权限.txt" />
+    <Content Include="功能设计说明\默认角色权限设置.txt" />
+    <Content Include="发版记录.txt" />
+    <Content Include="多版本兼容方案.txt" />
+    <Content Include="版本更新记录.txt" />
+    <Content Include="第三方\视频直播\视频上传点播资料.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sokcet通信文档\APP直播比分显示SOCKET通信.doc" />
+    <None Include="SQL\Version_18x\NationalFlag.zip" />
+    <None Include="数据库设计文档\团体对阵模板数据库设计.doc" />
+    <None Include="设计资料\赛事业务-所有用户v1.9.2（竞猜原型和设计）.zip" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,93 @@
+﻿@using YDL.Model;
+@using YDL.Web;
+@using YDL.Utility;
+
+@model Game
+
+@{
+    ViewBag.Title = "赛事详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Style{
+    <style type="text/css">
+        .inputSize {
+            width: 450px;
+            padding-top: 5px;
+        }
+    </style>
+}
+@section Body{
+    <div style="width:500px;margin:0 auto;">
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanName">名称</span>
+            <span>@Model.Name</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanIntroduce">介绍</span>
+            <span>@Model.Introduce</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanPrize">奖品</span>
+            <span>@Model.Prize</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanGameRule">规则</span>
+            <span>@Model.GameRule</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon">对战方式</span>
+            <span>@(Model.BattleStyle.GetLinkName())</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon">晋级方式</span>
+            <span>@(Model.KnockoutOption.GetLinkName())</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon">档位</span>
+            <span>@(Model.LevelValue > 0 ? Model.LevelValue.ToString() : "无")</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon">城市</span>
+            <span>@(Model.CityId.GetLinkName())</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon">举办场地</span>
+            <span>@(Model.VenueId.GetLinkName())</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanCost">报名费</span>
+            <span>@Model.Cost</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanOrganizer">主办单位</span>
+            <span>@Model.Organizer</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="spanSecondOrganizer">承办单位</span>
+            <span>@Model.SecondOrganizer</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="pickerRegBeginTime">报名开始时间</span>
+            <span>@Model.RegBeginTime</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="pickerRegEndTime">报名截止时间</span>
+            <span>@Model.RegEndTime</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="pickerPlayBeginTime">比赛开始时间</span>
+            <span>@Model.PlayBeginTime</span>
+        </div>
+        <div class="input-group inputSize">
+            <span class="input-group-addon" id="pickerPlayEndTime">比赛结束时间</span>
+            <span>@Model.PlayEndTime</span>
+        </div>
+    </div>
+}
+
+@section Script{
+
+}
+
+

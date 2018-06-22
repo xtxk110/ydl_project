@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A6B533D5-997D-45D4-8A4D-365584D9EB40}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YDL.BLL</RootNamespace>
+    <AssemblyName>YDL.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AopSdk">
+      <HintPath>..\..\Library\AopSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>..\..\Library\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.2\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\Library\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity\ActivityHelper.cs" />
+    <Compile Include="Activity\GetActivity.cs" />
+    <Compile Include="Activity\GetActivityList.cs" />
+    <Compile Include="Activity\GetActivityUserList.cs" />
+    <Compile Include="Activity\SaveActivityState.cs" />
+    <Compile Include="Activity\CancelActivityUser.cs" />
+    <Compile Include="Activity\SaveActivityUser.cs" />
+    <Compile Include="Activity\SaveActivity.cs" />
+    <Compile Include="Activity\SetActivityUserState.cs" />
+    <Compile Include="Club\GetClubManagerList.cs" />
+    <Compile Include="Coacher\CoacherHelper\CoachHelper.cs" />
+    <Compile Include="Coacher\CoacherHelper\CoacherScheduler.cs" />
+    <Compile Include="Coacher\CoacherHelper\CoachScheduler.cs" />
+    <Compile Include="Coacher\Coach\Get\GetCoachLeaveDetail.cs" />
+    <Compile Include="Coacher\Coach\Get\GetCoachHaveCourseList.cs" />
+    <Compile Include="Coacher\Coach\Get\GetCoachLeaveList.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveBootcampCourse.cs" />
+    <Compile Include="Coacher\CoursePersonType.cs" />
+    <Compile Include="Coacher\CourseSmsType.cs" />
+    <Compile Include="Coacher\Permission\IsSealedCoach.cs" />
+    <Compile Include="Coacher\Student\Get\GetStudentBootcampList.cs" />
+    <Compile Include="Coacher\Student\Get\GetStudentSealedBootcampList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetBootcampHaveCourseList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedBootcamp.cs" />
+    <Compile Include="Coacher\Coach\Get\GetSealedBootcampCourse.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedBootcampCourseCount.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedBootcampList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedOrganization.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedBootcampCourseList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedOrganizationCoachList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedStudentList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Get\GetSealedOrganizationList.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Save\SaveSealedBootcampStudent.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Save\SaveSealedBootcampCourse.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Save\SaveSealedOrganizationCoach.cs" />
+    <Compile Include="Coacher\ThirdCoach\SystemManage\Save\SaveSealedBootcamp.cs" />
+    <Compile Include="Coacher\TeachManage\Get\GetHaveCourseDateList.cs" />
+    <Compile Include="Coacher\TeachManage\Get\GetReserveCourseList.cs" />
+    <Compile Include="Coacher\Coach\Get\GetStudentDetail.cs" />
+    <Compile Include="Coacher\Coach\Get\GetHaveCourseDateListForCoach.cs" />
+    <Compile Include="Coacher\Coach\Get\GetCoachCourseDetail.cs" />
+    <Compile Include="Coacher\Coach\Get\GetReserveCourseListForCoach.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveCoachLeave.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveCoachEndCard.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveCoachCommentTheStudent.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveCoachTrainingPlan.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveStudentIsSignIn.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveCoachStartCard.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetCoach.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetCoachAuditRecord.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetCoachTeachingCourseList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetSyllabusCoachCourseList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetSyllabusTeachingPointCourseList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetSyllabusTeachingPointList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetSyllabusOftenTeachingPointList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Mix\IsTeachingPointManager.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Mix\UpdateCoachGrade.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Save\SaveCoachCourseEnd.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Save\SaveCoachCourseStart.cs" />
+    <Compile Include="Coacher\Permission\PermissionCheck.cs" />
+    <Compile Include="Coacher\Permission\GetMyPagePermission.cs" />
+    <Compile Include="Coacher\Student\Get\GetCourseBuyContract.cs" />
+    <Compile Include="Coacher\Student\Get\GetBeginTimeList.cs" />
+    <Compile Include="Coacher\Student\Get\GetHaveBeenCourseList.cs" />
+    <Compile Include="Coacher\Student\Get\GetHaveCourseDateListForStudent.cs" />
+    <Compile Include="Coacher\Student\Get\GetCourseBuyPresetInfo.cs" />
+    <Compile Include="Coacher\Student\Get\GetCourseNameAndAmountList.cs" />
+    <Compile Include="Coacher\Student\Get\GetReserveCourseDetail.cs" />
+    <Compile Include="Coacher\Student\Get\GetReserveCourseHistoryInfo.cs" />
+    <Compile Include="Coacher\Student\Get\GetFrequentStudentList.cs" />
+    <Compile Include="Coacher\Student\Get\GetReserveCourseListForStudent.cs" />
+    <Compile Include="Coacher\Coach\Get\GetCoachStudentList.cs" />
+    <Compile Include="Coacher\Student\Get\GetStudentCourseSchedule.cs" />
+    <Compile Include="Coacher\Student\Get\IsHaveBalance.cs" />
+    <Compile Include="Coacher\Student\Get\GetStudentCourseScheduleDetails.cs" />
+    <Compile Include="Coacher\Student\Save\CancelReserveCourse.cs" />
+    <Compile Include="Coacher\Student\Save\SaveFrequentStudent.cs" />
+    <Compile Include="Coacher\Student\Save\SaveStudentCommentTheCoach.cs" />
+    <Compile Include="Coacher\Student\Save\UpdateReserveCourse.cs" />
+    <Compile Include="Coacher\Student\Save\SaveReserveCourse.cs" />
+    <Compile Include="Coacher\Student\Save\SaveCoachStudentMoney.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetBigCourseBuyInfo.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetCourseBuyDescription.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetStudentCourseRemarkList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetStudentBigCourseDeadlineList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetStudentJoinCourseList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetPrivateCoachList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetOrderTrialCourseState.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetNearbyTeachingPointList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Mix\CancelUserFavorite.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Save\SaveBootcampCourseNotJoin.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Save\SaveBootcampCourseJoin.cs" />
+    <Compile Include="Coacher\Student\Save\SaveStudentBootcampMoney.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Save\SaveUserFavorite.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetAuditCoachInfo.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetBootcampCourseAppointmentStudentList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetBootcampJoinedStudentList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBigCourseInfoList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBigCourseInfo.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcampCourseDetailList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcampCourseTimeList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcampForHomePage.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcampListForStudent.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcampList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcampCourseList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachBootcamp.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachCourseGoalList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachPriceDetail.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrganizationIncome.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrganizationIncomeDetail.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrderTrialCourseList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachAuditList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachIncomeDetail.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachIncome.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrderPersonDetail.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrganizationCoachList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrganizationList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetOrganization.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCoachPriceList.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\DeleteCoachBootcampCourseDetail.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\DeleteCoachBootcampCourse.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\DeleteCoachBootcamp.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\UpdateCoachBootcampState.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCoachBootcampCourse.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCoachBootcamp.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCoachBootcampCourseDetail.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveOrganizationCoach.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCoachAudit.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCoachOrderTrialCourse.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveOrganization.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCoachPrice.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetCourseCommentList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetCoachCourse.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetCourseStudentList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Get\GetStudentCourseBalance.cs" />
+    <Compile Include="Coacher\Permission\IsCoacher.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Get\GetCoachCommentList.cs" />
+    <Compile Include="Coacher\Coach\Get\GetCoachList.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Save\SaveCoachComment.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Mix\DeleteCourse.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Save\SaveCoachCourseShare.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetCategoryOfTechnologyList.cs" />
+    <Compile Include="Coacher\SystemManage\Get\GetTeachingPointList.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\DeleteCategoryOfTechnology.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\EnableStopCoach.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveContactSituation.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\UpdateCoachPercentage.cs" />
+    <Compile Include="Coacher\SystemManage\Mix\UpdateCategoryOfTechnology.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveCategoryOfTechnology.cs" />
+    <Compile Include="Coacher\SystemManage\Save\SaveTeachingPoint.cs" />
+    <Compile Include="Coacher\TeachManage\Get\GetCoachLeaveAuditCount.cs" />
+    <Compile Include="Coacher\TeachManage\Get\GetCoachLeaveAuditList.cs" />
+    <Compile Include="Coacher\TeachManage\Get\IsCoachManager.cs" />
+    <Compile Include="Coacher\TeachManage\Save\TeachManagerCancelReserveCourse.cs" />
+    <Compile Include="Coacher\TeachManage\Save\SaveCoachLeaveAudit.cs" />
+    <Compile Include="Coacher\TeachManage\Save\TeachManagerUpdateReserveCourse.cs" />
+    <Compile Include="Game\GetGameJudgeLoopListOfMine.cs" />
+    <Compile Include="Game\GetGameOrderNoList.cs" />
+    <Compile Include="Game\GetGameRankListByOrder.cs" />
+    <Compile Include="Game\GetGameTaleNoList.cs" />
+    <Compile Include="Game\GetPersonalRankListByOrder.cs" />
+    <Compile Include="Game\GetTeamsConcessionScore.cs" />
+    <Compile Include="Game\GetGameLoopList.cs" />
+    <Compile Include="Game\GetGameLoopOrderMaxNo.cs" />
+    <Compile Include="Game\GetGameTableList.cs" />
+    <Compile Include="Game\LoopTemplet\GameLoopTempletCheck.cs" />
+    <Compile Include="Game\LoopTemplet\GameLoopTempletHelper.cs" />
+    <Compile Include="Game\LoopTemplet\GetGameTemplet.cs" />
+    <Compile Include="Game\LoopTemplet\GetLoopTempletList.cs" />
+    <Compile Include="Game\LoopTemplet\GetMyTempletCount.cs" />
+    <Compile Include="Game\LoopTemplet\GetTempletOther.cs" />
+    <Compile Include="Game\LoopTemplet\SaveGameLoopTemple.cs" />
+    <Compile Include="Game\LoopTemplet\SetTempletEnableState.cs" />
+    <Compile Include="Game\LoopTemplet\SetTempletShareState.cs" />
+    <Compile Include="Game\SaveGameGroupLeader.cs" />
+    <Compile Include="Game\SaveGameManage.cs" />
+    <Compile Include="Game\SetGameLoopState.cs" />
+    <Compile Include="Guess\Get\GetＭyGuessList.cs" />
+    <Compile Include="Guess\Get\GetYueDouFlowList.cs" />
+    <Compile Include="Guess\Get\GetGuessBetList.cs" />
+    <Compile Include="Guess\Get\GetGuessRank.cs" />
+    <Compile Include="Guess\Get\GetGuessList.cs" />
+    <Compile Include="Guess\Get\GetGuessVSScoreList.cs" />
+    <Compile Include="Guess\Get\GetGuess.cs" />
+    <Compile Include="Guess\Mix\GuessHelper.cs" />
+    <Compile Include="Guess\Save\SaveGuessSettlement.cs" />
+    <Compile Include="Guess\Save\SaveGuessBet.cs" />
+    <Compile Include="Guess\Save\SaveGuess.cs" />
+    <Compile Include="Guess\Save\SaveGuessEnd.cs" />
+    <Compile Include="Guess\Save\SaveYueDouUse.cs" />
+    <Compile Include="IM\Get\GetGroupShutupState.cs" />
+    <Compile Include="IM\Get\GetGroupMemberShutupState.cs" />
+    <Compile Include="IM\Get\GetJoinedGroupList.cs" />
+    <Compile Include="IM\Save\SaveFrientDelete.cs" />
+    <Compile Include="Live\GetLiveRoomByUser.cs" />
+    <Compile Include="Live\GetLiveRoom.cs" />
+    <Compile Include="Live\GetLiveRoomList.cs" />
+    <Compile Include="Live\LiveHelper.cs" />
+    <Compile Include="Live\CloseBlackScreenLiveSchedule.cs" />
+    <Compile Include="Live\SetLiveScoreState.cs" />
+    <Compile Include="Live\SetLiveVS.cs" />
+    <Compile Include="Live\SetLiveState.cs" />
+    <Compile Include="Live\SaveLiveRoom.cs" />
+    <Compile Include="Pay\CheckPayPassword.cs" />
+    <Compile Include="Pay\SetPayNoPwdAmount.cs" />
+    <Compile Include="Guess\Get\GetYueDouBalance.cs" />
+    <Compile Include="Guess\Get\GetYueDouConvertInfo.cs" />
+    <Compile Include="Guess\Save\SaveYueDouTopUp.cs" />
+    <Compile Include="System\GetInnerSocketEndpoint.cs" />
+    <Compile Include="System\GetSocketEndpoint.cs" />
+    <Compile Include="System\Login\UnBindWeiXinQQ_184.cs" />
+    <Compile Include="System\Login\BindWeiXinQQ_184.cs" />
+    <Compile Include="System\Login\BindMobileForQQLogin_184.cs" />
+    <Compile Include="System\GetAppIncomeStatisticsList.cs" />
+    <Compile Include="System\Login\GetQQLoginInfo_184.cs" />
+    <Compile Include="System\Login\BindMobileForWinXinLogin_184.cs" />
+    <Compile Include="System\Login\GetWeiXinLoginInfo_184.cs" />
+    <Compile Include="System\Login\IsRegistered_184.cs" />
+    <Compile Include="System\GetVideoSignature.cs" />
+    <Compile Include="System\Organization\DeleteOrg.cs" />
+    <Compile Include="System\Organization\GetOrgList.cs" />
+    <Compile Include="System\Organization\OrgHelper.cs" />
+    <Compile Include="System\Organization\SaveOrg.cs" />
+    <Compile Include="System\Organization\UpdateOrg.cs" />
+    <Compile Include="System\Organization\UpdateUserOrg.cs" />
+    <Compile Include="System\RoleRight\DeleteRoleUserMap.cs" />
+    <Compile Include="System\RoleRight\GetLimitByUser.cs" />
+    <Compile Include="System\RoleRight\GetLimitNameList.cs" />
+    <Compile Include="System\RoleRight\GetRoleList.cs" />
+    <Compile Include="System\RoleRight\GetRoleUserMapList.cs" />
+    <Compile Include="System\RoleRight\GetRoleUserMapListByUserId.cs" />
+    <Compile Include="System\RoleRight\LimitHelper.cs" />
+    <Compile Include="System\RoleRight\SaveLimit.cs" />
+    <Compile Include="System\RoleRight\SaveRole.cs" />
+    <Compile Include="System\RoleRight\SaveRoleUserMap.cs" />
+    <Compile Include="System\VersionInspection\InspectVer.cs" />
+    <Compile Include="TempAPI\ConvertPasswordToMD5_184.cs" />
+    <Compile Include="TV\GetGameGroupForTV.cs" />
+    <Compile Include="TV\GetGameGroupListForTV.cs" />
+    <Compile Include="TV\GetGameKnockLoopListForTV.cs" />
+    <Compile Include="TV\GetGameListForTV.cs" />
+    <Compile Include="TV\GetNationalFlagList.cs" />
+    <Compile Include="TV\GetGameTVIpConfig.cs" />
+    <Compile Include="TV\GetTVConfigList.cs" />
+    <Compile Include="TV\GetSocketIPAndPort.cs" />
+    <Compile Include="TV\GetTVInfoList.cs" />
+    <Compile Include="TV\DeleteTVConfig.cs" />
+    <Compile Include="TV\SetGameTVIsEnabled.cs" />
+    <Compile Include="TV\SaveTVConfig.cs" />
+    <Compile Include="TV\SocketClient.cs" />
+    <Compile Include="User\GetAccountBindSecurityInfo.cs" />
+    <Compile Include="User\GetScoreHistoryList.cs" />
+    <Compile Include="User\GetUserInfoByCode.cs" />
+    <Compile Include="IM\Get\GetUserIdByCode.cs" />
+    <Compile Include="IM\Get\GetIMToken.cs" />
+    <Compile Include="GetInterfaceIp.cs" />
+    <Compile Include="IM\Get\GetUserListForIM.cs" />
+    <Compile Include="IM\IMHelper.cs" />
+    <Compile Include="IM\ImportClubAll.cs" />
+    <Compile Include="IM\ImportClub.cs" />
+    <Compile Include="IM\SetOrCancelAllShutup.cs" />
+    <Compile Include="Msg\JPushTest.cs" />
+    <Compile Include="Note\DeleteNoteCreatorHide.cs" />
+    <Compile Include="Note\GetNoteWhistleBlowingType.cs" />
+    <Compile Include="Note\GetNoteCreatorHideList.cs" />
+    <Compile Include="Note\SaveNoteCreatorHide.cs" />
+    <Compile Include="Note\SaveNoteWhistleBlowing.cs" />
+    <Compile Include="Note\SaveNoteHide.cs" />
+    <Compile Include="QRCode\AnalysisQRCode.cs" />
+    <Compile Include="QRCode\GetQRCode.cs" />
+    <Compile Include="System\GetContactCategoryList.cs" />
+    <Compile Include="System\SaveImagesRelation.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Save\SaveCoachCourseNotJoin.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Save\SaveCoachCourseJoin.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Student\Save\SaveCoachStudentMoney.cs" />
+    <Compile Include="Coacher\WaitDeprecated\Coach\Save\SaveCoachCourse.cs" />
+    <Compile Include="Coacher\Coach\Save\SaveCoachApply.cs" />
+    <Compile Include="Game\ExtraGame.cs" />
+    <Compile Include="Game\GetSomeoneGameList.cs" />
+    <Compile Include="Game\GetGameRankList.cs" />
+    <Compile Include="Game\GetGameTopList.cs" />
+    <Compile Include="Game\ResetGameLoop.cs" />
+    <Compile Include="Game\SetGameTopState.cs" />
+    <Compile Include="IM\Save\SavePeopleInfo.cs" />
+    <Compile Include="IM\Get\GetPeopleInfo.cs" />
+    <Compile Include="IM\IMUserSigSrc\IMUserSig.cs" />
+    <Compile Include="IM\IMUserSigSrc\IMScheduler.cs" />
+    <Compile Include="Core\RestApiHelper.cs" />
+    <Compile Include="IM\ImportAccountAll.cs" />
+    <Compile Include="IM\SendSingleMsg.cs" />
+    <Compile Include="Note\DeleteReply.cs" />
+    <Compile Include="Note\NoteHelper.cs" />
+    <Compile Include="Note\DeleteNote.cs" />
+    <Compile Include="Pay\Option\WeixinPay.cs" />
+    <Compile Include="Pay\PayHelper.cs" />
+    <Compile Include="Pay\Weixin\Business\DownloadBill.cs" />
+    <Compile Include="Pay\Weixin\Business\JsApiPay.cs" />
+    <Compile Include="Pay\Weixin\Business\MicroPay.cs" />
+    <Compile Include="Pay\Weixin\Business\NativeNotify.cs" />
+    <Compile Include="Pay\Weixin\Business\NativePay.cs" />
+    <Compile Include="Pay\Weixin\Business\OrderQuery.cs" />
+    <Compile Include="Pay\Weixin\Business\Refund.cs" />
+    <Compile Include="Pay\Weixin\Business\RefundQuery.cs" />
+    <Compile Include="Pay\Weixin\Business\ResultNotify.cs" />
+    <Compile Include="Pay\Weixin\Lib\Config.cs" />
+    <Compile Include="Pay\Weixin\Lib\Data.cs" />
+    <Compile Include="Pay\Weixin\Lib\Exception.cs" />
+    <Compile Include="Pay\Weixin\Lib\HttpService.cs" />
+    <Compile Include="Pay\Weixin\Lib\Log.cs" />
+    <Compile Include="Pay\Weixin\Lib\Notify.cs" />
+    <Compile Include="Pay\Weixin\Lib\WxPayApi.cs" />
+    <Compile Include="User\CheckMobileCode.cs" />
+    <Compile Include="User\GetUserContactList.cs" />
+    <Compile Include="User\GetUserScoreHistoryList.cs" />
+    <Compile Include="Pay\Alipay\AlipayConfig.cs" />
+    <Compile Include="Pay\Alipay\AlipayCore.cs" />
+    <Compile Include="Annex\DeleteAnnex.cs" />
+    <Compile Include="Annex\SaveAnnex.cs" />
+    <Compile Include="Annex\GetAnnexList.cs" />
+    <Compile Include="Cache\CacheUserBuilder.cs" />
+    <Compile Include="Cache\CacheUserByDb.cs" />
+    <Compile Include="Cache\ICacheUser.cs" />
+    <Compile Include="Club\AuditClubRequest.cs" />
+    <Compile Include="Club\ClubHelper.cs" />
+    <Compile Include="Club\GetClub.cs" />
+    <Compile Include="Club\GetClubHonorList.cs" />
+    <Compile Include="Club\GetClubList.cs" />
+    <Compile Include="Club\GetClubRequestList.cs" />
+    <Compile Include="Club\GetClubUserList.cs" />
+    <Compile Include="Club\GetClubMyList.cs" />
+    <Compile Include="Club\RemoveClubUser.cs" />
+    <Compile Include="Club\SaveClub.cs" />
+    <Compile Include="Club\SaveClubAddress.cs" />
+    <Compile Include="Club\SaveClubHonor.cs" />
+    <Compile Include="Club\SaveClubPetName.cs" />
+    <Compile Include="Club\SaveClubRequest.cs" />
+    <Compile Include="Club\SaveClubAdmin.cs" />
+    <Compile Include="Club\SaveClubUser.cs" />
+    <Compile Include="Club\SaveClubUserLevel.cs" />
+    <Compile Include="Core\FileHelper.cs" />
+    <Compile Include="Core\Globals.cs" />
+    <Compile Include="Game\AuditGameTeam.cs" />
+    <Compile Include="Game\AutoCreateTestGameTeam.cs" />
+    <Compile Include="Game\CalculateGroupRank.cs" />
+    <Compile Include="Game\DeleteGameTeamById.cs" />
+    <Compile Include="Game\GetGameGroup.cs" />
+    <Compile Include="Game\GetGameJudgeList.cs" />
+    <Compile Include="Game\GetGameOrderLoopList.cs" />
+    <Compile Include="Game\GetGamePositionListForKnock.cs" />
+    <Compile Include="Game\GetGameProgressList.cs" />
+    <Compile Include="Game\GetGameKnockLoopList.cs" />
+    <Compile Include="Game\KnockoutDrawHelper.cs" />
+    <Compile Include="Game\ReversalGameTeam.cs" />
+    <Compile Include="Game\SaveGameGroupRank.cs" />
+    <Compile Include="Game\SaveGameJudge.cs" />
+    <Compile Include="Game\SaveGameLoopTeam.cs" />
+    <Compile Include="Game\SaveGameOrderWin.cs" />
+    <Compile Include="Game\SaveGamePosition.cs" />
+    <Compile Include="Game\SaveGameState.cs" />
+    <Compile Include="Game\DeleteGameTeam.cs" />
+    <Compile Include="Game\CreateGameOrder.cs" />
+    <Compile Include="Game\FinishGameLoopForOne.cs" />
+    <Compile Include="Game\FinishGameLoopForTeam.cs" />
+    <Compile Include="Game\FinishGameOrder.cs" />
+    <Compile Include="Game\GameHelper.cs" />
+    <Compile Include="Game\GetGameGroupList.cs" />
+    <Compile Include="Game\GetGameGroupLoopList.cs" />
+    <Compile Include="Game\GetGameJudgeLoopList .cs" />
+    <Compile Include="Game\GetGameList.cs" />
+    <Compile Include="Game\GetGame.cs" />
+    <Compile Include="Game\GetGameLoopDetailList.cs" />
+    <Compile Include="Game\GetGameLoopMapList.cs" />
+    <Compile Include="Game\GetGameMyLoopList.cs" />
+    <Compile Include="Game\GetGameOrderList.cs" />
+    <Compile Include="Game\GetGameTeam.cs" />
+    <Compile Include="Game\GetGameTeamList.cs" />
+    <Compile Include="Game\SaveGame.cs" />
+    <Compile Include="Game\SaveGameGroup.cs" />
+    <Compile Include="Game\SaveGameLoop.cs" />
+    <Compile Include="Game\FinishGameLoopForMap.cs" />
+    <Compile Include="Game\SaveGameLoopMap.cs" />
+    <Compile Include="Game\SaveGameTeam.cs" />
+    <Compile Include="Game\SaveGameTeamSeed.cs" />
+    <Compile Include="Game\SaveGameWaiver.cs" />
+    <Compile Include="Annex\AnnexHelper.cs" />
+    <Compile Include="Game\SaveGameLoopJudge.cs" />
+    <Compile Include="Game\SetGameUserState.cs" />
+    <Compile Include="Game\Waiver\IWaiver.cs" />
+    <Compile Include="Game\Waiver\MapWaiver.cs" />
+    <Compile Include="Game\Waiver\OneWaiver.cs" />
+    <Compile Include="Game\Waiver\TeamWaiver.cs" />
+    <Compile Include="Game\GetGamePositionList.cs" />
+    <Compile Include="Msg\GetMsgList.cs" />
+    <Compile Include="Msg\JPushHelper.cs" />
+    <Compile Include="Msg\SaveMsgReg.cs" />
+    <Compile Include="Note\GetNoteReplyList.cs" />
+    <Compile Include="Note\GetNoteSupportList.cs" />
+    <Compile Include="Note\SaveNoteReply.cs" />
+    <Compile Include="Note\SaveNoteSupport.cs" />
+    <Compile Include="Pay\Alipay\AliPayHelper.cs" />
+    <Compile Include="Pay\Alipay\AlipayNotify.cs" />
+    <Compile Include="Pay\GetPayStr.cs" />
+    <Compile Include="Pay\Option\Alipay.cs" />
+    <Compile Include="Pay\Option\IPay.cs" />
+    <Compile Include="Pay\Alipay\AlipayNotifyHelper.cs" />
+    <Compile Include="Pay\Alipay\RSA.cs" />
+    <Compile Include="Rank\CalBase.cs" />
+    <Compile Include="Rank\CalFen.cs" />
+    <Compile Include="Rank\CalGame.cs" />
+    <Compile Include="Rank\CalScore.cs" />
+    <Compile Include="Rank\CalTeam.cs" />
+    <Compile Include="Rank\GroupRank.cs" />
+    <Compile Include="System\DeleteEntity.cs" />
+    <Compile Include="System\GetBaseDataList.cs" />
+    <Compile Include="System\GetCityList.cs" />
+    <Compile Include="Note\GetNote.cs" />
+    <Compile Include="Note\GetNoteList.cs" />
+    <Compile Include="System\GetCompany.cs" />
+    <Compile Include="System\GetCompanyList.cs" />
+    <Compile Include="User\GetUserByCode.cs" />
+    <Compile Include="System\GetUserLimit.cs" />
+    <Compile Include="System\GetUserLimitList.cs" />
+    <Compile Include="System\GetUserLimitRequestList.cs" />
+    <Compile Include="System\LogHelper.cs" />
+    <Compile Include="System\Login\Login.cs" />
+    <Compile Include="System\Login\LoginOut.cs" />
+    <Compile Include="System\MapHelper.cs" />
+    <Compile Include="System\PictureHelper.cs" />
+    <Compile Include="System\SaveCity.cs" />
+    <Compile Include="Core\EmptyBLL.cs" />
+    <Compile Include="Core\IServicecs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\IServiceBase.cs" />
+    <Compile Include="Core\ServiceBuilder.cs" />
+    <Compile Include="ServiceType.cs" />
+    <Compile Include="Note\SaveNote.cs" />
+    <Compile Include="System\SaveCompany.cs" />
+    <Compile Include="System\SaveTransfer.cs" />
+    <Compile Include="System\SaveUserLimit.cs" />
+    <Compile Include="System\SaveUserLimitRequest.cs" />
+    <Compile Include="System\SendSmsValCode.cs" />
+    <Compile Include="System\SmsHelper.cs" />
+    <Compile Include="System\SystemHelper.cs" />
+    <Compile Include="System\ValCode.cs" />
+    <Compile Include="User\CheckGameSign.cs" />
+    <Compile Include="User\GetSportTypeList.cs" />
+    <Compile Include="User\GetUser.cs" />
+    <Compile Include="User\GetUserList.cs" />
+    <Compile Include="Cache\CacheUserByCache.cs" />
+    <Compile Include="User\GetMyScoreAndGrade.cs" />
+    <Compile Include="User\GetUserSportList.cs" />
+    <Compile Include="User\ResetPassword.cs" />
+    <Compile Include="User\SaveQuickUser.cs" />
+    <Compile Include="User\SaveUser.cs" />
+    <Compile Include="User\SaveUserSport.cs" />
+    <Compile Include="User\SetPayPassword.cs" />
+    <Compile Include="User\UpdateMobile.cs" />
+    <Compile Include="User\UpdatePassword.cs" />
+    <Compile Include="User\UserHelper.cs" />
+    <Compile Include="Venue\GetVenueIncome.cs" />
+    <Compile Include="Venue\GetVenueIncomeDetail.cs" />
+    <Compile Include="Venue\GetVenue.cs" />
+    <Compile Include="Venue\GetVenueDiscountList.cs" />
+    <Compile Include="Venue\GetVenueListForTeachingPoint.cs" />
+    <Compile Include="Venue\GetVenueListForGraph.cs" />
+    <Compile Include="Venue\GetVenueListForAudit.cs" />
+    <Compile Include="Venue\GetVenueListAll.cs" />
+    <Compile Include="Venue\GetVenueList.cs" />
+    <Compile Include="Venue\GetUserSignList.cs" />
+    <Compile Include="Venue\SaveVenue.cs" />
+    <Compile Include="Venue\SaveVenueDiscount.cs" />
+    <Compile Include="Venue\SaveVenueEnabled.cs" />
+    <Compile Include="Venue\SaveVenueState.cs" />
+    <Compile Include="Venue\SaveVenueVip.cs" />
+    <Compile Include="Venue\SaveUserSign.cs" />
+    <Compile Include="Venue\VenueHelper.cs" />
+    <Compile Include="Vip\CancelVipUse.cs" />
+    <Compile Include="Vip\GetVipAccount.cs" />
+    <Compile Include="Vip\GetVipAccountList.cs" />
+    <Compile Include="Vip\GetVipPayInfo.cs" />
+    <Compile Include="Vip\GetVipBuy.cs" />
+    <Compile Include="Vip\GetVipBuyList.cs" />
+    <Compile Include="Vip\GetVipCostScaleList.cs" />
+    <Compile Include="Vip\GetVipDayBook.cs" />
+    <Compile Include="Vip\GetVipRechargeScaleList.cs" />
+    <Compile Include="Vip\GetVipRefund.cs" />
+    <Compile Include="Vip\GetVipRefundList.cs" />
+    <Compile Include="Vip\GetVipUse.cs" />
+    <Compile Include="Vip\GetVipUseList.cs" />
+    <Compile Include="Vip\QueryBillReport.cs" />
+    <Compile Include="Vip\QueryRechargeReport.cs" />
+    <Compile Include="Vip\SaveVipBuy.cs" />
+    <Compile Include="Vip\SaveVipBuyPay.cs" />
+    <Compile Include="Vip\SaveVipCostScale.cs" />
+    <Compile Include="Vip\SaveVipRechargeScale.cs" />
+    <Compile Include="Vip\SaveVipRefund.cs" />
+    <Compile Include="Vip\SaveVipUse.cs" />
+    <Compile Include="Vip\SaveVipUsePay.cs" />
+    <Compile Include="Vip\VipHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cn.jpush.api\cn.jpush.api.csproj">
+      <Project>{e281d457-f259-4f0b-8608-16c81d8ae97b}</Project>
+      <Name>cn.jpush.api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\qcloudsms_csharp\qcloudsms_csharp.csproj">
+      <Project>{5d0d1d02-fff9-4b99-8383-e3e3bcd42d18}</Project>
+      <Name>qcloudsms_csharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YDL.Core\YDL.Core.csproj">
+      <Project>{0e7e1ccf-b007-4646-83f8-0d6f861338e9}</Project>
+      <Name>YDL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YDL.Map\YDL.Map.csproj">
+      <Project>{b9a05615-6164-4d65-82ed-1812a9479f63}</Project>
+      <Name>YDL.Map</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YDL.Model\YDL.Model.csproj">
+      <Project>{aafa5885-dbbb-402c-9c2a-b5aa7c4d5f09}</Project>
+      <Name>YDL.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YDL.Utility\YDL.Utility.csproj">
+      <Project>{0cfbd64b-756e-4ce4-91fc-b4abf817d18b}</Project>
+      <Name>YDL.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IM\IMUserSigSrc\sigcheck32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IM\IMUserSigSrc\sigcheck64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IM\IMUserSigSrc\private_key">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="IM\IMUserSigSrc\public_key">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

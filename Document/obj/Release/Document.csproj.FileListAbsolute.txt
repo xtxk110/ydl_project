@@ -1,0 +1,6 @@
+E:\开发项目\vscode\Document\bin\Release\Document.dll
+E:\开发项目\vscode\Document\bin\Release\Document.pdb
+E:\开发项目\vscode\Document\obj\Release\Document.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\Document\obj\Release\Document.dll
+E:\开发项目\vscode\Document\obj\Release\Document.pdb
+E:\开发项目\vscode\Document\obj\Release\Document.csprojResolveAssemblyReference.cache

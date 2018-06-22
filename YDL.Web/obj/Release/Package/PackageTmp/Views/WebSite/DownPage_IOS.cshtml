@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>悦动力IOS</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <div>
+        <div style="padding-top:30px;width:240px;margin:0 auto;text-align:center;">
+            <div>
+                <img src="~/Content/imgs/WebSite/appdownload/downlog.png" />
+                <p style="font-size:18px;font-weight:bold;">IOS版本</p>
+            </div>
+            <div onclick="download();" style="margin-top:10px;font-size:30px;color:#fff;text-indent:50px;height:60px;line-height:60px;background:url('/Content/imgs/WebSite/appdownload/bt-icon.png') no-repeat 30px center;background-color:#258eff;cursor:pointer;">
+                点击安装
+            </div>
+        </div>
+        <div style="width:300px;margin:0 auto;text-align:center;">
+            <img src="~/Content/imgs/WebSite/appdownload/help.png" style="width:300px;" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function download() {
+            location.href = 'itms-services://?action=download-manifest&url=https://www.gotopsports.com/Download/ydlClient.plist';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+E:\开发项目\vscode\SMSTest\bin\Debug\SMSTest.exe.config
+E:\开发项目\vscode\SMSTest\bin\Debug\SMSTest.exe
+E:\开发项目\vscode\SMSTest\bin\Debug\SMSTest.pdb
+E:\开发项目\vscode\SMSTest\bin\Debug\qcloudsms_csharp.dll
+E:\开发项目\vscode\SMSTest\bin\Debug\Newtonsoft.Json.dll
+E:\开发项目\vscode\SMSTest\bin\Debug\qcloudsms_csharp.pdb
+E:\开发项目\vscode\SMSTest\obj\Debug\SMSTest.csprojResolveAssemblyReference.cache
+E:\开发项目\vscode\SMSTest\obj\Debug\SMSTest.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\SMSTest\obj\Debug\SMSTest.exe
+E:\开发项目\vscode\SMSTest\obj\Debug\SMSTest.pdb

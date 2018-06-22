@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Runtime.Serialization;
+
+namespace YDL.Core
+{
+    /// <summary>
+    /// 空实体
+    /// </summary>
+    public class EmptyEntity : EntityBase
+    {
+    }
+}

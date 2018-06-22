@@ -1,0 +1,5 @@
+E:\开发项目\vscode\Document\bin\Debug\Document.dll
+E:\开发项目\vscode\Document\bin\Debug\Document.pdb
+E:\开发项目\vscode\Document\obj\Debug\Document.csproj.CoreCompileInputs.cache
+E:\开发项目\vscode\Document\obj\Debug\Document.dll
+E:\开发项目\vscode\Document\obj\Debug\Document.pdb
